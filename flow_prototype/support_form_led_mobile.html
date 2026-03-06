@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#7f0353" />
+  <title>Get support – Poshmark</title>
+  <style>
+    /* Poshmark design tokens – app/mobile */
+    :root {
+      --bg: #f5f2ee;
+      --bg-alt: #fcfbfb;
+      --card: #fff;
+      --border: #e6e2df;
+      --border-muted: #c1bfbc;
+      --primary: #7f0353;
+      --primary-hover: #6a0245;
+      --text: #2a2a2a;
+      --text-muted: #9b9691;
+      --text-muted-2: #6a6a6a;
+      --link: #41a6de;
+      --progress-bar: #efc14e;
+      --status-open: #2d8a4e;
+      --status-inprogress: #c17f0a;
+      --status-closed: #6a6a6a;
+      --safe-top: env(safe-area-inset-top, 0);
+      --safe-bottom: env(safe-area-inset-bottom, 0);
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-alt);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+      padding-bottom: var(--safe-bottom);
+    }
+
+    /* App-style header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      padding-top: calc(12px + var(--safe-top));
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .app-header .back {
+      background: none;
+      border: none;
+      padding: 8px;
+      margin: -8px 0 -8px -8px;
+      font-size: 1.25rem;
+      color: var(--primary);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .app-header .title {
+      flex: 1;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .app-header .icon-logo {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    /* Segment: New request | My cases */
+    .segment-bar {
+      display: flex;
+      background: var(--card);
+      padding: 0 16px 12px;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .segment-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .segment-btn.active {
+      background: rgba(127, 3, 83, 0.1);
+      color: var(--primary);
+    }
+    .segment-btn:not(.active):hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .main-content {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 16px 24px;
+    }
+
+    /* Screens */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* —— Form flow —— */
+    .form-step { margin-bottom: 24px; }
+    .form-step .step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .form-step .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 16px;
+    }
+    .form-step .step-hint {
+      font-size: 0.9rem;
+      color: var(--text-muted-2);
+      margin-bottom: 16px;
+    }
+
+    /* Category tiles */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .category-tile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .category-tile:active { opacity: 0.9; }
+    .category-tile.selected {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(127, 3, 83, 0.2);
+    }
+    .category-tile .icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(127, 3, 83, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .category-tile .label {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Issue type list (no dropdown – full list, Something else last) */
+    .issue-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .issue-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .issue-item:last-child { margin-bottom: 0; }
+    .issue-item.selected {
+      border-color: var(--primary);
+      background: rgba(127, 3, 83, 0.06);
+    }
+    .issue-item .radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-muted);
+      border-radius: 50%;
+      margin-right: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .issue-item.selected .radio {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+    .issue-item.selected .radio::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+    }
+    .issue-item .text { font-size: 0.9375rem; color: var(--text); }
+
+    /* Related articles (form-led: show before submit) */
+    .related-articles {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .related-articles .heading {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .related-articles .hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .related-articles a {
+      display: block;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .related-articles a:last-of-type { border-bottom: none; }
+
+    /* Description + attach */
+    .field-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    textarea.input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
+      margin-bottom: 16px;
+    }
+    .input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .attach-zone {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      background: var(--bg);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--primary);
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--card);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      margin-top: 10px;
+    }
+    .btn-secondary:hover { background: rgba(127, 3, 83, 0.08); }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .nav-buttons .btn { flex: 1; }
+
+    /* —— My cases (ticket transparency) —— */
+    .cases-list { list-style: none; padding: 0; margin: 0; }
+    .case-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: box-shadow 0.2s;
+    }
+    .case-card:active { opacity: 0.95; }
+    .case-card .case-subject {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .case-card .case-meta {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .case-card .case-id { font-family: monospace; font-size: 0.8rem; color: var(--text-muted-2); }
+    .case-card .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+    .case-card .status-badge.open {
+      background: rgba(45, 138, 78, 0.12);
+      color: var(--status-open);
+    }
+    .case-card .status-badge.inprogress {
+      background: rgba(193, 127, 10, 0.12);
+      color: var(--status-inprogress);
+    }
+    .case-card .status-badge.closed {
+      background: rgba(106, 106, 106, 0.12);
+      color: var(--status-closed);
+    }
+    .case-card .status-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .empty-cases {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Case detail (thread view) */
+    .case-detail-header {
+      margin-bottom: 20px;
+    }
+    .case-detail-header .category-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .case-detail-header .subject { font-size: 1.125rem; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .case-detail-header .id-and-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .thread {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .thread-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .thread-item:last-child { border-bottom: none; }
+    .thread-item.user { background: rgba(127, 3, 83, 0.06); }
+    .thread-item .who {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .thread-item .body { font-size: 0.9375rem; color: var(--text); line-height: 1.5; }
+    .thread-item .time { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+    .reply-box {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .reply-box input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .reply-box .btn { width: auto; padding: 12px 20px; }
+
+    .tabs-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .tabs-row a {
+      padding: 8px 14px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .tabs-row a.active { color: var(--primary); background: rgba(127, 3, 83, 0.1); }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a href="#" class="back" id="headerBack" aria-label="Back">←</a>
+    <span class="title" id="headerTitle">Get support</span>
+    <span class="icon-logo" aria-hidden="true">P</span>
+  </header>
+
+  <div class="segment-bar">
+    <button type="button" class="segment-btn active" data-segment="form">New request</button>
+    <button type="button" class="segment-btn" data-segment="cases">My cases</button>
+  </div>
+
+  <div class="main-content">
+    <!-- Form flow -->
+    <div id="segmentForm" class="screen active">
+      <!-- Step 1: Category -->
+      <div id="stepCategory" class="form-step screen active">
+        <div class="step-label">Step 1 of 3</div>
+        <h2 class="step-title">What do you need help with?</h2>
+        <p class="step-hint">Choose the category that best fits. This helps us route your request quickly.</p>
+        <div class="category-grid" id="categoryGrid">
+          <button type="button" class="category-tile" data-category="orders">
+            <span class="icon-wrap">📦</span>
+            <span class="label">Orders</span>
+          </button>
+          <button type="button" class="category-tile" data-category="shipping">
+            <span class="icon-wrap">🚚</span>
+            <span class="label">Shipping & delivery</span>
+          </button>
+          <button type="button" class="category-tile" data-category="payments">
+            <span class="icon-wrap">💳</span>
+            <span class="label">Payments & refunds</span>
+          </button>
+          <button type="button" class="category-tile" data-category="account">
+            <span class="icon-wrap">👤</span>
+            <span class="label">Account</span>
+          </button>
+          <button type="button" class="category-tile" data-category="selling">
+            <span class="icon-wrap">💰</span>
+            <span class="label">Selling & payout</span>
+          </button>
+          <button type="button" class="category-tile" data-category="app">
+            <span class="icon-wrap">📱</span>
+            <span class="label">App & technical</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Issue type (dynamic list; Something else last) -->
+      <div id="stepIssue" class="form-step screen">
+        <div class="step-label">Step 2 of 3</div>
+        <button type="button" class="btn btn-secondary" id="backToCategory">← Change category</button>
+        <h2 class="step-title" id="issueStepTitle">Select your issue</h2>
+        <p class="step-hint" id="issueStepHint">Pick the option that best describes your situation. We’ll show relevant articles and route your case correctly.</p>
+        <ul class="issue-list" id="issueList"></ul>
+        <button type="button" class="btn" id="continueToDetails" style="margin-top:20px;">Continue</button>
+      </div>
+
+      <!-- Step 3: Details + related articles -->
+      <div id="stepDetails" class="form-step screen">
+        <div class="step-label">Step 3 of 3</div>
+        <button type="button" class="btn btn-secondary" id="backToIssue">← Change issue</button>
+        <h2 class="step-title">Add details (optional but helpful)</h2>
+        <p class="step-hint">Order number, screenshots, or a short description help our team respond faster.</p>
+        <label class="field-label">Order # (if related to an order)</label>
+        <input type="text" class="input" id="orderNumber" placeholder="e.g. 12345678" />
+        <label class="field-label">Description</label>
+        <textarea class="input" id="description" placeholder="Describe your issue in a few words..."></textarea>
+        <div class="related-articles" id="relatedArticles">
+          <div class="heading">Related articles</div>
+          <div class="hint">These might help before you submit.</div>
+          <div id="relatedArticlesLinks"></div>
+        </div>
+        <div class="attach-zone">Tap to add photos (optional)</div>
+        <button type="button" class="btn" id="submitRequest">Submit request</button>
+      </div>
+
+      <!-- Confirmation -->
+      <div id="stepConfirm" class="form-step screen">
+        <h2 class="step-title">Request received</h2>
+        <p class="step-hint">Case <strong id="newCaseId">#PM-2026-001</strong> has been created. You can track it under My cases and we’ll notify you when there’s an update.</p>
+        <a href="#" class="btn" id="viewCaseBtn">View this case</a>
+        <button type="button" class="btn btn-secondary" id="submitAnother">Submit another request</button>
+      </div>
+    </div>
+
+    <!-- My cases -->
+    <div id="segmentCases" class="screen">
+      <div class="tabs-row">
+        <a href="#" class="active" data-tab="open">Open</a>
+        <a href="#" data-tab="closed">Closed</a>
+      </div>
+      <div id="casesOpenList" class="cases-list"></div>
+      <div id="casesClosedList" class="cases-list" style="display:none;"></div>
+      <div id="emptyCases" class="empty-cases" style="display:none;">No cases yet. Start a new request above.</div>
+    </div>
+
+    <!-- Case detail (thread) -->
+    <div id="segmentCaseDetail" class="screen">
+      <div class="case-detail-header">
+        <div class="category-tag" id="detailCategory">Orders · Item not received</div>
+        <h2 class="subject" id="detailSubject">Item not received / shipping issue</h2>
+        <div class="id-and-status">
+          <span id="detailId">#PM-2026-001</span>
+          <span class="status-badge open" id="detailStatus">Open</span>
+        </div>
+      </div>
+      <div class="thread" id="threadMessages"></div>
+      <div class="reply-box">
+        <input type="text" id="replyInput" placeholder="Type a message..." />
+        <button type="button" class="btn" id="replySend">Send</button>
+      </div>
+      <button type="button" class="btn btn-secondary" id="backToList" style="margin-top:16px;">← Back to My cases</button>
+    </div>
+  </div>
+
+  <script>
+(function () {
+  var state = {
+    segment: 'form',
+    category: '',
+    issue: '',
+    step: 'category',
+    cases: [
+      { id: 'PM-2026-001', subject: 'Item not received / shipping issue', category: 'Orders', issue: 'Item not received', status: 'open', created: 'Mar 2, 2026', updated: 'Mar 3, 2026', messages: [
+        { who: 'You', body: 'Order #12345678 – I never received my item. Tracking says delivered but it wasn’t in my mailbox.', time: 'Mar 2, 2:30 PM' },
+        { who: 'Support', body: 'Thanks for reaching out. We’ve received your case and will look into this. Can you confirm your shipping address and whether you checked with neighbors or the carrier?', time: 'Mar 3, 10:15 AM' }
+      ]},
+      { id: 'PM-2026-002', subject: 'Refund not issued', category: 'Payments & refunds', issue: 'Refund not received', status: 'inprogress', created: 'Mar 1, 2026', updated: 'Mar 4, 2026', messages: [
+        { who: 'You', body: 'My return was accepted 5 days ago but I don’t see the refund.', time: 'Mar 1, 4:00 PM' },
+        { who: 'Support', body: 'We’re processing your refund. It can take 5–10 business days to appear in your account.', time: 'Mar 4, 9:00 AM' }
+      ]}
+    ]
+  };
+
+  var issuesByCategory = {
+    orders: [
+      'Accidental purchase',
+      'Seller hasn’t shipped yet',
+      'Shipped but no tracking',
+      'Shows delivered but I can’t find it',
+      'Notice left / return to sender',
+      'Item not as described or wrong item',
+      'Item not received / shipping issue',
+      'Return or refund request',
+      'Order cancelled or delayed',
+      'Payment or billing for this order',
+      'Something else (orders)'
+    ],
+    shipping: [
+      'Track my order',
+      'Delivery address change',
+      'Package lost or missing',
+      'Damaged in transit',
+      'Something else (shipping)'
+    ],
+    payments: [
+      'Refund not received',
+      'Wrong amount charged',
+      'Payment method issue',
+      'Poshmark balance',
+      'Something else (payments)'
+    ],
+    account: [
+      'Login or password',
+      'Account restricted',
+      'Email or notification settings',
+      'Something else (account)'
+    ],
+    selling: [
+      'Payout not received',
+      'When do I get paid',
+      'Tax or tax documents',
+      'Something else (selling)'
+    ],
+    app: [
+      'App crash or bug',
+      'Can’t upload photos',
+      'Notifications not working',
+      'Something else (app)'
+    ]
+  };
+
+  var categoryLabels = {
+    orders: 'Orders',
+    shipping: 'Shipping & delivery',
+    payments: 'Payments & refunds',
+    account: 'Account',
+    selling: 'Selling & payout',
+    app: 'App & technical'
+  };
+
+  function showScreen(id) {
+    document.querySelectorAll('.main-content .screen').forEach(function (el) { el.classList.remove('active'); });
+    var el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+
+  function showFormStep(step) {
+    state.step = step;
+    document.querySelectorAll('#segmentForm .form-step').forEach(function (el) { el.classList.remove('active'); });
+    var stepEl = document.getElementById('step' + step.charAt(0).toUpperCase() + step.slice(1));
+    if (stepEl) stepEl.classList.add('active');
+  }
+
+  function renderIssues() {
+    var list = document.getElementById('issueList');
+    if (!list) return;
+    var issues = issuesByCategory[state.category] || [];
+    list.innerHTML = issues.map(function (issue, i) {
+      var selected = state.issue === issue ? ' selected' : '';
+      return '<li class="issue-item' + selected + '" data-issue="' + escapeAttr(issue) + '">' +
+        '<span class="radio"></span><span class="text">' + escapeHtml(issue) + '</span></li>';
+    }).join('');
+    list.querySelectorAll('.issue-item').forEach(function (li) {
+      li.addEventListener('click', function () {
+        state.issue = this.getAttribute('data-issue');
+        renderIssues();
+        document.getElementById('issueStepTitle').textContent = 'Select your issue';
+        document.getElementById('issueStepHint').textContent = 'Pick the option that best describes your situation.';
+      });
+    });
+  }
+
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+  function escapeAttr(s) {
+    return String(s).replace(/"/g, '&quot;');
+  }
+
+  // Category selection
+  document.getElementById('categoryGrid').addEventListener('click', function (e) {
+    var tile = e.target.closest('.category-tile');
+    if (!tile) return;
+    state.category = tile.getAttribute('data-category');
+    document.querySelectorAll('.category-tile').forEach(function (t) { t.classList.remove('selected'); });
+    tile.classList.add('selected');
+    document.getElementById('issueStepTitle').textContent = 'What\'s the issue?';
+    document.getElementById('issueStepHint').textContent = 'Select one so we can show relevant articles and route your case correctly.';
+    state.issue = '';
+    renderIssues();
+    showFormStep('issue');
+  });
+
+  document.getElementById('backToCategory').addEventListener('click', function () {
+    showFormStep('category');
+    document.querySelectorAll('.category-tile').forEach(function (t) { t.classList.remove('selected'); });
+  });
+
+  document.getElementById('issueList').addEventListener('click', function (e) {
+    var li = e.target.closest('.issue-item');
+    if (!li) return;
+    state.issue = li.getAttribute('data-issue');
+    renderIssues();
+  });
+
+  document.getElementById('backToIssue').addEventListener('click', function () {
+    showFormStep('issue');
+  });
+
+  document.getElementById('continueToDetails').addEventListener('click', function () {
+    if (!state.issue) return;
+    showFormStep('details');
+    var links = document.getElementById('relatedArticlesLinks');
+    var articles = { orders: ['How to track your order', 'Item not received – what to do', 'Cancel an accidental purchase', 'Return or refund request'],
+      shipping: ['Track my order', 'Change delivery address', 'Package lost or missing'],
+      payments: ['When will I get my refund?', 'Refund timeline', 'Update payment method'],
+      account: ['Reset password', 'Account settings', 'Email notifications'],
+      selling: ['When do I get paid?', 'Payout schedule', 'Tax documents'],
+      app: ['App not loading', 'Photo upload issues', 'Notifications'] };
+    var list = (articles[state.category] || ['Related help articles']).map(function (t) { return '<a href="#">' + escapeHtml(t) + '</a>'; }).join('');
+    links.innerHTML = list;
+  });
+
+  document.getElementById('submitRequest').addEventListener('click', function () {
+    var newId = 'PM-2026-' + String(100 + state.cases.length);
+    state.cases.unshift({
+      id: newId,
+      subject: state.issue,
+      category: categoryLabels[state.category] || state.category,
+      issue: state.issue,
+      status: 'open',
+      created: 'Today',
+      updated: 'Today',
+      messages: [
+        { who: 'You', body: document.getElementById('description').value || 'No description provided.', time: 'Just now' }
+      ]
+    });
+    document.getElementById('newCaseId').textContent = '#' + newId;
+    document.getElementById('viewCaseBtn').href = '#case-' + newId;
+    showFormStep('confirm');
+  });
+
+  document.getElementById('viewCaseBtn').addEventListener('click', function (e) {
+    var href = this.getAttribute('href');
+    if (href && href.indexOf('#case-') === 0) {
+      e.preventDefault();
+      state.segment = 'cases';
+      document.querySelectorAll('.segment-btn').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelector('.segment-btn[data-segment="cases"]').classList.add('active');
+      showScreen('segmentCases');
+      renderCases();
+      openCaseDetail(state.cases[0]);
+      showScreen('segmentCaseDetail');
+    }
+  });
+
+  document.getElementById('submitAnother').addEventListener('click', function () {
+    state.category = '';
+    state.issue = '';
+    showFormStep('category');
+    document.querySelectorAll('.category-tile').forEach(function (t) { t.classList.remove('selected'); });
+  });
+
+  function renderCases() {
+    var open = state.cases.filter(function (c) { return c.status !== 'closed'; });
+    var closed = state.cases.filter(function (c) { return c.status === 'closed'; });
+    var openList = document.getElementById('casesOpenList');
+    var closedList = document.getElementById('casesClosedList');
+    var empty = document.getElementById('emptyCases');
+    function row(c) {
+      var statusClass = c.status === 'closed' ? 'closed' : (c.status === 'inprogress' ? 'inprogress' : 'open');
+      return '<a href="#case-' + c.id + '" class="case-card" data-case-id="' + c.id + '">' +
+        '<div class="case-subject">' + escapeHtml(c.subject) + '</div>' +
+        '<div class="case-meta">Updated ' + c.updated + '</div>' +
+        '<div class="case-id">' + escapeHtml(c.id) + '</div>' +
+        '<span class="status-badge ' + statusClass + '">' + (c.status === 'inprogress' ? 'In progress' : c.status) + '</span></a>';
+    }
+    openList.innerHTML = open.length ? open.map(row).join('') : '';
+    closedList.innerHTML = closed.length ? closed.map(row).join('') : '';
+    empty.style.display = (open.length + closed.length) === 0 ? 'block' : 'none';
+    openList.querySelectorAll('.case-card').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id = this.getAttribute('data-case-id');
+        var c = state.cases.find(function (x) { return x.id === id; });
+        if (c) openCaseDetail(c);
+        showScreen('segmentCaseDetail');
+      });
+    });
+    closedList.querySelectorAll('.case-card').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id = this.getAttribute('data-case-id');
+        var c = state.cases.find(function (x) { return x.id === id; });
+        if (c) openCaseDetail(c);
+        showScreen('segmentCaseDetail');
+      });
+    });
+  }
+
+  function openCaseDetail(c) {
+    document.getElementById('detailCategory').textContent = c.category + ' · ' + c.issue;
+    document.getElementById('detailSubject').textContent = c.subject;
+    document.getElementById('detailId').textContent = '#' + c.id;
+    var statusEl = document.getElementById('detailStatus');
+    statusEl.textContent = c.status === 'inprogress' ? 'In progress' : c.status;
+    statusEl.className = 'status-badge ' + (c.status === 'closed' ? 'closed' : (c.status === 'inprogress' ? 'inprogress' : 'open'));
+    var thread = document.getElementById('threadMessages');
+    thread.innerHTML = (c.messages || []).map(function (m) {
+      return '<div class="thread-item ' + (m.who === 'You' ? 'user' : '') + '">' +
+        '<div class="who">' + escapeHtml(m.who) + '</div>' +
+        '<div class="body">' + escapeHtml(m.body) + '</div>' +
+        '<div class="time">' + escapeHtml(m.time) + '</div></div>';
+    }).join('');
+  }
+
+  document.getElementById('backToList').addEventListener('click', function () {
+    showScreen('segmentCases');
+    renderCases();
+  });
+
+  document.getElementById('headerBack').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (document.getElementById('segmentCaseDetail').classList.contains('active')) {
+      showScreen('segmentCases');
+      renderCases();
+    } else if (state.segment === 'cases') {
+      state.segment = 'form';
+      document.querySelectorAll('.segment-btn').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelector('.segment-btn[data-segment="form"]').classList.add('active');
+      showScreen('segmentForm');
+    } else if (state.step !== 'category') {
+      if (state.step === 'details') showFormStep('issue');
+      else if (state.step === 'issue') showFormStep('category');
+      else showFormStep('category');
+    }
+  });
+
+  document.querySelectorAll('.segment-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      state.segment = this.getAttribute('data-segment');
+      document.querySelectorAll('.segment-btn').forEach(function (b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      if (state.segment === 'form') {
+        showScreen('segmentForm');
+      } else {
+        showScreen('segmentCases');
+        renderCases();
+      }
+    });
+  });
+
+  document.querySelectorAll('.tabs-row a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.tabs-row a').forEach(function (x) { x.classList.remove('active'); });
+      this.classList.add('active');
+      var tab = this.getAttribute('data-tab');
+      document.getElementById('casesOpenList').style.display = tab === 'open' ? 'block' : 'none';
+      document.getElementById('casesClosedList').style.display = tab === 'closed' ? 'block' : 'none';
+    });
+  });
+
+  renderCases();
+})();
+  </script>
+</body>
+</html>

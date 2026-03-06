@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Case – Poshmark</title>
+  <style>
+    :root {
+      --bg: #f5f2ee;
+      --card: #fff;
+      --border: #e6e2df;
+      --primary: #7f0353;
+      --text: #2a2a2a;
+      --text-muted: #9b9691;
+      --link: #41a6de;
+      --nav-badge: #d64242;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fcfbfb;
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 0 12px;
+      min-height: 45px;
+      max-width: 1360px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .header-listings { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: var(--card); color: var(--text); }
+    .header-search {
+      flex: 1;
+      max-width: 320px;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239b9691' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 10px center no-repeat;
+    }
+    .header-nav { display: flex; align-items: center; gap: 20px; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+    .header-nav a:hover { color: var(--primary); }
+    .nav-badge {
+      background: var(--nav-badge);
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+    .nav-bar-2 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 12px 0 24px;
+      min-height: 40px;
+      max-width: 1360px;
+      margin: 0 auto;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .nav-bar-2 a { color: var(--text); text-decoration: none; }
+    .nav-bar-2 a:hover { color: var(--primary); }
+    .nav-bar-2 .right { margin-left: auto; }
+    .nav-bar-2 .sell { color: var(--primary); font-weight: 600; }
+
+    .layout {
+      min-height: calc(100vh - 45px - 40px);
+      background: var(--card);
+      display: flex;
+      justify-content: center;
+    }
+    .main {
+      width: 100%;
+      max-width: 800px;
+      padding: 32px 48px 48px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--link);
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .back-link::before { content: "← "; }
+
+    .case-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 24px;
+    }
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 32px;
+      margin-bottom: 28px;
+      font-size: 0.9375rem;
+    }
+    .case-meta-item .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .case-meta-item .value { color: var(--text); font-weight: 500; }
+
+    .case-details {
+      background: #f6f5f3;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+    }
+    .case-details-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .case-details-row {
+      margin-bottom: 14px;
+    }
+    .case-details-row:last-child { margin-bottom: 0; }
+    .case-details-row .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .case-details-row .value {
+      font-size: 0.9375rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .case-details-row .value.case-description {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .case-add-section { margin-top: 24px; }
+    .case-add-label {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .case-add-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
+      margin-bottom: 16px;
+    }
+    .case-add-btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--primary);
+      color: #fff;
+    }
+    .case-add-btn:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="my_purchases.html" class="logo">
+      <span class="logo-icon">P</span>
+      <span>POSHMARK</span>
+    </a>
+    <select class="header-listings" aria-label="Listings"><option>Listings</option></select>
+    <input type="search" class="header-search" placeholder="Search Listings" aria-label="Search Listings" />
+    <nav class="header-nav">
+      <a href="my_purchases.html">My Offers</a>
+      <a href="my_purchases.html">My Bundles</a>
+      <a href="my_purchases.html">My Likes</a>
+      <a href="my_purchases.html">News <span class="nav-badge">1</span></a>
+      <a href="my_purchases.html">Profile ▾</a>
+    </nav>
+  </header>
+  <nav class="nav-bar-2">
+    <a href="#">POSH MARKETS All ▾</a>
+    <a href="#">Feed</a>
+    <a href="#">Women</a>
+    <a href="#">Men</a>
+    <a href="#">Kids</a>
+    <a href="#">Home</a>
+    <a href="#">Electronics</a>
+    <a href="#">Pets</a>
+    <a href="#">Beauty & Wellness</a>
+    <a href="#">Brands</a>
+    <a href="#">Parties</a>
+    <a href="#">Posh Shows</a>
+    <span class="right">
+      <a href="#">HOW IT WORKS</a>
+      <a href="#" class="sell">SELL ON POSHMARK</a>
+    </span>
+  </nav>
+
+  <div class="layout">
+    <main class="main">
+      <a href="#" class="back-link" id="backLink">Back to Problems / Order Inquiry</a>
+      <h1 class="case-name" id="caseName">Item shows delivered but can't locate</h1>
+      <div class="case-meta">
+        <div class="case-meta-item">
+          <div class="label">Case created on</div>
+          <div class="value" id="caseCreatedOn">Jan 31, 2026</div>
+        </div>
+        <div class="case-meta-item">
+          <div class="label">Case status</div>
+          <div class="value" id="caseStatus">In progress</div>
+        </div>
+        <div class="case-meta-item">
+          <div class="label">Last updated on</div>
+          <div class="value" id="caseUpdatedOn">Feb 2, 2026</div>
+        </div>
+      </div>
+
+      <div class="case-details">
+        <div class="case-details-title">Case details</div>
+        <div class="case-details-row">
+          <div class="label">Case subject</div>
+          <div class="value" id="caseSubject">Item shows delivered but can't locate</div>
+        </div>
+        <div class="case-details-row">
+          <div class="label">Case description</div>
+          <div class="value case-description" id="caseDescription">My order has been marked as delivered but I cannot locate it. Order ID: ord_100_shaving. Can you help?</div>
+        </div>
+      </div>
+
+      <div class="case-add-section" id="caseAddSection">
+        <label class="case-add-label" for="caseAddTextarea">Add more information to the case</label>
+        <textarea class="case-add-textarea" id="caseAddTextarea" placeholder="Type your message..."></textarea>
+        <button type="button" class="case-add-btn" id="caseAddBtn">Add more info</button>
+        <button type="button" class="case-add-btn" id="caseReopenBtn" style="display: none;">Reopen</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var orderId = params.get('order_id') || '';
+      var caseId = params.get('case_id') || 'case_001';
+      var status = params.get('status') || 'open';
+      var from = params.get('from') || 'order';
+
+      var backLink = document.getElementById('backLink');
+      if (from === 'cases') {
+        backLink.href = 'track_cases.html';
+        backLink.textContent = 'Back to Track your cases';
+      } else {
+        backLink.href = 'problems_inquiry.html?order_id=' + encodeURIComponent(orderId);
+        backLink.textContent = 'Back to Problems / Order Inquiry';
+      }
+
+      var caseNames = {
+        'case_001': 'Item shows delivered but can\'t locate',
+        'case_002': 'Accidental Purchase',
+        'case_003': 'Refund not issued'
+      };
+      var caseDescriptions = {
+        'case_001': 'My order has been marked as delivered but I cannot locate it. Order ID: ' + (orderId || 'ord_100_shaving') + '. Can you help?',
+        'case_002': 'I accidentally purchased this item. I meant to make an offer, not buy now. I would like to cancel the order.',
+        'case_003': 'I returned the item as described but my refund has not been issued yet. It has been over 2 weeks.'
+      };
+      var name = caseNames[caseId] || 'Support case';
+      document.getElementById('caseName').textContent = name;
+      document.getElementById('caseSubject').textContent = name;
+      var descEl = document.getElementById('caseDescription');
+      if (descEl) descEl.textContent = caseDescriptions[caseId] || caseDescriptions['case_001'];
+
+      var isClosed = status === 'closed';
+      var addTextarea = document.getElementById('caseAddTextarea');
+      var addBtn = document.getElementById('caseAddBtn');
+      var reopenBtn = document.getElementById('caseReopenBtn');
+
+      if (isClosed) {
+        document.getElementById('caseStatus').textContent = 'Closed';
+        addTextarea.placeholder = 'Tell us why you\'d like to reopen this case...';
+        addBtn.style.display = 'none';
+        reopenBtn.style.display = 'inline-block';
+      }
+
+      addBtn.addEventListener('click', function () {
+        var text = (addTextarea.value || '').trim();
+        if (text) {
+          addTextarea.value = '';
+          alert('Your message has been added to the case.');
+        }
+      });
+      reopenBtn.addEventListener('click', function () {
+        var text = (addTextarea.value || '').trim();
+        if (text) {
+          addTextarea.value = '';
+          var reopenUrl = 'case_detail.html?order_id=' + encodeURIComponent(orderId) + '&case_id=' + encodeURIComponent(caseId) + '&status=open';
+          if (from) reopenUrl += '&from=' + encodeURIComponent(from);
+          window.location.href = reopenUrl;
+        } else {
+          alert('Please add a reason for reopening.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

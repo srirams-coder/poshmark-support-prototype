@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get support – Poshmark</title>
+  <style>
+    /* Same Poshmark design tokens as my_purchases */
+    :root {
+      --bg: #f5f2ee;
+      --bg-alt: #fcfbfb;
+      --card: #fff;
+      --border: #e6e2df;
+      --border-muted: #c1bfbc;
+      --primary: #7f0353;
+      --primary-hover: #6a0245;
+      --text: #2a2a2a;
+      --text-muted: #9b9691;
+      --text-muted-2: #6a6a6a;
+      --link: #41a6de;
+      --ai-bubble: #f5f2ee;
+      --user-bubble: #7f0353;
+      --user-text: #fff;
+      --progress-bar: #efc14e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-alt);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* Progress bar (matches app) */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--progress-bar);
+      z-index: 9999;
+      width: 30%;
+    }
+
+    /* Same header as My Purchases */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 0 12px;
+      min-height: 45px;
+      max-width: 1360px;
+      min-width: 768px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .header-listings {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--card);
+      color: var(--text);
+    }
+    .header-search {
+      flex: 1;
+      max-width: 320px;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239b9691' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 10px center no-repeat;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .header-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .header-nav a:hover { color: var(--primary); }
+
+    .layout { display: flex; min-height: calc(100vh - 45px); }
+    .sidebar {
+      width: 220px;
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+      padding: 0 20px 12px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px 20px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .sidebar a:hover { background: var(--bg); }
+    .sidebar a.active { font-weight: 600; color: var(--primary); }
+
+    .main {
+      flex: 1;
+      padding: 24px 32px;
+      max-width: 720px;
+      background: var(--card);
+    }
+    .breadcrumb {
+      margin: 15px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--link); text-decoration: none; font-weight: 700; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .container { max-width: 520px; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: #e6e2df;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .badge.order { background: #f2eef1; color: var(--primary); }
+    .page-title { font-size: 1.35rem; margin: 0 0 8px; font-weight: 700; color: var(--text); }
+    .sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      background: var(--card);
+      color: var(--text);
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--primary);
+      color: var(--user-text);
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Chat view */
+    .chat-view { display: none; }
+    .chat-view.active { display: block; }
+    .form-view.hidden { display: none; }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px dotted var(--border-muted);
+      margin-bottom: 20px;
+    }
+    .chat-header .back {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 4px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .chat-header .back:hover { color: var(--link); }
+    .chat-messages { margin-bottom: 16px; }
+    .msg {
+      max-width: 88%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+    .msg.user {
+      margin-left: auto;
+      background: var(--user-bubble);
+      color: var(--user-text);
+      border-bottom-right-radius: 4px;
+    }
+    .msg.agent {
+      background: var(--ai-bubble);
+      border-bottom-left-radius: 4px;
+      color: var(--text);
+    }
+    .msg .meta { font-size: 0.75rem; opacity: 0.85; margin-bottom: 4px; }
+    .msg.agent .meta { color: var(--text-muted); }
+    .chat-input-area {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    .chat-input-area input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: var(--card);
+      color: var(--text);
+    }
+    .chat-input-area .btn { width: auto; padding: 12px 20px; }
+    .typing { color: var(--text-muted); font-size: 0.9rem; font-style: italic; padding: 8px 0; }
+
+    /* Accidental Purchase – upmarket, minimalist, soothing */
+    .issue-view { display: none; }
+    .issue-view.active { display: block; }
+    .form-view.issue-active { display: none; }
+    .issue-view .category-breadcrumb {
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 20px;
+      color: #8a8580;
+    }
+    .issue-view .category-breadcrumb .cat { color: #8a8580; }
+    .issue-view .category-breadcrumb .sub { color: #5c5560; font-weight: 500; }
+    .issue-view .category-breadcrumb [aria-hidden="true"] { color: #c4bfb9; margin: 0 0.25em; }
+    .issue-view .issue-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #383734;
+      margin: 0 0 28px;
+      line-height: 1.3;
+    }
+    .issue-view .info-box {
+      padding: 20px 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: #484642;
+      border: none;
+    }
+    .issue-view .info-box.policy {
+      background: #f6f5f3;
+      color: #484642;
+    }
+    .issue-view .info-box.policy strong { color: #383734; font-weight: 600; }
+    /* Amazon-style order details card: header → box with details → CTA */
+    .issue-view .order-card {
+      margin-bottom: 24px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e0ddda;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .issue-view .order-card-header {
+      background: #37475a;
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .issue-view .order-card-body {
+      background: #fff;
+      padding: 20px 24px;
+      font-size: 0.9375rem;
+    }
+    .issue-view .order-details-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 32px;
+      margin-bottom: 20px;
+    }
+    .issue-view .order-details-row:last-of-type { margin-bottom: 0; }
+    .issue-view .order-details-row .label {
+      color: #8a8580;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .issue-view .order-details-row .value {
+      font-weight: 500;
+      color: #383734;
+      font-size: 0.9375rem;
+    }
+    .issue-view .order-card-cta {
+      border-top: 1px solid #e8e6e3;
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+    .issue-view .issue-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 0;
+      padding-top: 0;
+      justify-content: center;
+      width: 100%;
+    }
+    .issue-view .btn-cancel {
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      background: #a85a56;
+      color: #fff;
+      transition: background 0.2s ease;
+    }
+    .issue-view .btn-cancel:hover { background: #98524e; }
+    .issue-view .btn-keep {
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      background: #5f7261;
+      color: #fff;
+      transition: background 0.2s ease;
+    }
+    .issue-view .btn-keep:hover { background: #536554; }
+    /* Polaris-style info banner: light blue header + white body (support sees same info) */
+    .issue-view .info-banner {
+      margin-top: 28px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #c5d9ed;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .issue-view .info-banner-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #d6eeff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #2c5282;
+    }
+    .issue-view .info-banner-header .info-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2c5282;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-style: italic;
+      flex-shrink: 0;
+    }
+    .issue-view .info-banner-body {
+      padding: 16px 20px;
+      background: #fff;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: #484642;
+    }
+    .issue-view .reach-out-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid #e8e6e3; }
+    .issue-view .reach-out-line { margin: 0 0 10px; font-size: 0.9375rem; color: #484642; }
+    .issue-view .reach-out-trigger {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: inherit;
+      color: var(--link);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .issue-view .reach-out-trigger:hover { color: #2c5282; }
+    .issue-view .reach-out-options { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; }
+    .issue-view .reach-out-options[hidden] { display: none; }
+    .issue-view .reach-out-link {
+      font-size: 0.9375rem;
+      color: var(--link);
+      text-decoration: none;
+    }
+    .issue-view .reach-out-link:hover { text-decoration: underline; }
+
+    /* How can we help you? form view */
+    .reach-out-form-view { display: none; }
+    .reach-out-form-view.active { display: block; }
+    .reach-form-back { display: inline-block; margin-bottom: 20px; font-weight: 600; color: var(--link); text-decoration: none; }
+    .reach-form-back:hover { text-decoration: underline; }
+    .reach-form-title { font-size: 1.5rem; font-weight: 600; color: #383734; margin: 0 0 24px; }
+    .reach-form-order-card {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: #f6f5f3;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      border: 1px solid #e6e2df;
+    }
+    .reach-form-order-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+    .reach-form-order-info { flex: 1; min-width: 0; }
+    .reach-form-order-name { font-weight: 600; margin-bottom: 4px; color: #383734; }
+    .reach-form-order-meta { font-size: 0.9rem; color: #6a6a6a; margin-bottom: 4px; }
+    .reach-form-order-status { font-size: 0.875rem; color: #6a6a6a; }
+    .reach-form-row { margin-bottom: 20px; }
+    .reach-form-label { display: block; font-size: 0.875rem; font-weight: 600; color: #383734; margin-bottom: 6px; }
+    .reach-form-select {
+      width: 100%;
+      max-width: 320px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      background: var(--card);
+      color: var(--text);
+    }
+    .reach-form-section { margin-bottom: 24px; }
+    .reach-form-section-title { font-size: 1rem; font-weight: 600; color: #383734; margin: 0 0 8px; }
+    .reach-form-section-hint { font-size: 0.875rem; color: #8a8580; margin: 0 0 12px; }
+    .reach-form-articles { list-style: none; padding: 0; margin: 0; }
+    .reach-form-articles li { margin-bottom: 8px; }
+    .reach-form-articles a { color: var(--link); text-decoration: none; font-size: 0.9375rem; }
+    .reach-form-articles a:hover { text-decoration: underline; }
+    .reach-form-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .reach-form-upload {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+      background: #fafaf9;
+    }
+    .reach-form-upload-text { margin: 0; font-size: 0.875rem; color: #6a6a6a; }
+    .reach-form-upload-info { color: var(--text-muted); cursor: help; }
+    .reach-form-actions { display: flex; justify-content: flex-end; }
+    .reach-form-next { width: auto; padding: 12px 24px; }
+
+    main.main.issue-accidental .breadcrumb a { color: #6b6560; }
+    main.main.issue-accidental .breadcrumb a:hover { color: #5c5560; }
+    .issue-chat-view .chat-header .back { text-decoration: none; color: inherit; }
+    .issue-chat-view .chat-header .back:hover { color: var(--link); }
+    .issue-chat-view .chat-messages { margin-bottom: 16px; min-height: 200px; }
+    .issue-chat-view .msg .meta { font-size: 0.75rem; opacity: 0.85; margin-bottom: 4px; }
+    .issue-chat-view .msg.agent .meta { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" aria-hidden="true"></div>
+  <header class="header">
+    <a href="my_purchases.html" class="logo">
+      <span class="logo-icon">P</span>
+      <span>POSHMARK</span>
+    </a>
+    <select class="header-listings" aria-label="Listings"><option>Listings</option></select>
+    <input type="search" class="header-search" placeholder="Search Listings" aria-label="Search Listings" />
+    <nav class="header-nav">
+      <a href="my_purchases.html">My Offers</a>
+      <a href="my_purchases.html">My Bundles</a>
+      <a href="my_purchases.html">My Likes</a>
+      <a href="my_purchases.html">News</a>
+      <a href="my_purchases.html">Profile ▾</a>
+    </nav>
+  </header>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="sidebar-title">Order Activity</div>
+      <a href="my_purchases.html">My Purchases</a>
+      <a href="my_purchases.html">My Sales</a>
+      <a href="my_purchases.html">Active Offers</a>
+      <a href="my_purchases.html" class="active">Get support</a>
+      <a href="my_purchases.html">My Posh Stats</a>
+      <a href="my_purchases.html">My Closet Insights</a>
+      <a href="my_purchases.html">My Balance</a>
+      <a href="my_purchases.html">My Sales Report</a>
+      <a href="my_purchases.html">My Inventory Report</a>
+      <a href="my_purchases.html">Tax Invoice</a>
+    </nav>
+    <main class="main">
+      <div class="breadcrumb" id="breadcrumb"><a href="my_purchases.html">← Back to My Purchases</a></div>
+  <div class="container">
+    <!-- Accidental Purchase – previous style -->
+    <div id="accidentalPurchaseView" class="issue-view">
+      <div class="category-breadcrumb">
+        <span class="cat">Order Related</span>
+        <span aria-hidden="true"> &gt; </span>
+        <span class="sub">Accidental Purchase</span>
+      </div>
+      <h2 class="issue-title">Accidental Purchase</h2>
+      <div class="info-box policy">
+        Accidental purchases can be cancelled within 3 hours. If you made a <strong>Make an offer</strong> order, that cannot be cancelled as a policy. Only <strong>Buy now</strong> orders can be cancelled within 3 hours. If you have made a Buy now order, you should be able to cancel with the button below.
+      </div>
+      <div class="order-card">
+        <div class="order-card-header">Order details</div>
+        <div class="order-card-body">
+          <div class="order-details-row">
+            <div>
+              <div class="label">Order placed</div>
+              <div class="value" id="orderPlacedValue">2 hours ago</div>
+            </div>
+            <div>
+              <div class="label">Current status</div>
+              <div class="value" id="orderStatusValue">Order Placed</div>
+            </div>
+            <div>
+              <div class="label">Eligible for cancellation</div>
+              <div class="value" id="orderEligibleValue">Yes</div>
+            </div>
+          </div>
+          <div class="order-card-cta">
+            <div class="issue-actions">
+              <button type="button" class="btn-cancel" id="accidentalCancelBtn">Cancel order</button>
+              <button type="button" class="btn-keep" id="accidentalKeepBtn">I'll keep the product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info-banner" role="status">
+        <div class="info-banner-header">
+          <span class="info-icon" aria-hidden="true">i</span>
+          <span>Same view as support</span>
+        </div>
+        <div class="info-banner-body">
+          The information and the action you can see and take here is what our agents can also see and perform at this moment. They will not have more information outside of what you see.
+        </div>
+      </div>
+      <div class="reach-out-section">
+        <p class="reach-out-line">
+          Unsatisfied by the response –
+          <button type="button" class="reach-out-trigger" id="reachOutTrigger">Reach out to support</button>
+        </p>
+        <div class="reach-out-options" id="reachOutOptions" hidden>
+          <a href="#" class="reach-out-link" id="reachOutFormLink">Fill out a form</a>
+          <a href="#" class="reach-out-link" id="reachOutChatLink">Start a chat</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- How can we help you? – detailed form (from "Reach out to support" → Fill out a form) -->
+    <div id="reachOutFormView" class="issue-view reach-out-form-view" style="display: none;">
+      <a href="#" class="reach-form-back" id="reachFormBack">← Back</a>
+      <h2 class="reach-form-title">How can we help you?</h2>
+      <div class="reach-form-order-card">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Crect fill='%23e6e2df' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239b9691' font-size='10'%3EProduct%3C/text%3E%3C/svg%3E" alt="" class="reach-form-order-img" />
+        <div class="reach-form-order-info">
+          <div class="reach-form-order-name">Shaving Cream</div>
+          <div class="reach-form-order-meta">$100 · Size: OS · @preeyeshlohar</div>
+          <div class="reach-form-order-status">Order Placed</div>
+        </div>
+      </div>
+      <div class="reach-form-row">
+        <label class="reach-form-label">Select Category</label>
+        <select class="reach-form-select" id="reachFormCategory">
+          <option value="">Select</option>
+          <option value="order">Order related</option>
+          <option value="shipping">Shipping and Delivery</option>
+          <option value="payment">Payment related</option>
+          <option value="general">General Questions</option>
+        </select>
+      </div>
+      <div class="reach-form-row">
+        <label class="reach-form-label">Select Issue</label>
+        <select class="reach-form-select" id="reachFormIssue">
+          <option value="">Select</option>
+          <option value="accidental">Accidental purchase</option>
+          <option value="bundle">Bundle order</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="reach-form-section">
+        <h3 class="reach-form-section-title">Related Articles</h3>
+        <p class="reach-form-section-hint">Select a category to explore relevant articles</p>
+        <ul class="reach-form-articles" id="reachFormArticles">
+          <li><a href="#">What is a Posh Bundle?</a></li>
+          <li><a href="#">How to cancel an accidental purchase</a></li>
+          <li><a href="#">How to purchase a Bundle</a></li>
+          <li><a href="#">How to make an offer to a seller</a></li>
+          <li><a href="#">How to message your Seller or Buyer for order-related questions</a></li>
+          <li><a href="#">See all related articles</a></li>
+        </ul>
+      </div>
+      <div class="reach-form-row">
+        <label class="reach-form-label">Description</label>
+        <textarea class="reach-form-textarea" id="reachFormDescription" placeholder="Check out the articles above for quick answers or reach out to us for further assistance" rows="4"></textarea>
+      </div>
+      <div class="reach-form-upload">
+        <p class="reach-form-upload-text">Add or drop files here (optional). Please ensure photos are taken with proper lighting. <span class="reach-form-upload-info" title="Photo guidelines">ⓘ</span></p>
+      </div>
+      <div class="reach-form-actions">
+        <button type="button" class="btn reach-form-next" id="reachFormNext">Next</button>
+      </div>
+    </div>
+
+    <!-- Item shows delivered but can't locate – chat view with predefined exchange -->
+    <div id="deliveredCantLocateView" class="issue-view issue-chat-view" style="display: none;">
+      <div class="chat-header">
+        <a href="#" class="back" id="deliveredCantLocateBack" aria-label="Back to form">←</a>
+        <div>
+          <strong>Order support</strong>
+          <span class="sub" style="display:block; margin:0; font-size:0.8rem;">Shipping and Delivery · Item shows delivered but can't locate</span>
+        </div>
+      </div>
+      <div class="chat-messages" id="deliveredCantLocateMessages">
+        <div class="msg user">
+          <div class="meta">You</div>
+          My order has been marked as delivered but I cannot locate it, can you help me? Order Id – abcd13452
+        </div>
+        <div class="msg agent">
+          <div class="meta">Support</div>
+          According to the tracking status, the order was delivered on 1-31-2026. Can you please check around your house and with your neighbors or mail carrier to see if it can be located? If it can't be located, rest assured we have a process in place to assist you. If you still do not receive your order by 2-4-2026, please come back to the chat and start the conversation.
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="deliveredCantLocateInput" placeholder="Type a message..." />
+        <button type="button" class="btn" id="deliveredCantLocateSend">Send</button>
+      </div>
+    </div>
+
+    <!-- Form step: context-aware category + details -->
+    <div id="formView" class="form-view">
+      <span id="contextBadge" class="badge">Support</span>
+      <h2 class="page-title">What do you need help with?</h2>
+      <p class="sub" id="contextSub">Choose a category and describe your issue.</p>
+
+      <form id="supportForm">
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="">Select...</option>
+          <!-- Order-only options when source=order (including Problems / Order Inquiry modal choices) -->
+          <option value="accidental_purchase" data-context="order">Accidental Purchase</option>
+          <option value="seller_not_shipped" data-context="order">Seller not Shipped Yet</option>
+          <option value="no_tracking" data-context="order">Seller Shipped but no tracking information</option>
+          <option value="delivered_cant_locate" data-context="order">Item shows delivered but can't locate</option>
+          <option value="notice_left_return" data-context="order">Item shows Notice left or Return to sender</option>
+          <option value="refund_not_issued" data-context="order">Refund not issued</option>
+          <option value="not_as_described_returns" data-context="order">Item Not as described - Returns</option>
+          <option value="not_as_described" data-context="order">Item not as described / wrong item</option>
+          <option value="not_received" data-context="order">Item not received / shipping issue</option>
+          <option value="return_refund" data-context="order">Return or refund request</option>
+          <option value="cancelled_delayed" data-context="order">Order cancelled or delayed</option>
+          <option value="payment_billing" data-context="order">Payment or billing issue</option>
+          <option value="other_order" data-context="order">Other order issue</option>
+          <!-- Shown when not from order -->
+          <option value="account" data-context="general">Account or login</option>
+          <option value="selling" data-context="general">Selling / payout</option>
+          <option value="app_technical" data-context="general">App or technical</option>
+          <option value="other" data-context="general">Something else</option>
+        </select>
+
+        <label for="details">Tell us more (required)</label>
+        <textarea id="details" placeholder="e.g. Order #12345 – item never arrived, tracking shows delivered." required></textarea>
+
+        <button type="submit" class="btn" id="startChatBtn">Start chat</button>
+      </form>
+    </div>
+
+    <!-- Chat step: first message + AI response -->
+    <div id="chatView" class="chat-view">
+      <div class="chat-header">
+        <button type="button" class="back" id="backBtn" aria-label="Back">←</button>
+        <div>
+          <strong>Support</strong>
+          <span class="sub" style="display:block; margin:0; font-size:0.8rem;" id="chatCategoryLabel"></span>
+        </div>
+      </div>
+      <div id="chatMessages" class="chat-messages"></div>
+      <div id="typingIndicator" class="typing" style="display:none;">Support is typing...</div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Type a message..." />
+        <button type="button" class="btn" id="sendChatBtn">Send</button>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const source = params.get('source') || '';
+      const orderId = params.get('order_id') || '';
+      const issue = params.get('issue') || '';
+
+      const formView = document.getElementById('formView');
+      const accidentalPurchaseView = document.getElementById('accidentalPurchaseView');
+      const chatView = document.getElementById('chatView');
+      const contextBadge = document.getElementById('contextBadge');
+      const contextSub = document.getElementById('contextSub');
+      const categorySelect = document.getElementById('category');
+      const detailsEl = document.getElementById('details');
+      const chatMessages = document.getElementById('chatMessages');
+      const chatCategoryLabel = document.getElementById('chatCategoryLabel');
+      const typingIndicator = document.getElementById('typingIndicator');
+      const chatInput = document.getElementById('chatInput');
+      const sendChatBtn = document.getElementById('sendChatBtn');
+      const backBtn = document.getElementById('backBtn');
+
+      const orderOptions = Array.from(categorySelect.querySelectorAll('option[data-context="order"]'));
+      const generalOptions = Array.from(categorySelect.querySelectorAll('option[data-context="general"]'));
+
+      var breadcrumbEl = document.getElementById('breadcrumb');
+      if (orderId && breadcrumbEl) {
+        var backLink = breadcrumbEl.querySelector('a');
+        if (backLink) {
+          backLink.href = 'order_details.html?order_id=' + encodeURIComponent(orderId);
+          backLink.textContent = '\u2190 Back to order';
+        }
+      }
+
+      function setOrderContext() {
+        const fromOrder = source === 'order';
+        if (fromOrder) {
+          contextBadge.textContent = 'Order support';
+          contextBadge.classList.add('order');
+          contextSub.textContent = orderId
+            ? 'We\'ll show options relevant to this order.'
+            : 'We\'ll show options relevant to your order.';
+          orderOptions.forEach(function (o) { o.style.display = ''; });
+          generalOptions.forEach(function (o) { o.style.display = 'none'; });
+          categorySelect.value = issue || '';
+        } else {
+          contextBadge.textContent = 'Support';
+          contextBadge.classList.remove('order');
+          orderOptions.forEach(function (o) { o.style.display = ''; });
+          generalOptions.forEach(function (o) { o.style.display = ''; });
+        }
+        var mainEl = document.querySelector('main.main');
+        var deliveredCantLocateView = document.getElementById('deliveredCantLocateView');
+        if (issue === 'accidental_purchase') {
+          formView.classList.add('issue-active');
+          if (accidentalPurchaseView) accidentalPurchaseView.classList.add('active');
+          if (mainEl) mainEl.classList.add('issue-accidental');
+          if (deliveredCantLocateView) { deliveredCantLocateView.style.display = 'none'; }
+        } else if (issue === 'delivered_cant_locate') {
+          formView.classList.add('issue-active');
+          if (accidentalPurchaseView) accidentalPurchaseView.classList.remove('active');
+          if (deliveredCantLocateView) {
+            deliveredCantLocateView.style.display = 'block';
+            deliveredCantLocateView.classList.add('active');
+          }
+          if (mainEl) mainEl.classList.remove('issue-accidental');
+        } else {
+          formView.classList.remove('issue-active');
+          if (accidentalPurchaseView) accidentalPurchaseView.classList.remove('active');
+          if (deliveredCantLocateView) { deliveredCantLocateView.style.display = 'none'; deliveredCantLocateView.classList.remove('active'); }
+          if (mainEl) mainEl.classList.remove('issue-accidental');
+        }
+      }
+
+      var orderDetailsUrl = orderId
+        ? 'order_details.html?order_id=' + encodeURIComponent(orderId)
+        : 'my_purchases.html';
+      document.getElementById('accidentalCancelBtn').addEventListener('click', function () {
+        if (orderId) {
+          window.location.href = orderDetailsUrl + (orderDetailsUrl.indexOf('?') >= 0 ? '&' : '?') + 'cancellation_requested=1';
+        } else {
+          window.location.href = orderDetailsUrl;
+        }
+      });
+      document.getElementById('accidentalKeepBtn').addEventListener('click', function () {
+        window.location.href = orderDetailsUrl;
+      });
+
+      var reachOutTrigger = document.getElementById('reachOutTrigger');
+      var reachOutOptions = document.getElementById('reachOutOptions');
+      var reachOutFormLink = document.getElementById('reachOutFormLink');
+      var reachOutChatLink = document.getElementById('reachOutChatLink');
+      var reachOutFormView = document.getElementById('reachOutFormView');
+      var reachFormBack = document.getElementById('reachFormBack');
+      var fromAccidentalReachOut = false;
+      if (reachOutTrigger && reachOutOptions) {
+        reachOutTrigger.addEventListener('click', function () {
+          reachOutOptions.hidden = !reachOutOptions.hidden;
+        });
+      }
+      if (reachOutFormLink) {
+        reachOutFormLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (accidentalPurchaseView) { accidentalPurchaseView.classList.remove('active'); }
+          if (reachOutFormView) { reachOutFormView.style.display = 'block'; reachOutFormView.classList.add('active'); }
+          if (reachOutOptions) reachOutOptions.hidden = true;
+        });
+      }
+      if (reachOutChatLink) {
+        reachOutChatLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          fromAccidentalReachOut = true;
+          if (accidentalPurchaseView) { accidentalPurchaseView.classList.remove('active'); }
+          var dcl = document.getElementById('deliveredCantLocateView');
+          if (dcl) { dcl.style.display = 'block'; dcl.classList.add('active'); }
+          if (reachOutOptions) reachOutOptions.hidden = true;
+        });
+      }
+      if (reachFormBack) {
+        reachFormBack.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (reachOutFormView) { reachOutFormView.style.display = 'none'; reachOutFormView.classList.remove('active'); }
+          if (accidentalPurchaseView) { accidentalPurchaseView.classList.add('active'); }
+        });
+      }
+      var reachFormNext = document.getElementById('reachFormNext');
+      if (reachFormNext) {
+        reachFormNext.addEventListener('click', function () {
+          if (reachOutFormView) { reachOutFormView.style.display = 'none'; reachOutFormView.classList.remove('active'); }
+          if (accidentalPurchaseView) accidentalPurchaseView.classList.add('active');
+        });
+      }
+
+      var dclView = document.getElementById('deliveredCantLocateView');
+      var dclMessages = document.getElementById('deliveredCantLocateMessages');
+      var dclInput = document.getElementById('deliveredCantLocateInput');
+      var dclSend = document.getElementById('deliveredCantLocateSend');
+      var dclBack = document.getElementById('deliveredCantLocateBack');
+      if (dclBack) {
+        dclBack.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (dclView) { dclView.style.display = 'none'; dclView.classList.remove('active'); }
+          if (fromAccidentalReachOut) {
+            fromAccidentalReachOut = false;
+            if (accidentalPurchaseView) accidentalPurchaseView.classList.add('active');
+          } else {
+            formView.classList.remove('hidden');
+          }
+        });
+      }
+      function addDclMessage(text, isUser, meta) {
+        if (!dclMessages) return;
+        var div = document.createElement('div');
+        div.className = 'msg ' + (isUser ? 'user' : 'agent');
+        var metaEl = meta ? '<div class="meta">' + meta + '</div>' : '';
+        div.innerHTML = metaEl + escapeHtml(text).replace(/\n/g, '<br>');
+        dclMessages.appendChild(div);
+        dclMessages.scrollTop = dclMessages.scrollHeight;
+      }
+      function onDeliveredCantLocateSend() {
+        var text = (dclInput && dclInput.value) ? dclInput.value.trim() : '';
+        if (!text) return;
+        if (dclInput) dclInput.value = '';
+        addDclMessage(text, true, 'You');
+        setTimeout(function () {
+          addDclMessage('Thanks for the update. We\'ve noted that. If your order still hasn\'t arrived by 2-4-2026, you can continue this conversation and we\'ll take the next steps to assist you.', false, 'Support');
+          if (dclMessages) dclMessages.scrollTop = dclMessages.scrollHeight;
+        }, 800);
+      }
+      if (dclSend) dclSend.addEventListener('click', onDeliveredCantLocateSend);
+      if (dclInput) dclInput.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onDeliveredCantLocateSend(); } });
+
+      function getCategoryLabel() {
+        const opt = categorySelect.options[categorySelect.selectedIndex];
+        return opt ? opt.text : 'Support';
+      }
+
+      function addMessage(text, isUser, meta) {
+        const div = document.createElement('div');
+        div.className = 'msg ' + (isUser ? 'user' : 'agent');
+        const metaEl = meta ? '<div class="meta">' + meta + '</div>' : '';
+        div.innerHTML = metaEl + escapeHtml(text).replace(/\n/g, '<br>');
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function escapeHtml(s) {
+        const div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+      }
+
+      function simulateAiReply(category, firstMessage, done) {
+        typingIndicator.style.display = 'block';
+        setTimeout(function () {
+          typingIndicator.style.display = 'none';
+          var reply = 'Thanks for reaching out. We\'ve received your message about "' + getCategoryLabel() + '". ';
+          if (category === 'not_received' || category === 'not_as_described') {
+            reply += 'We\'ll look into this and may ask for your order number or a photo. Is there anything else you\'d like to add?';
+          } else {
+            reply += 'A team member may follow up here if we need more details. You can also add more info in this chat.';
+          }
+          addMessage(reply, false, 'Support');
+          if (done) done();
+        }, 1200);
+      }
+
+      document.getElementById('supportForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var category = categorySelect.value;
+        var details = (detailsEl.value || '').trim();
+        if (!details) return;
+
+        if (category === 'delivered_cant_locate') {
+          formView.classList.add('hidden');
+          var dclView = document.getElementById('deliveredCantLocateView');
+          if (dclView) {
+            dclView.style.display = 'block';
+            dclView.classList.add('active');
+          }
+          return;
+        }
+
+        // "Create case" and open chat
+        chatCategoryLabel.textContent = getCategoryLabel();
+        formView.classList.add('hidden');
+        chatView.classList.add('active');
+
+        addMessage(details, true, 'You');
+        simulateAiReply(category, details, function () {
+          chatInput.focus();
+        });
+      });
+
+      backBtn.addEventListener('click', function () {
+        chatView.classList.remove('active');
+        formView.classList.remove('hidden');
+      });
+
+      function sendChatMessage() {
+        var text = (chatInput.value || '').trim();
+        if (!text) return;
+        chatInput.value = '';
+        addMessage(text, true, 'You');
+        typingIndicator.style.display = 'block';
+        setTimeout(function () {
+          typingIndicator.style.display = 'none';
+          addMessage('Got it — we\'ve noted that. If you have an order number or screenshots, you can share them here and we\'ll use them to help resolve this.', false, 'Support');
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 800);
+      }
+
+      sendChatBtn.addEventListener('click', sendChatMessage);
+      chatInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendChatMessage();
+        }
+      });
+
+      setOrderContext();
+    })();
+  </script>
+</body>
+</html>

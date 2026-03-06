@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Purchases – Poshmark</title>
+  <style>
+    /* Poshmark design tokens from app/site */
+    :root {
+      --bg: #f5f2ee;
+      --bg-alt: #fcfbfb;
+      --card: #fff;
+      --border: #e6e2df;
+      --border-muted: #c1bfbc;
+      --primary: #7f0353;
+      --primary-hover: #6a0245;
+      --text: #2a2a2a;
+      --text-muted: #9b9691;
+      --text-muted-2: #6a6a6a;
+      --link: #41a6de;
+      --nav-badge: #d64242;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-alt);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* Top header – Poshmark nav (min-height 45px, max-width 1360px) */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 0 12px;
+      min-height: 45px;
+      max-width: 1360px;
+      min-width: 768px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .header-listings {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--card);
+      color: var(--text);
+    }
+    .header-search {
+      flex: 1;
+      max-width: 320px;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239b9691' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 10px center no-repeat;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .header-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-nav a:hover { color: var(--primary); }
+    .nav-badge {
+      background: var(--nav-badge);
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+
+    .layout { display: flex; min-height: calc(100vh - 45px); }
+    .sidebar {
+      width: 220px;
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+      padding: 0 20px 12px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px 20px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .sidebar a:hover { background: var(--bg); }
+    .sidebar a.active { font-weight: 600; color: var(--primary); }
+    .main {
+      flex: 1;
+      padding: 24px 32px;
+      max-width: 720px;
+      background: var(--card);
+    }
+    .breadcrumb {
+      margin: 15px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--link); }
+    h1 { font-size: 1.5rem; margin: 0 0 16px; font-weight: 700; color: var(--text); }
+    .search-wrap { margin-bottom: 24px; }
+    .search-wrap input {
+      width: 100%;
+      max-width: 360px;
+      padding: 10px 14px 10px 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239b9691' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 10px center no-repeat;
+    }
+
+    /* Purchase list – entire row clickable (matches screenshot) */
+    .purchase-list { display: flex; flex-direction: column; gap: 0; }
+    .purchase-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .purchase-row:hover { background: var(--bg); }
+    .purchase-row:last-child { border-bottom: none; }
+    .purchase-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      background: var(--border);
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .purchase-body { flex: 1; min-width: 0; }
+    .purchase-title { font-weight: 500; margin-bottom: 4px; color: var(--text); }
+    .purchase-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .purchase-meta span + span::before { content: " · "; }
+    .purchase-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .purchase-status svg { width: 14px; height: 14px; opacity: 0.8; }
+    .purchase-arrow {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top header – Poshmark logo, search, nav -->
+  <header class="header">
+    <a href="#" class="logo">
+      <span class="logo-icon">P</span>
+      <span>POSHMARK</span>
+    </a>
+    <select class="header-listings" aria-label="Listings"><option>Listings</option></select>
+    <input type="search" class="header-search" placeholder="Search Listings" aria-label="Search Listings" />
+    <nav class="header-nav">
+      <a href="#">My Offers</a>
+      <a href="#">My Bundles</a>
+      <a href="#">My Likes</a>
+      <a href="#">News <span class="nav-badge">1</span></a>
+      <a href="#">Profile ▾</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="sidebar-title">Order Activity</div>
+      <a href="#" class="active">My Purchases</a>
+      <a href="#">My Sales</a>
+      <a href="#">Active Offers</a>
+      <a href="#">My Posh Stats</a>
+      <a href="#">My Closet Insights</a>
+      <a href="#">My Balance</a>
+      <a href="#">My Sales Report</a>
+      <a href="#">My Inventory Report</a>
+      <a href="#">Tax Invoice</a>
+    </nav>
+    <main class="main">
+      <div class="breadcrumb">Home / Order Activity / My Purchases</div>
+      <h1>My Purchases</h1>
+      <div class="search-wrap">
+        <input type="search" placeholder="Search My Purchases" aria-label="Search My Purchases" />
+      </div>
+      <div class="purchase-list">
+        <a href="order_details.html?order_id=ord_100_shaving" class="purchase-row">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect fill='%23e5e2dd' width='64' height='64'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b6560' font-size='10'%3EProduct%3C/text%3E%3C/svg%3E" alt="" class="purchase-img" />
+          <div class="purchase-body">
+            <div class="purchase-title">Shaving Cream</div>
+            <div class="purchase-meta">
+              <span>$100</span>
+              <span>Size: OS</span>
+              <span>@preeyeshlohar</span>
+            </div>
+          </div>
+          <div class="purchase-status">
+            <svg fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+            Order Placed
+          </div>
+          <span class="purchase-arrow" aria-hidden="true">›</span>
+        </a>
+        <a href="order_details.html?order_id=ord_51_tie" class="purchase-row">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect fill='%23e5e2dd' width='64' height='64'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b6560' font-size='8'%3ETie%3C/text%3E%3C/svg%3E" alt="" class="purchase-img" />
+          <div class="purchase-body">
+            <div class="purchase-title">Emporio Armani Men's Light Blue Silk Necktie with Logo Print, 3"</div>
+            <div class="purchase-meta">
+              <span>$51</span>
+              <span>Size: OS</span>
+              <span>@bare_divan241</span>
+            </div>
+          </div>
+          <div class="purchase-status">
+            <svg fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+            Order Cancelled
+          </div>
+          <span class="purchase-arrow" aria-hidden="true">›</span>
+        </a>
+        <a href="order_details.html?order_id=ord_105_sunglasses" class="purchase-row">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect fill='%23e5e2dd' width='64' height='64'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b6560' font-size='8'%3ESunglasses%3C/text%3E%3C/svg%3E" alt="" class="purchase-img" />
+          <div class="purchase-body">
+            <div class="purchase-title">Polarized sunglasses</div>
+            <div class="purchase-meta">
+              <span>$105</span>
+              <span>Size: OS</span>
+              <span>@prireferral</span>
+            </div>
+          </div>
+          <div class="purchase-status">
+            <svg fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+            Order Cancelled
+          </div>
+          <span class="purchase-arrow" aria-hidden="true">›</span>
+        </a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Track your cases – Poshmark</title>
+  <style>
+    :root {
+      --bg: #f5f2ee;
+      --card: #fff;
+      --border: #e6e2df;
+      --primary: #7f0353;
+      --text: #2a2a2a;
+      --text-muted: #9b9691;
+      --link: #41a6de;
+      --nav-badge: #d64242;
+      --status-open: #2d8a4e;
+      --status-closed: #6a6a6a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fcfbfb;
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 0 12px;
+      min-height: 45px;
+      max-width: 1360px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .header-listings { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: var(--card); color: var(--text); }
+    .header-search {
+      flex: 1;
+      max-width: 320px;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239b9691' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 10px center no-repeat;
+    }
+    .header-nav { display: flex; align-items: center; gap: 20px; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+    .header-nav a:hover { color: var(--primary); }
+    .nav-badge {
+      background: var(--nav-badge);
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+    .nav-bar-2 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 12px 0 24px;
+      min-height: 40px;
+      max-width: 1360px;
+      margin: 0 auto;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .nav-bar-2 a { color: var(--text); text-decoration: none; }
+    .nav-bar-2 a:hover { color: var(--primary); }
+    .nav-bar-2 .right { margin-left: auto; }
+    .nav-bar-2 .sell { color: var(--primary); font-weight: 600; }
+
+    .layout {
+      min-height: calc(100vh - 45px - 40px);
+      background: var(--card);
+      display: flex;
+      justify-content: center;
+    }
+    .main {
+      width: 100%;
+      max-width: 800px;
+      padding: 32px 48px 48px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--link);
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .back-link::before { content: "← "; }
+
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 24px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .tabs a {
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tabs a:hover { color: var(--text); }
+    .tabs a.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .case-list { list-style: none; padding: 0; margin: 0; }
+    .case-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #f6f5f3;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    .case-list-item:last-child { margin-bottom: 0; }
+    .case-list-info { flex: 1; min-width: 0; }
+    .case-list-order {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .case-list-subject {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .case-list-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+    .case-list-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .case-list-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+    .case-list-status.open { color: var(--status-open); }
+    .case-list-status.closed { color: var(--status-closed); }
+    .case-list-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .case-list-status.open .case-list-status-dot { background: var(--status-open); }
+    .case-list-status.closed .case-list-status-dot { background: var(--status-closed); }
+
+    .case-list-actions { flex-shrink: 0; }
+    .btn-view, .btn-reopen {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-view {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-view:hover { opacity: 0.9; }
+    .btn-reopen {
+      background: var(--card);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-reopen:hover { background: #faf0f5; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .empty-state {
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="my_purchases.html" class="logo">
+      <span class="logo-icon">P</span>
+      <span>POSHMARK</span>
+    </a>
+    <select class="header-listings" aria-label="Listings"><option>Listings</option></select>
+    <input type="search" class="header-search" placeholder="Search Listings" aria-label="Search Listings" />
+    <nav class="header-nav">
+      <a href="my_purchases.html">My Offers</a>
+      <a href="my_purchases.html">My Bundles</a>
+      <a href="my_purchases.html">My Likes</a>
+      <a href="my_purchases.html">News <span class="nav-badge">1</span></a>
+      <a href="my_purchases.html">Profile ▾</a>
+    </nav>
+  </header>
+  <nav class="nav-bar-2">
+    <a href="#">POSH MARKETS All ▾</a>
+    <a href="#">Feed</a>
+    <a href="#">Women</a>
+    <a href="#">Men</a>
+    <a href="#">Kids</a>
+    <a href="#">Home</a>
+    <a href="#">Electronics</a>
+    <a href="#">Pets</a>
+    <a href="#">Beauty & Wellness</a>
+    <a href="#">Brands</a>
+    <a href="#">Parties</a>
+    <a href="#">Posh Shows</a>
+    <span class="right">
+      <a href="#">HOW IT WORKS</a>
+      <a href="#" class="sell">SELL ON POSHMARK</a>
+    </span>
+  </nav>
+
+  <div class="layout">
+    <main class="main">
+      <h1 class="page-title">Track your cases</h1>
+
+      <nav class="tabs" role="tablist">
+        <a href="#open" class="active" role="tab" aria-selected="true" data-tab="open">Open</a>
+        <a href="#closed" role="tab" aria-selected="false" data-tab="closed">Closed</a>
+        <a href="#all" role="tab" aria-selected="false" data-tab="all">All cases</a>
+      </nav>
+
+      <div id="panel-open" class="tab-panel active" role="tabpanel">
+        <ul class="case-list" id="list-open"></ul>
+      </div>
+      <div id="panel-closed" class="tab-panel" role="tabpanel">
+        <ul class="case-list" id="list-closed"></ul>
+      </div>
+      <div id="panel-all" class="tab-panel" role="tabpanel">
+        <ul class="case-list" id="list-all"></ul>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var openCases = [
+        { orderId: 'ord_100_shaving', caseId: 'case_001', subject: 'Item shows delivered but can\'t locate', created: 'Jan 31, 2026', updated: 'Feb 2, 2026' },
+        { orderId: 'ord_51_tie', caseId: 'case_002', subject: 'Accidental Purchase', created: 'Feb 28, 2026', updated: 'Feb 28, 2026' },
+        { orderId: 'ord_105_sunglasses', caseId: 'case_004', subject: 'Seller not Shipped Yet', created: 'Mar 1, 2026', updated: 'Mar 2, 2026' }
+      ];
+      var closedCases = [
+        { orderId: 'ord_200_bag', caseId: 'case_003', subject: 'Refund not issued', created: 'Feb 10, 2026', updated: 'Feb 20, 2026' },
+        { orderId: 'ord_88_jacket', caseId: 'case_005', subject: 'Item Not as described - Returns', created: 'Feb 15, 2026', updated: 'Feb 25, 2026' }
+      ];
+
+      function buildCaseRow(c, isOpen) {
+        var li = document.createElement('li');
+        li.className = 'case-list-item';
+        var viewUrl = 'case_detail.html?order_id=' + encodeURIComponent(c.orderId) + '&case_id=' + encodeURIComponent(c.caseId) + '&status=' + (isOpen ? 'open' : 'closed') + '&from=cases';
+        li.innerHTML =
+          '<div class="case-list-info">' +
+            '<div class="case-list-order">Order ID: ' + c.orderId + '</div>' +
+            '<div class="case-list-subject">' +
+              '<span class="case-list-icon" aria-hidden="true"></span>' +
+              c.subject +
+            '</div>' +
+            '<div class="case-list-meta">' +
+              '<span class="case-list-status ' + (isOpen ? 'open' : 'closed') + '">' +
+                '<span class="case-list-status-dot"></span>' + (isOpen ? 'Active' : 'Closed') +
+              '</span>' +
+              '<span>Created ' + c.created + '</span>' +
+              '<span>Updated ' + c.updated + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="case-list-actions">' +
+            (isOpen
+              ? '<a href="' + viewUrl + '" class="btn-view">View</a>'
+              : '<a href="' + viewUrl + '" class="btn-reopen">Reopen</a>') +
+          '</div>';
+        return li;
+      }
+
+      var listOpen = document.getElementById('list-open');
+      var listClosed = document.getElementById('list-closed');
+      var listAll = document.getElementById('list-all');
+
+      openCases.forEach(function (c) {
+        listOpen.appendChild(buildCaseRow(c, true));
+      });
+      closedCases.forEach(function (c) {
+        listClosed.appendChild(buildCaseRow(c, false));
+      });
+      openCases.forEach(function (c) {
+        listAll.appendChild(buildCaseRow(c, true));
+      });
+      closedCases.forEach(function (c) {
+        listAll.appendChild(buildCaseRow(c, false));
+      });
+
+      var tabs = document.querySelectorAll('.tabs a[data-tab]');
+      var panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function (e) {
+          e.preventDefault();
+          var t = tab.getAttribute('data-tab');
+          tabs.forEach(function (x) {
+            x.classList.remove('active');
+            x.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function (p) {
+            p.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          document.getElementById('panel-' + t).classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

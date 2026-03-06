@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Problems / Order Inquiry – Poshmark</title>
+  <style>
+    :root {
+      --bg: #f5f2ee;
+      --card: #fff;
+      --border: #e6e2df;
+      --primary: #7f0353;
+      --text: #2a2a2a;
+      --text-muted: #9b9691;
+      --link: #41a6de;
+      --nav-badge: #d64242;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fcfbfb;
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 0 12px;
+      min-height: 45px;
+      max-width: 1360px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .header-listings { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: var(--card); color: var(--text); }
+    .header-search {
+      flex: 1;
+      max-width: 320px;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239b9691' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 10px center no-repeat;
+    }
+    .header-nav { display: flex; align-items: center; gap: 20px; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+    .header-nav a:hover { color: var(--primary); }
+    .nav-badge {
+      background: var(--nav-badge);
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+    .nav-bar-2 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 12px 0 24px;
+      min-height: 40px;
+      max-width: 1360px;
+      margin: 0 auto;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .nav-bar-2 a { color: var(--text); text-decoration: none; }
+    .nav-bar-2 a:hover { color: var(--primary); }
+    .nav-bar-2 .right { margin-left: auto; }
+    .nav-bar-2 .sell { color: var(--primary); font-weight: 600; }
+
+    .layout {
+      min-height: calc(100vh - 45px - 40px);
+      background: var(--card);
+      display: flex;
+      justify-content: center;
+    }
+    .main {
+      width: 100%;
+      max-width: 800px;
+      padding: 32px 48px 48px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--link);
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .back-link::before { content: "← "; }
+
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 8px;
+    }
+    .page-intro {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      margin: 0 0 28px;
+      line-height: 1.45;
+    }
+
+    .active-cases-section { margin-bottom: 32px; }
+    .active-cases-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .case-card {
+      display: block;
+      padding: 16px 20px;
+      background: #f6f5f3;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .case-card:hover { background: #eeedeb; }
+    .case-card-order {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .case-card-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .case-card-category {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .case-card-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+    .case-card-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #2d8a4e;
+    }
+    .case-card-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2d8a4e;
+    }
+
+    .problems-category { margin-bottom: 24px; }
+    .problems-category:last-child { margin-bottom: 0; }
+    .problems-category-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      padding: 12px 0 8px;
+    }
+    .problems-category:first-of-type .problems-category-title { padding-top: 0; }
+    .problems-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .problems-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .problems-option:last-child { border-bottom: none; }
+    .problems-option:hover { background: var(--bg); }
+    .problems-option-chevron {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="my_purchases.html" class="logo">
+      <span class="logo-icon">P</span>
+      <span>POSHMARK</span>
+    </a>
+    <select class="header-listings" aria-label="Listings"><option>Listings</option></select>
+    <input type="search" class="header-search" placeholder="Search Listings" aria-label="Search Listings" />
+    <nav class="header-nav">
+      <a href="my_purchases.html">My Offers</a>
+      <a href="my_purchases.html">My Bundles</a>
+      <a href="my_purchases.html">My Likes</a>
+      <a href="my_purchases.html">News <span class="nav-badge">1</span></a>
+      <a href="my_purchases.html">Profile ▾</a>
+    </nav>
+  </header>
+  <nav class="nav-bar-2">
+    <a href="#">POSH MARKETS All ▾</a>
+    <a href="#">Feed</a>
+    <a href="#">Women</a>
+    <a href="#">Men</a>
+    <a href="#">Kids</a>
+    <a href="#">Home</a>
+    <a href="#">Electronics</a>
+    <a href="#">Pets</a>
+    <a href="#">Beauty & Wellness</a>
+    <a href="#">Brands</a>
+    <a href="#">Parties</a>
+    <a href="#">Posh Shows</a>
+    <span class="right">
+      <a href="#">HOW IT WORKS</a>
+      <a href="#" class="sell">SELL ON POSHMARK</a>
+    </span>
+  </nav>
+
+  <div class="layout">
+    <main class="main">
+      <a href="#" class="back-link" id="backToOrder">Back to order</a>
+      <h1 class="page-title">Problems / Order Inquiry</h1>
+      <p class="page-intro">Our support team is here to help. How can we help you today?</p>
+
+      <div class="active-cases-section">
+        <div class="active-cases-title">Active conversations</div>
+        <a href="#" class="case-card" id="case1Link">
+          <div class="case-card-order" id="case1OrderId">Order ID: 69a683ab29e1fdfa4453d147</div>
+          <div class="case-card-row">
+            <span class="case-card-category">
+              <span class="case-card-icon" aria-hidden="true"></span>
+              Item shows delivered but can't locate
+            </span>
+            <span class="case-card-status">
+              <span class="case-card-status-dot"></span>
+              Active
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="problems-category">
+        <div class="problems-category-title">Order Related</div>
+        <ul class="problems-list">
+          <li><a href="#" class="problems-option" data-issue="accidental_purchase">Accidental Purchase <span class="problems-option-chevron">›</span></a></li>
+        </ul>
+      </div>
+      <div class="problems-category">
+        <div class="problems-category-title">Shipping and Delivery</div>
+        <ul class="problems-list">
+          <li><a href="#" class="problems-option" data-issue="seller_not_shipped">Seller not Shipped Yet <span class="problems-option-chevron">›</span></a></li>
+          <li><a href="#" class="problems-option" data-issue="no_tracking">Seller Shipped but no tracking information <span class="problems-option-chevron">›</span></a></li>
+          <li><a href="#" class="problems-option" data-issue="delivered_cant_locate">Item shows delivered but can't locate <span class="problems-option-chevron">›</span></a></li>
+          <li><a href="#" class="problems-option" data-issue="notice_left_return">Item shows Notice left or Return to sender <span class="problems-option-chevron">›</span></a></li>
+        </ul>
+      </div>
+      <div class="problems-category">
+        <div class="problems-category-title">Payment related</div>
+        <ul class="problems-list">
+          <li><a href="#" class="problems-option" data-issue="refund_not_issued">Refund not issued <span class="problems-option-chevron">›</span></a></li>
+          <li><a href="#" class="problems-option" data-issue="not_as_described_returns">Item Not as described - Returns <span class="problems-option-chevron">›</span></a></li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var orderId = params.get('order_id') || 'ord_100_shaving';
+      var baseUrl = 'support_flow.html?source=order&order_id=' + encodeURIComponent(orderId);
+
+      document.getElementById('backToOrder').href = 'order_details.html?order_id=' + encodeURIComponent(orderId);
+
+      var caseDetailUrl = 'case_detail.html?order_id=' + encodeURIComponent(orderId) + '&case_id=case_001&from=order';
+      document.getElementById('case1Link').href = caseDetailUrl;
+      document.getElementById('case1OrderId').textContent = 'Order ID: ' + orderId;
+
+      document.querySelectorAll('.problems-option').forEach(function (link) {
+        var issue = link.getAttribute('data-issue');
+        if (issue) link.href = baseUrl + '&issue=' + encodeURIComponent(issue);
+      });
+    })();
+  </script>
+</body>
+</html>
