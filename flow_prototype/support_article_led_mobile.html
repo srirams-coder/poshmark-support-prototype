@@ -158,6 +158,8 @@
     .app-header .my-cases-tag:active { opacity: 0.85; }
     .app-header .my-cases-tag { min-height: var(--touch-min); min-width: var(--touch-min); align-items: center; justify-content: center; flex-shrink: 0; }
     .app-header .back { min-height: var(--touch-min); min-width: var(--touch-min); align-items: center; justify-content: center; }
+    /* Order Details = app order page, not support: hide My cases */
+    .app-wrapper.order-details-view .app-header .my-cases-tag { display: none !important; }
 
     .main-content {
       flex: 1;
@@ -482,6 +484,30 @@
     }
     .article-reach-out .link-reach:hover { color: var(--primary-hover); }
 
+    /* Chatbot (Others / My issue is not listed here) – fill height and pin input to bottom */
+    .main-content:has(#segmentHelp #screenChatbot.active) { padding-bottom: 0; display: flex; flex-direction: column; }
+    .main-content:has(#segmentHelp #screenChatbot.active) #segmentHelp { min-height: 0; flex: 1; display: flex; flex-direction: column; }
+    .main-content:has(#segmentHelp #screenChatbot.active) #screenChatbot.active { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    #screenChatbot { display: flex; flex-direction: column; min-height: 100%; }
+    .chatbot-view { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+    .chatbot-messages { flex: 1; min-height: 0; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .chatbot-msg-row { display: flex; gap: 10px; align-items: flex-end; }
+    .chatbot-msg-row.user { flex-direction: row-reverse; }
+    .chatbot-msg-icon { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; overflow: hidden; }
+    .chatbot-msg-icon.bot { background: var(--primary); color: #fff; }
+    .chatbot-msg-icon.user { background: var(--border-muted); color: var(--text-muted); font-size: 1.25rem; }
+    .chatbot-msg { max-width: calc(100% - 46px); padding: 12px 14px; border-radius: 14px; font-size: 0.95rem; line-height: 1.45; }
+    .chatbot-msg.bot { background: var(--bg); border: 1px solid var(--border); color: var(--text); }
+    .chatbot-msg.user { background: var(--primary); color: #fff; }
+    .chatbot-msg .chatbot-msg-link { color: var(--primary); text-decoration: underline; cursor: pointer; font-weight: 600; }
+    .chatbot-msg.user .chatbot-msg-link { color: rgba(255,255,255,0.95); }
+    .chatbot-my-cases-card { padding: 0; background: transparent; border: none; }
+    .chatbot-my-cases-btn { display: block; width: 100%; min-width: 160px; padding: 14px 20px; margin-top: 8px; border-radius: 12px; border: 2px solid var(--primary); background: var(--card); color: var(--primary); font-size: 1rem; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
+    .chatbot-my-cases-btn:hover { background: rgba(198, 47, 43, 0.08); }
+    .chatbot-input-row { flex-shrink: 0; display: flex; gap: 10px; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--card); align-items: flex-end; }
+    .chatbot-input-row textarea { flex: 1; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; font-family: inherit; resize: none; min-height: 44px; max-height: 100px; }
+    .chatbot-send-btn { padding: 12px 18px; border: none; border-radius: 10px; background: var(--primary); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; flex-shrink: 0; }
+
     /* Contact form: category + subcategory pre-filled (read-only), customer enters response only */
     .contact-form .prefill-box {
       background: var(--bg);
@@ -546,6 +572,16 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
+    #screenContactDone .btn-full {
+      display: block; width: 100%; text-align: center; padding: 16px; min-height: var(--touch-min); box-sizing: border-box;
+      border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer;
+      background: rgba(127, 3, 83, 0.1); color: var(--primary);
+      -webkit-tap-highlight-color: transparent;
+    }
+    #screenContactDone .btn-full:hover { background: rgba(127, 3, 83, 0.18); }
+    #screenContactDone .btn-full:active { opacity: 0.9; }
+    .link-text-below { display: block; width: 100%; margin-top: 16px; background: none; border: none; padding: 0; font-size: 0.95rem; font-weight: 600; color: var(--primary); text-decoration: underline; cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
+    .link-text-below:hover { color: var(--primary-hover); }
 
     /* My cases */
     .cases-list { list-style: none; padding: 0; margin: 0; }
@@ -693,6 +729,64 @@
     .order-tracking-actions { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
     .order-tracking-actions .btn { padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: 1px solid var(--primary); background: var(--card); color: var(--primary); }
     .order-tracking-card .link { color: var(--link); text-decoration: none; font-size: 0.875rem; margin-left: 6px; }
+
+    /* Order Details (app-style: tracking on same page, Accept Order, Message Seller, Problems) */
+    .order-details-page { padding-bottom: 24px; }
+    .order-details-page .ordered-on { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .order-details-page .order-number-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; }
+    .order-details-page .order-number-row .copy-btn { background: none; border: none; padding: 4px; cursor: pointer; color: var(--text-muted); }
+    .order-details-page .sold-by { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+    .order-details-page .product-row { display: flex; gap: 12px; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+    .order-details-page .product-row .thumb { width: 72px; height: 72px; border-radius: 8px; background: var(--bg); flex-shrink: 0; overflow: hidden; }
+    .order-details-page .product-row .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .order-details-page .product-row .info { flex: 1; min-width: 0; }
+    .order-details-page .product-row .name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .order-details-page .product-row .meta { font-size: 0.875rem; color: var(--text-muted); }
+    .order-details-page .section-head { font-size: 1rem; font-weight: 700; color: var(--text); margin: 20px 0 12px; display: flex; align-items: center; gap: 6px; }
+    .order-details-page .section-head .info-icon { color: var(--text-muted); font-size: 0.9rem; }
+    .order-details-page .order-total { font-size: 0.95rem; color: var(--text); margin-bottom: 20px; }
+    .order-details-page .order-status-badge { display: inline-block; font-size: 0.9rem; font-weight: 700; color: var(--primary); background: rgba(198, 47, 43, 0.12); padding: 6px 12px; border-radius: 20px; margin-bottom: 10px; }
+    .order-details-page .tracking-status { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .order-details-page .order-details-cant-locate-wrap { margin: 16px 0; padding: 12px 0; border-top: 1px solid var(--border); }
+    .order-details-page .link-cant-locate { background: none; border: none; padding: 0; font-size: 0.95rem; font-weight: 600; color: var(--primary); text-decoration: underline; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .order-details-page .link-cant-locate:hover { color: var(--primary-hover); }
+    /* Delivered can't locate popup */
+    .cant-locate-popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+    .cant-locate-popup { background: var(--card); border-radius: 16px; max-width: 340px; width: 100%; max-height: 85vh; overflow: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .cant-locate-popup-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 18px 0; }
+    .cant-locate-popup-title { font-size: 1.05rem; font-weight: 700; color: var(--text); flex: 1; }
+    .cant-locate-popup-close { background: none; border: none; font-size: 1.5rem; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px; -webkit-tap-highlight-color: transparent; }
+    .cant-locate-popup-close:hover { color: var(--text); }
+    .cant-locate-popup-body { padding: 16px 18px 8px; font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+    .cant-locate-popup-body p { margin: 0 0 12px; }
+    .cant-locate-popup-body p:last-child { margin-bottom: 0; }
+    .cant-locate-popup-actions { padding: 12px 18px 20px; }
+    .cant-locate-popup-actions .btn-cta { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; background: var(--primary); color: #fff; }
+    .cant-locate-popup-actions .btn-cta:hover { background: var(--primary-hover); }
+    .cant-locate-popup-actions .btn-cta.disabled { background: var(--border-muted); color: var(--text-muted); cursor: not-allowed; }
+    .cant-locate-popup-actions .btn-cta.disabled:hover { background: var(--border-muted); }
+    .cant-locate-popup-actions .btn-cta-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); margin-top: 10px; }
+    .cant-locate-popup-actions .btn-cta-secondary:hover { background: rgba(198, 47, 43, 0.08); }
+    .cant-locate-popup-actions .placed-delayed-btns .btn-cta { margin-top: 0; }
+    .cant-locate-popup-actions .placed-delayed-btns .btn-cta + .btn-cta { margin-top: 10px; }
+    .cant-locate-popup-actions .report-available-hint { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 10px; }
+    .order-details-page .timeline-details { margin-top: 12px; }
+    .order-details-page .timeline-details .step { display: flex; gap: 12px; margin-bottom: 16px; }
+    .order-details-page .timeline-details .step .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; background: var(--border-muted); }
+    .order-details-page .timeline-details .step.active .dot { background: var(--primary); }
+    .order-details-page .timeline-details .step .label { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .order-details-page .timeline-details .step .hint { font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px; }
+    .order-details-page .timeline-details .step.active .label { color: var(--primary); }
+    .order-details-page .accept-card { background: var(--bg); border-radius: 12px; padding: 16px; margin: 20px 0; }
+    .order-details-page .accept-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .order-details-page .accept-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.45; margin: 0 0 16px; }
+    .order-details-page .accept-card .btn-accept { width: 100%; padding: 14px; border: none; border-radius: 10px; background: var(--text); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    .order-details-page .action-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); cursor: pointer; min-height: var(--touch-min); touch-action: manipulation; }
+    .order-details-page .action-row:last-child { border-bottom: none; }
+    .order-details-page .action-row .left { display: flex; align-items: center; gap: 12px; }
+    .order-details-page .action-row .icon { width: 24px; height: 24px; color: var(--text-muted); flex-shrink: 0; }
+    .order-details-page .action-row .text { font-size: 0.9375rem; color: var(--text); }
+    .order-details-page .action-row .arrow { color: var(--text-muted); font-size: 1.125rem; }
 
     /* Support entry – exact match to example: status bar, list, bottom nav */
     .status-bar {
@@ -905,6 +999,17 @@
         </div>
       </div>
 
+      <!-- Chatbot (Others / My issue is not listed here) -->
+      <div id="screenChatbot" class="screen">
+        <div class="chatbot-view">
+          <div class="chatbot-messages" id="chatbotMessages"></div>
+          <div class="chatbot-input-row">
+            <textarea id="chatbotInput" placeholder="Type your question here..." rows="2"></textarea>
+            <button type="button" class="chatbot-send-btn" id="chatbotSendBtn" aria-label="Send">Send</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Contact form: category + subcategory pre-filled, customer enters response only -->
       <div id="screenContact" class="screen">
         <h2 class="section-title">Reach out to support</h2>
@@ -928,27 +1033,126 @@
 
       <!-- Contact submitted -->
       <div id="screenContactDone" class="screen">
-        <h2 class="section-title">We got your message</h2>
+        <h2 class="section-title">Your issue has been received!</h2>
         <p style="font-size:0.95rem;color:var(--text-muted-2);margin-bottom:20px;">Case <strong id="contactCaseId">#PM-2026-001</strong> has been created. You can track it under My cases. We’ll reply as soon as we can.</p>
-        <a href="#" class="btn" id="goToCasesBtn">View My cases</a>
-        <button type="button" class="btn-secondary" id="browseMoreHelp">Browse more help</button>
+        <a href="#" class="btn btn-full" id="goToCasesBtn">View My cases</a>
+        <button type="button" class="link-text-below" id="browseMoreHelp">Browse more help</button>
       </div>
 
-      <!-- All transactions (Sales / Purchases tabs) -->
+      <!-- All transactions (Purchases / Sales tabs) -->
       <div id="screenAllTransactions" class="screen">
         <h2 class="section-title">All transactions</h2>
         <div class="tabs-row">
-          <a href="#" class="active" data-txn-tab="sales">Sales</a>
-          <a href="#" data-txn-tab="purchases">Purchases</a>
+          <a href="#" class="active" data-txn-tab="purchases">Purchases</a>
+          <a href="#" data-txn-tab="sales">Sales</a>
         </div>
-        <ul class="transactions-list" id="allTransactionsSales"></ul>
-        <ul class="transactions-list" id="allTransactionsPurchases" style="display:none;"></ul>
+        <ul class="transactions-list" id="allTransactionsPurchases"></ul>
+        <ul class="transactions-list" id="allTransactionsSales" style="display:none;"></ul>
       </div>
 
       <!-- My Purchases (mock list) -->
       <div id="screenMyPurchases" class="screen">
         <h2 class="section-title">My Purchases</h2>
         <ul class="transactions-list" id="myPurchasesList"></ul>
+      </div>
+
+      <!-- Order Details (app-style: tracking on same page, Accept Order, Message Seller, Problems) -->
+      <div id="screenOrderDetails" class="screen">
+        <div class="order-details-page">
+          <div class="ordered-on" id="orderDetailsOrderedOn">Ordered On —</div>
+          <div class="order-number-row">
+            <span id="orderDetailsOrderNumber">Order Number: —</span>
+            <button type="button" class="copy-btn" id="orderDetailsCopyOrderId" aria-label="Copy order number">📋</button>
+          </div>
+          <div class="sold-by" id="orderDetailsSoldBy">Sold By: —</div>
+          <div class="product-row">
+            <div class="thumb" id="orderDetailsThumb"><img id="orderDetailsThumbImg" src="" alt="" /></div>
+            <div class="info">
+              <div class="name" id="orderDetailsProductName">—</div>
+              <div class="meta" id="orderDetailsProductMeta">—</div>
+            </div>
+          </div>
+          <div class="section-head">Payment &amp; Shipping Info</div>
+          <div class="order-total" id="orderDetailsOrderTotal">Order Total: —</div>
+          <div class="section-head"><span class="info-icon" aria-hidden="true">ℹ️</span> Order Status</div>
+          <div class="order-status-badge" id="orderDetailsStatusBadge">Order Placed</div>
+          <div class="tracking-status" id="orderDetailsTrackingStatus">Tracking: Not Yet Available</div>
+          <div class="timeline-details" id="orderDetailsTimeline"></div>
+          <div class="order-details-cant-locate-wrap" id="orderDetailsCantLocateWrap" style="display:none;">
+            <div class="section-head">Troubleshooting</div>
+            <button type="button" class="link-cant-locate" id="orderDetailsCantLocateLink">Delivered but can&apos;t locate your order?</button>
+          </div>
+          <div class="order-details-cant-locate-wrap" id="orderDetailsTrackingNotUpdatedWrap" style="display:none;">
+            <div class="section-head">Troubleshooting</div>
+            <button type="button" class="link-cant-locate" id="orderDetailsTrackingNotUpdatedLink">Seller shipped but tracking not updated?</button>
+          </div>
+          <div class="order-details-cant-locate-wrap" id="orderDetailsPlacedDelayedWrap" style="display:none;">
+            <div class="section-head">Troubleshooting</div>
+            <button type="button" class="link-cant-locate" id="orderDetailsPlacedDelayedLink">Order taking longer than expected to be processed?</button>
+          </div>
+          <div class="accept-card" id="orderDetailsAcceptCard">
+            <h3>Did You Receive The Order As Described?</h3>
+            <p>Sometimes tracking does not update for shipped items. If you have already received your order as described, please accept it to release payment to the seller.</p>
+            <button type="button" class="btn-accept" id="orderDetailsAcceptBtn">Accept Order</button>
+          </div>
+          <div class="action-row" id="orderDetailsMessageSeller">
+            <span class="left"><span class="icon">💬</span><span class="text">Message Seller</span></span>
+            <span class="arrow">›</span>
+          </div>
+          <div class="action-row" id="orderDetailsProblemsInquiry">
+            <span class="left"><span class="icon">⚙</span><span class="text">Problems / Order Inquiry</span></span>
+            <span class="arrow">›</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivered can't locate popup (from Order Details when status = Delivered) -->
+      <div class="cant-locate-popup-overlay" id="cantLocatePopupOverlay" style="display:none;" aria-hidden="true">
+        <div class="cant-locate-popup" role="dialog" aria-labelledby="cantLocatePopupTitle" aria-modal="true">
+          <div class="cant-locate-popup-header">
+            <span class="cant-locate-popup-title" id="cantLocatePopupTitle">Delivered but can&apos;t locate your order?</span>
+            <button type="button" class="cant-locate-popup-close" id="cantLocatePopupClose" aria-label="Close">&times;</button>
+          </div>
+          <div class="cant-locate-popup-body" id="cantLocatePopupBody"></div>
+          <div class="cant-locate-popup-actions" id="cantLocatePopupActions">
+            <p class="report-available-hint" id="cantLocateReportHint"></p>
+            <button type="button" class="btn-cta disabled" id="cantLocateReportBtn">Report lost package</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seller shipped but tracking not updated popup (from Order Details when status = Shipped) -->
+      <div class="cant-locate-popup-overlay" id="trackingNotUpdatedPopupOverlay" style="display:none;" aria-hidden="true">
+        <div class="cant-locate-popup" role="dialog" aria-labelledby="trackingNotUpdatedPopupTitle" aria-modal="true">
+          <div class="cant-locate-popup-header">
+            <span class="cant-locate-popup-title" id="trackingNotUpdatedPopupTitle">Seller shipped but tracking not updated?</span>
+            <button type="button" class="cant-locate-popup-close" id="trackingNotUpdatedPopupClose" aria-label="Close">&times;</button>
+          </div>
+          <div class="cant-locate-popup-body" id="trackingNotUpdatedPopupBody"></div>
+          <div class="cant-locate-popup-actions" id="trackingNotUpdatedPopupActions">
+            <p class="report-available-hint" id="trackingNotUpdatedReportHint"></p>
+            <button type="button" class="btn-cta disabled" id="trackingNotUpdatedReportBtn">Order not getting tracked</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order taking longer than expected popup (from Order Details when status = Placed) -->
+      <div class="cant-locate-popup-overlay" id="placedDelayedPopupOverlay" style="display:none;" aria-hidden="true">
+        <div class="cant-locate-popup" role="dialog" aria-labelledby="placedDelayedPopupTitle" aria-modal="true">
+          <div class="cant-locate-popup-header">
+            <span class="cant-locate-popup-title" id="placedDelayedPopupTitle">Order taking longer than expected to be processed?</span>
+            <button type="button" class="cant-locate-popup-close" id="placedDelayedPopupClose" aria-label="Close">&times;</button>
+          </div>
+          <div class="cant-locate-popup-body" id="placedDelayedPopupBody"></div>
+          <div class="cant-locate-popup-actions" id="placedDelayedPopupActions">
+            <p class="report-available-hint" id="placedDelayedReportHint"></p>
+            <div class="placed-delayed-btns" id="placedDelayedBtns">
+              <button type="button" class="btn-cta disabled" id="placedDelayedCancelBtn">Cancel the delayed order</button>
+              <button type="button" class="btn-cta btn-cta-secondary" id="placedDelayedWaitBtn" style="display:none;">Wait for a bit longer</button>
+            </div>
+            <button type="button" class="btn-cta" id="placedDelayedCloseBtn" style="display:none;">Close</button>
+          </div>
+        </div>
       </div>
 
       <!-- Order help (order page: details + What issue are you facing?) -->
@@ -1054,6 +1258,8 @@
     articleIndex: -1,
     currentCase: null,
     selectedOrder: null,
+    cameFrom: 'home',
+    cameFromOrderDetails: false,
     cases: [
       { id: 'PM-2026-001', subject: 'Item not received', category: 'Orders', article: 'Item not received – what to do', status: 'open', openDate: 'Mar 2, 2026', estimatedClosure: 'Mar 9, 2026', messages: [
         { who: 'You', body: 'I read the article but my order still didn’t arrive. Order #12345.', time: 'Mar 2, 2:30 PM' },
@@ -1158,7 +1364,7 @@
     ]
   };
 
-  var helpScreenIds = ['screenSupportEntry', 'screenHome', 'screenArticleList', 'screenArticle', 'screenContact', 'screenContactDone', 'screenAllTransactions', 'screenMyPurchases', 'screenOrderHelp', 'screenOrderTracking'];
+  var helpScreenIds = ['screenSupportEntry', 'screenHome', 'screenArticleList', 'screenArticle', 'screenChatbot', 'screenContact', 'screenContactDone', 'screenAllTransactions', 'screenMyPurchases', 'screenOrderDetails', 'screenOrderHelp', 'screenOrderTracking'];
 
   var TOPICS = [
     { id: 'account', label: 'Account', emoji: '👤' },
@@ -1169,18 +1375,21 @@
     { id: 'safety_reporting', label: 'Safety and reporting', emoji: '🛡️' }
   ];
 
+  var ORDER_STATUS_TO_STEP = { placed: 0, shipped: 1, transit: 2, delivered: 3, complete: 4 };
+
   var TRANSACTIONS = {
     purchases: [
-      { id: 'txn1', type: 'purchase', name: 'Vintage Denim Jacket', meta: 'Paid Mar 2, 2026', amount: '$42.00', orderId: '257568311901179520', orderDate: 'Mar 2, 2026', supplier: 'SACHIN ENTERPRISES 2.0', price: '$42.00', size: 'M', seller: '@posh_seller' },
-      { id: 'txn2', type: 'purchase', name: 'Leather Crossbody Bag', meta: 'Paid Mar 1, 2026', amount: '$68.50', orderId: 'ORD-1002', orderDate: 'Mar 1, 2026', supplier: 'Fashion Co', price: '$68.50', size: 'OS', seller: '@style_co' },
-      { id: 'txn3', type: 'purchase', name: 'Running Sneakers', meta: 'Paid Feb 28, 2026', amount: '$55.00', orderId: 'ORD-1003', orderDate: 'Feb 28, 2026', supplier: 'Sneaker Shop', price: '$55.00', size: '10', seller: '@sneaker' },
-      { id: 'txn4', type: 'purchase', name: 'Silk Blouse', meta: 'Paid Feb 25, 2026', amount: '$28.00', orderId: 'ORD-1004', orderDate: 'Feb 25, 2026', supplier: 'Boutique', price: '$28.00', size: 'S', seller: '@boutique' }
+      { id: 'txn1', type: 'purchase', name: 'Vintage Denim Jacket', meta: 'Paid Mar 2, 2026', amount: '$42.00', orderId: '257568311901179520', orderDate: 'Mar 2, 2026', supplier: 'SACHIN ENTERPRISES 2.0', price: '$42.00', size: 'M', seller: '@posh_seller', orderStatus: 'placed', orderPlacedTimestamp: Date.now() - 4 * 86400000 },
+      { id: 'txn2', type: 'purchase', name: 'Leather Crossbody Bag', meta: 'Paid Mar 1, 2026', amount: '$68.50', orderId: 'ORD-1002', orderDate: 'Mar 1, 2026', supplier: 'Fashion Co', price: '$68.50', size: 'OS', seller: '@style_co', orderStatus: 'delivered' },
+      { id: 'txn3', type: 'purchase', name: 'Running Sneakers', meta: 'Paid Feb 28, 2026', amount: '$55.00', orderId: 'ORD-1003', orderDate: 'Feb 28, 2026', supplier: 'Sneaker Shop', price: '$55.00', size: '10', seller: '@sneaker', orderStatus: 'shipped', orderPlacedTimestamp: Date.now() - 4 * 86400000 },
+      { id: 'txn4', type: 'purchase', name: 'Silk Blouse', meta: 'Paid Feb 25, 2026', amount: '$28.00', orderId: 'ORD-1004', orderDate: 'Feb 25, 2026', supplier: 'Boutique', price: '$28.00', size: 'S', seller: '@boutique', orderStatus: 'complete' },
+      { id: 'txn5', type: 'purchase', name: 'Wool Scarf', meta: 'Paid Feb 23, 2026', amount: '$32.00', orderId: 'ORD-1005', orderDate: 'Feb 23, 2026', supplier: 'Winter Co', price: '$32.00', size: 'OS', seller: '@winter_co', orderStatus: 'placed', orderPlacedTimestamp: Date.now() - 10 * 86400000 }
     ],
     sales: [
-      { id: 's1', type: 'sale', name: 'Designer Handbag', meta: 'Sold Mar 3, 2026', amount: '$120.00', orderId: 'SALE-2001', orderDate: 'Mar 3, 2026', soldTo: 'Jack', price: '$120.00', size: 'OS', orderTotal: '$117.40' },
-      { id: 's2', type: 'sale', name: 'Winter Coat', meta: 'Sold Mar 2, 2026', amount: '$85.00', orderId: 'SALE-2002', orderDate: 'Mar 2, 2026', soldTo: 'Alex', price: '$85.00', size: 'L', orderTotal: '$89.20' },
-      { id: 's3', type: 'sale', name: 'Gold Earrings', meta: 'Sold Feb 28, 2026', amount: '$22.00', orderId: 'SALE-2003', orderDate: 'Feb 28, 2026', soldTo: 'Sam', price: '$22.00', size: 'OS', orderTotal: '$25.40' },
-      { id: 's4', type: 'sale', name: 'Canvas Shoes', meta: 'Sold Feb 26, 2026', amount: '$35.00', orderId: 'SALE-2004', orderDate: 'Feb 26, 2026', soldTo: 'Jordan', price: '$35.00', size: '9', orderTotal: '$39.10' }
+      { id: 's1', type: 'sale', name: 'Designer Handbag', meta: 'Sold Mar 3, 2026', amount: '$120.00', orderId: 'SALE-2001', orderDate: 'Mar 3, 2026', soldTo: 'Jack', price: '$120.00', size: 'OS', orderTotal: '$117.40', orderStatus: 'shipped' },
+      { id: 's2', type: 'sale', name: 'Winter Coat', meta: 'Sold Mar 2, 2026', amount: '$85.00', orderId: 'SALE-2002', orderDate: 'Mar 2, 2026', soldTo: 'Alex', price: '$85.00', size: 'L', orderTotal: '$89.20', orderStatus: 'placed' },
+      { id: 's3', type: 'sale', name: 'Gold Earrings', meta: 'Sold Feb 28, 2026', amount: '$22.00', orderId: 'SALE-2003', orderDate: 'Feb 28, 2026', soldTo: 'Sam', price: '$22.00', size: 'OS', orderTotal: '$25.40', orderStatus: 'complete' },
+      { id: 's4', type: 'sale', name: 'Canvas Shoes', meta: 'Sold Feb 26, 2026', amount: '$35.00', orderId: 'SALE-2004', orderDate: 'Feb 26, 2026', soldTo: 'Jordan', price: '$35.00', size: '9', orderTotal: '$39.10', orderStatus: 'transit' }
     ]
   };
 
@@ -1191,7 +1400,8 @@
     { id: 'seller_not_shipped', label: 'Seller has not shipped my order', screen: 'article', topic: 'order_related', articleIndex: 2 },
     { id: 'delivered_not_received', label: 'Order marked delivered but I have not received it', screen: 'article', topic: 'order_related', articleIndex: 5 },
     { id: 'not_described', label: 'Item not as described or wrong item', screen: 'article', topic: 'order_related', articleIndex: 8 },
-    { id: 'change_address', label: 'I want to change the shipping address', screen: 'article', topic: 'order_related', articleIndex: 6 }
+    { id: 'change_address', label: 'I want to change the shipping address', screen: 'article', topic: 'order_related', articleIndex: 6 },
+    { id: 'others', label: 'Others / My issue is not listed here', screen: 'chatbot' }
   ];
 
   var TRACKING_STEPS = [
@@ -1218,18 +1428,111 @@
   }
 
   function showHelpScreen(name) {
-    var map = { supportEntry: 'screenSupportEntry', home: 'screenHome', articleList: 'screenArticleList', article: 'screenArticle', contact: 'screenContact', contactDone: 'screenContactDone', allTransactions: 'screenAllTransactions', myPurchases: 'screenMyPurchases', orderHelp: 'screenOrderHelp', orderTracking: 'screenOrderTracking' };
+    var map = { supportEntry: 'screenSupportEntry', home: 'screenHome', articleList: 'screenArticleList', article: 'screenArticle', chatbot: 'screenChatbot', contact: 'screenContact', contactDone: 'screenContactDone', allTransactions: 'screenAllTransactions', myPurchases: 'screenMyPurchases', orderDetails: 'screenOrderDetails', orderHelp: 'screenOrderHelp', orderTracking: 'screenOrderTracking' };
     showScreen(map[name] || name);
     var titleEl = document.getElementById('headerTitle');
-    if (titleEl) titleEl.textContent = (name === 'supportEntry') ? 'Account' : 'Poshmark Support';
+    if (titleEl) titleEl.textContent = (name === 'supportEntry') ? 'Account' : (name === 'orderDetails') ? 'Order Details' : 'Poshmark Support';
     var wrapper = document.getElementById('appWrapper');
-    if (wrapper) wrapper.classList.toggle('entry-view', name === 'supportEntry');
+    if (wrapper) {
+      wrapper.classList.toggle('entry-view', name === 'supportEntry');
+      wrapper.classList.toggle('order-details-view', name === 'orderDetails');
+    }
   }
 
   function escapeHtml(s) {
     var div = document.createElement('div');
     div.textContent = s;
     return div.innerHTML;
+  }
+
+  var CHATBOT_GREETING = 'Hey, thanks for reaching out to Poshmark support. Please drop in your question below and we\'ll help you out.';
+
+  var CHATBOT_ICON_BOT = '<span aria-hidden="true">P</span>';
+  var CHATBOT_ICON_USER = '<span aria-hidden="true">👤</span>';
+
+  function openChatbot() {
+    state.chatbotFrom = state.chatbotFrom || 'articleList';
+    state.chatbotContext = state.chatbotContext || state.category || 'order_related';
+    var container = document.getElementById('chatbotMessages');
+    if (container) {
+      container.innerHTML = '';
+      var row = document.createElement('div');
+      row.className = 'chatbot-msg-row bot';
+      row.innerHTML = '<div class="chatbot-msg-icon bot">' + CHATBOT_ICON_BOT + '</div>';
+      var bubble = document.createElement('div');
+      bubble.className = 'chatbot-msg bot';
+      bubble.textContent = CHATBOT_GREETING;
+      row.appendChild(bubble);
+      container.appendChild(row);
+    }
+    document.getElementById('chatbotInput').value = '';
+    showHelpScreen('chatbot');
+  }
+
+  function appendChatMessage(text, who, isHtml) {
+    var container = document.getElementById('chatbotMessages');
+    if (!container) return;
+    var row = document.createElement('div');
+    row.className = 'chatbot-msg-row ' + (who === 'user' ? 'user' : 'bot');
+    var icon = document.createElement('div');
+    icon.className = 'chatbot-msg-icon ' + (who === 'user' ? 'user' : 'bot');
+    icon.innerHTML = who === 'user' ? CHATBOT_ICON_USER : CHATBOT_ICON_BOT;
+    row.appendChild(icon);
+    var bubble = document.createElement('div');
+    bubble.className = 'chatbot-msg ' + (who === 'user' ? 'user' : 'bot');
+    if (isHtml) bubble.innerHTML = text; else bubble.textContent = text;
+    row.appendChild(bubble);
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function appendChatbotMyCasesButton() {
+    var container = document.getElementById('chatbotMessages');
+    if (!container) return;
+    var row = document.createElement('div');
+    row.className = 'chatbot-msg-row bot';
+    row.innerHTML = '<div class="chatbot-msg-icon bot">' + CHATBOT_ICON_BOT + '</div>';
+    var card = document.createElement('div');
+    card.className = 'chatbot-msg chatbot-my-cases-card';
+    card.innerHTML = '<button type="button" class="chatbot-msg-link chatbot-my-cases-btn" data-action="go-to-cases">My cases</button>';
+    row.appendChild(card);
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function getBotReply(userText, context) {
+    var msg = (userText || '').toLowerCase().trim();
+    if (context === 'order_related' || context === 'orders') {
+      var returnToSender = /return to sender|not be at that address|won't be at that address|will not be at that address|shipped.*address|address.*shipped|change.*address.*order|mark.*return/i.test(userText);
+      if (returnToSender) {
+        return {
+          text: 'If the order is shipped, we cannot change the address or mark as return to sender. The order delivery will be attempted and if the order has not been accepted then it will be marked as return to sender; otherwise, unfortunately we can\'t change the status. Here is the link to change your address in the account for future orders.',
+          createCase: false
+        };
+      }
+    }
+    var caseId = 'PM-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 900000) + 100000);
+    var subjectText = (userText || '').trim();
+    var subject = subjectText.length > 50 ? subjectText.substring(0, 50) + '…' : (subjectText || 'Support request');
+    state.cases.unshift({
+      id: caseId,
+      subject: subject,
+      category: categoryLabels[context] || 'Support',
+      article: 'Others',
+      status: 'open',
+      openDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      estimatedClosure: (function () { var d = new Date(); d.setDate(d.getDate() + 7); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); })(),
+      messages: [
+        { who: 'You', body: userText, time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) },
+        { who: 'Support', body: 'We\'ve received your case and will follow up shortly.', time: '' }
+      ]
+    });
+    return {
+      text: 'I need further help to assist you with this. I\'ve raised a case for one of our experts to help you. Your case has been created. You can track the case status below.',
+      createCase: true,
+      caseId: caseId,
+      showMyCasesButton: true
+    };
   }
 
   function renderRecentTransactions() {
@@ -1258,6 +1561,179 @@
     return null;
   }
 
+  function openCantLocatePopup() {
+    var deliveredDate = DELIVERED_CANT_LOCATE_DATE;
+    var deliveredStr = deliveredDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var eligibleDate = new Date(deliveredDate.getTime() + 5 * 86400000);
+    var eligibleStr = eligibleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var bodyEl = document.getElementById('cantLocatePopupBody');
+    if (bodyEl) {
+      bodyEl.innerHTML = '<p>Your order was marked <strong>delivered on ' + escapeHtml(deliveredStr) + '</strong>.</p><p>Please search around your home and ask neighbors or your carrier. If you still cannot find it by <strong>' + escapeHtml(eligibleStr) + '</strong> (5 days after delivery), you are eligible for a refund.</p><p>You can raise a request for a lost package after 5 days using the button below.</p>';
+    }
+    var now = Date.now();
+    var daysSince = Math.floor((now - deliveredDate.getTime()) / 86400000);
+    var btn = document.getElementById('cantLocateReportBtn');
+    var hint = document.getElementById('cantLocateReportHint');
+    if (daysSince >= 5) {
+      if (btn) { btn.classList.remove('disabled'); btn.removeAttribute('title'); btn.disabled = false; }
+      if (hint) hint.textContent = 'You can now report this package as lost.';
+    } else {
+      if (btn) { btn.classList.add('disabled'); btn.title = 'Available to report on ' + eligibleStr + ' (5th day after delivery).'; btn.disabled = true; }
+      if (hint) hint.textContent = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
+    }
+    var overlay = document.getElementById('cantLocatePopupOverlay');
+    if (overlay) { overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden', 'false'); }
+  }
+
+  function closeCantLocatePopup() {
+    var overlay = document.getElementById('cantLocatePopupOverlay');
+    if (overlay) { overlay.style.display = 'none'; overlay.setAttribute('aria-hidden', 'true'); }
+  }
+
+  function getOrderPlacedTime(order) {
+    if (order.orderPlacedTimestamp != null) return order.orderPlacedTimestamp;
+    var d = order.orderDate ? new Date(order.orderDate) : null;
+    return (d && !isNaN(d.getTime())) ? d.getTime() : (Date.now() - 4 * 86400000);
+  }
+
+  function openTrackingNotUpdatedPopup() {
+    var order = state.selectedOrder;
+    if (!order) return;
+    var placedTime = getOrderPlacedTime(order);
+    var placedDate = new Date(placedTime);
+    var eligibleDate = new Date(placedTime + 7 * 86400000);
+    var eligibleStr = eligibleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var bodyEl = document.getElementById('trackingNotUpdatedPopupBody');
+    if (bodyEl) {
+      bodyEl.innerHTML = '<p>Tracking might not have been updated due to the delay in processing of packages by USPS. Please wait for <strong>7 days</strong>, as USPS might sometimes take time in updating.</p><p>If you still don&apos;t see an update by 7 days, you can raise an Order not getting tracked report below. We will assist you accordingly.</p>';
+    }
+    var now = Date.now();
+    var daysSincePlaced = Math.floor((now - placedTime) / 86400000);
+    var btn = document.getElementById('trackingNotUpdatedReportBtn');
+    var hint = document.getElementById('trackingNotUpdatedReportHint');
+    if (daysSincePlaced >= 7) {
+      if (btn) { btn.classList.remove('disabled'); btn.removeAttribute('title'); btn.disabled = false; }
+      if (hint) hint.textContent = 'You can now report this order as not getting tracked.';
+    } else {
+      if (btn) { btn.classList.add('disabled'); btn.title = 'Available to report after 7 days from order date (' + eligibleStr + ').'; btn.disabled = true; }
+      if (hint) hint.textContent = 'Available to report after 7 days from order date (' + eligibleStr + ').';
+    }
+    var overlay = document.getElementById('trackingNotUpdatedPopupOverlay');
+    if (overlay) { overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden', 'false'); }
+  }
+
+  function closeTrackingNotUpdatedPopup() {
+    var overlay = document.getElementById('trackingNotUpdatedPopupOverlay');
+    if (overlay) { overlay.style.display = 'none'; overlay.setAttribute('aria-hidden', 'true'); }
+  }
+
+  function openPlacedDelayedPopup() {
+    var order = state.selectedOrder;
+    if (!order) return;
+    var placedTime = getOrderPlacedTime(order);
+    var eligibleDate = new Date(placedTime + 7 * 86400000);
+    var eligibleStr = eligibleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var now = Date.now();
+    var daysSincePlaced = Math.floor((now - placedTime) / 86400000);
+    var bodyEl = document.getElementById('placedDelayedPopupBody');
+    var cancelBtn = document.getElementById('placedDelayedCancelBtn');
+    var waitBtn = document.getElementById('placedDelayedWaitBtn');
+    var closeBtn = document.getElementById('placedDelayedCloseBtn');
+    var btnsWrap = document.getElementById('placedDelayedBtns');
+    var hint = document.getElementById('placedDelayedReportHint');
+    var titleEl = document.getElementById('placedDelayedPopupTitle');
+    if (titleEl) titleEl.textContent = 'Order taking longer than expected to be processed?';
+    if (closeBtn) closeBtn.style.display = 'none';
+    if (btnsWrap) btnsWrap.style.display = 'block';
+    if (hint) hint.style.display = 'block';
+    if (daysSincePlaced < 7) {
+      if (bodyEl) {
+        bodyEl.innerHTML = '<p>The seller has up to 7 days for processing the order. Please allow the sellers the maximum time to process your orders.</p><p>If you still do not see the seller shipping the order by the 8th day, you can raise a cancel request here.</p>';
+      }
+      if (cancelBtn) { cancelBtn.classList.add('disabled'); cancelBtn.disabled = true; cancelBtn.title = 'Available from the 8th day after order date (' + eligibleStr + ').'; cancelBtn.style.display = 'block'; }
+      if (waitBtn) waitBtn.style.display = 'none';
+      if (hint) hint.textContent = 'Available from the 8th day after order date (' + eligibleStr + ').';
+    } else {
+      if (bodyEl) {
+        bodyEl.innerHTML = '<p>Your order has been in process with the seller for more than 7 days now.</p><p>As per policy you are eligible to cancel your order. However, if you would like to wait a bit more, we will nudge the seller to prepare and send your order.</p>';
+      }
+      if (cancelBtn) { cancelBtn.classList.remove('disabled'); cancelBtn.disabled = false; cancelBtn.removeAttribute('title'); cancelBtn.style.display = 'block'; }
+      if (waitBtn) waitBtn.style.display = 'block';
+      if (hint) hint.textContent = 'Choose an option below.';
+    }
+    var overlay = document.getElementById('placedDelayedPopupOverlay');
+    if (overlay) { overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden', 'false'); }
+  }
+
+  function showPlacedDelayedSuccessCancel() {
+    document.getElementById('placedDelayedPopupTitle').textContent = 'Order cancelled';
+    document.getElementById('placedDelayedPopupBody').innerHTML = '<p>Order has been cancelled successfully and you will receive a mail about your refund shortly.</p>';
+    document.getElementById('placedDelayedBtns').style.display = 'none';
+    document.getElementById('placedDelayedReportHint').style.display = 'none';
+    document.getElementById('placedDelayedCloseBtn').style.display = 'block';
+  }
+
+  function showPlacedDelayedNudgeSent() {
+    document.getElementById('placedDelayedPopupTitle').textContent = 'Nudge sent to seller';
+    document.getElementById('placedDelayedPopupBody').innerHTML = '<p>Thanks for your patience. We have sent a nudge to the seller for priority shipping of your order.</p><p>Please be rest assured we are following up and if you still don&apos;t get a response in the next 3 days, you can come back here to cancel the order.</p>';
+    document.getElementById('placedDelayedBtns').style.display = 'none';
+    document.getElementById('placedDelayedReportHint').style.display = 'none';
+    document.getElementById('placedDelayedCloseBtn').style.display = 'block';
+  }
+
+  function closePlacedDelayedPopup() {
+    var overlay = document.getElementById('placedDelayedPopupOverlay');
+    if (overlay) { overlay.style.display = 'none'; overlay.setAttribute('aria-hidden', 'true'); }
+    if (state.selectedOrder && state.selectedOrder.orderStatus === 'cancelled') {
+      openOrderDetails(state.selectedOrder, state.cameFrom);
+    }
+  }
+
+  function openOrderDetails(order, from) {
+    state.selectedOrder = order;
+    state.cameFrom = from || 'home';
+    var dateStr = (order.orderDate || order.meta || '—').replace(/^Paid\s+/i, '').replace(/^Sold\s+/i, '');
+    document.getElementById('orderDetailsOrderedOn').textContent = 'Ordered On ' + dateStr;
+    document.getElementById('orderDetailsOrderNumber').textContent = 'Order Number: ' + (order.orderId || order.id);
+    document.getElementById('orderDetailsSoldBy').textContent = 'Sold By: ' + (order.seller || order.supplier || '—');
+    document.getElementById('orderDetailsProductName').textContent = order.name || '—';
+    var metaParts = [(order.price || order.amount || '—'), order.size ? 'Size: ' + order.size : ''];
+    document.getElementById('orderDetailsProductMeta').textContent = metaParts.filter(Boolean).join(' · ');
+    var imgEl = document.getElementById('orderDetailsThumbImg');
+    if (imgEl) {
+      imgEl.src = order.imageUrl || ('https://picsum.photos/seed/' + encodeURIComponent(order.id) + '/144/144');
+      imgEl.alt = order.name || 'Product';
+    }
+    document.getElementById('orderDetailsOrderTotal').textContent = 'Order Total: ' + (order.orderTotal || order.amount || '—');
+    var statusKey = (order.orderStatus || 'placed');
+    var activeIdx = (statusKey === 'cancelled') ? -1 : (ORDER_STATUS_TO_STEP[statusKey] != null ? ORDER_STATUS_TO_STEP[statusKey] : 0);
+    var statusLabels = { placed: 'Order Placed', shipped: 'Shipped by Seller', transit: 'In Transit', delivered: 'Delivered', complete: 'Order Complete', cancelled: 'Cancelled' };
+    var statusLabel = statusLabels[statusKey] || statusLabels.placed;
+    document.getElementById('orderDetailsStatusBadge').textContent = statusLabel;
+    var trackingLabel = (statusKey === 'cancelled') ? 'Order cancelled' : (activeIdx === 0 ? 'Tracking: Not Yet Available' : (activeIdx >= 3 ? 'Tracking: Delivered' : 'Tracking: Available'));
+    document.getElementById('orderDetailsTrackingStatus').textContent = trackingLabel;
+    var acceptCard = document.getElementById('orderDetailsAcceptCard');
+    if (acceptCard) acceptCard.style.display = (statusKey === 'complete' || statusKey === 'cancelled') ? 'none' : 'block';
+    var cantLocateWrap = document.getElementById('orderDetailsCantLocateWrap');
+    if (cantLocateWrap) cantLocateWrap.style.display = (statusKey === 'delivered') ? 'block' : 'none';
+    var trackingNotUpdatedWrap = document.getElementById('orderDetailsTrackingNotUpdatedWrap');
+    if (trackingNotUpdatedWrap) trackingNotUpdatedWrap.style.display = (statusKey === 'shipped') ? 'block' : 'none';
+    var placedDelayedWrap = document.getElementById('orderDetailsPlacedDelayedWrap');
+    if (placedDelayedWrap) placedDelayedWrap.style.display = (statusKey === 'placed') ? 'block' : 'none';
+    var timelineEl = document.getElementById('orderDetailsTimeline');
+    if (statusKey === 'cancelled') {
+      timelineEl.innerHTML = '<div class="step"><span class="dot"></span><div><div class="label">Order cancelled</div><div class="hint">You will receive a confirmation email about your refund shortly.</div></div></div>';
+    } else {
+      timelineEl.innerHTML = TRACKING_STEPS.map(function (step, i) {
+        var active = i <= activeIdx;
+        return '<div class="step' + (active ? ' active' : '') + '"><span class="dot"></span><div><div class="label">' + escapeHtml(step.label) + '</div><div class="hint">' + escapeHtml(step.desc) + '</div></div></div>';
+      }).join('');
+    }
+    showHelpScreen('orderDetails');
+    var titleEl = document.getElementById('headerTitle');
+    if (titleEl) titleEl.textContent = 'Order Details';
+  }
+
   function openOrderHelp(order) {
     state.selectedOrder = order;
     document.getElementById('orderHelpOrderId').textContent = 'Order ID ' + (order.orderId || order.id);
@@ -1278,7 +1754,11 @@
         var idx = parseInt(li.getAttribute('data-issue-index'), 10);
         var issue = ORDER_ISSUES[idx];
         if (issue.screen === 'tracking') {
-          openOrderTracking();
+          openOrderDetails(state.selectedOrder, 'orderHelp');
+        } else if (issue.screen === 'chatbot') {
+          state.chatbotFrom = 'orderHelp';
+          state.chatbotContext = 'order_related';
+          openChatbot();
         } else {
           state.category = issue.topic || 'order_related';
           state.categoryLabel = categoryLabels[state.category] || 'Order Related';
@@ -1382,13 +1862,19 @@
     var ul = document.getElementById('articleList');
     ul.innerHTML = list.map(function (a, i) {
       return '<a href="#" class="article-list-item" data-index="' + i + '"><span class="title">' + escapeHtml(a.title) + '</span><span class="arrow">›</span></a>';
-    }).join('');
+    }).join('') + '<a href="#" class="article-list-item" data-others="1"><span class="title">Others / My issue is not listed here</span><span class="arrow">›</span></a>';
     document.getElementById('articleListCategoryLabel').textContent = state.categoryLabel;
     var titleEl = document.getElementById('articleListTitle');
     if (titleEl) titleEl.textContent = 'Questions';
     ul.querySelectorAll('.article-list-item').forEach(function (a) {
       a.addEventListener('click', function (ev) {
         ev.preventDefault();
+        if (this.getAttribute('data-others') === '1') {
+          state.chatbotFrom = 'articleList';
+          state.chatbotContext = state.category;
+          openChatbot();
+          return;
+        }
         state.articleIndex = parseInt(this.getAttribute('data-index'), 10);
         state.article = list[state.articleIndex];
         document.getElementById('articleBreadcrumb').textContent = state.categoryLabel;
@@ -1496,7 +1982,7 @@
     list.querySelectorAll('.txn-row').forEach(function (li) {
       li.addEventListener('click', function () {
         var t = findTransaction(li.getAttribute('data-txn-id'));
-        if (t) openOrderHelp(t);
+        if (t) openOrderDetails(t, 'myPurchases');
       });
     });
     showHelpScreen('myPurchases');
@@ -1504,6 +1990,75 @@
 
   var orderTrackingShowDetails = document.getElementById('orderTrackingShowDetails');
   if (orderTrackingShowDetails) orderTrackingShowDetails.addEventListener('click', function (e) { e.preventDefault(); });
+
+  var orderDetailsCopyOrderId = document.getElementById('orderDetailsCopyOrderId');
+  if (orderDetailsCopyOrderId) orderDetailsCopyOrderId.addEventListener('click', function () {
+    var order = state.selectedOrder;
+    var id = order && (order.orderId || order.id);
+    if (id && navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(id);
+  });
+  var orderDetailsAcceptBtn = document.getElementById('orderDetailsAcceptBtn');
+  if (orderDetailsAcceptBtn) orderDetailsAcceptBtn.addEventListener('click', function (e) { e.preventDefault(); });
+  var orderDetailsMessageSeller = document.getElementById('orderDetailsMessageSeller');
+  if (orderDetailsMessageSeller) orderDetailsMessageSeller.addEventListener('click', function (e) { e.preventDefault(); });
+  document.getElementById('orderDetailsProblemsInquiry').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.cameFromOrderDetails = true;
+    if (state.selectedOrder) openOrderHelp(state.selectedOrder);
+  });
+
+  var orderDetailsCantLocateLink = document.getElementById('orderDetailsCantLocateLink');
+  if (orderDetailsCantLocateLink) orderDetailsCantLocateLink.addEventListener('click', function (e) { e.preventDefault(); openCantLocatePopup(); });
+  var cantLocatePopupClose = document.getElementById('cantLocatePopupClose');
+  if (cantLocatePopupClose) cantLocatePopupClose.addEventListener('click', closeCantLocatePopup);
+  var cantLocatePopupOverlay = document.getElementById('cantLocatePopupOverlay');
+  if (cantLocatePopupOverlay) cantLocatePopupOverlay.addEventListener('click', function (e) { if (e.target === cantLocatePopupOverlay) closeCantLocatePopup(); });
+  var orderDetailsTrackingNotUpdatedLink = document.getElementById('orderDetailsTrackingNotUpdatedLink');
+  if (orderDetailsTrackingNotUpdatedLink) orderDetailsTrackingNotUpdatedLink.addEventListener('click', function (e) { e.preventDefault(); openTrackingNotUpdatedPopup(); });
+  var trackingNotUpdatedPopupClose = document.getElementById('trackingNotUpdatedPopupClose');
+  if (trackingNotUpdatedPopupClose) trackingNotUpdatedPopupClose.addEventListener('click', closeTrackingNotUpdatedPopup);
+  var trackingNotUpdatedPopupOverlay = document.getElementById('trackingNotUpdatedPopupOverlay');
+  if (trackingNotUpdatedPopupOverlay) trackingNotUpdatedPopupOverlay.addEventListener('click', function (e) { if (e.target === trackingNotUpdatedPopupOverlay) closeTrackingNotUpdatedPopup(); });
+  var trackingNotUpdatedReportBtn = document.getElementById('trackingNotUpdatedReportBtn');
+  if (trackingNotUpdatedReportBtn) trackingNotUpdatedReportBtn.addEventListener('click', function () {
+    if (this.classList.contains('disabled') || this.disabled) return;
+    closeTrackingNotUpdatedPopup();
+    state.category = 'delivery_tracking';
+    state.categoryLabel = 'Delivery and tracking';
+    state.article = { title: 'Order not getting tracked' };
+    document.getElementById('prefillCategory').textContent = state.categoryLabel;
+    document.getElementById('prefillArticle').textContent = state.article.title;
+    showHelpScreen('contact');
+  });
+  var orderDetailsPlacedDelayedLink = document.getElementById('orderDetailsPlacedDelayedLink');
+  if (orderDetailsPlacedDelayedLink) orderDetailsPlacedDelayedLink.addEventListener('click', function (e) { e.preventDefault(); openPlacedDelayedPopup(); });
+  var placedDelayedPopupClose = document.getElementById('placedDelayedPopupClose');
+  if (placedDelayedPopupClose) placedDelayedPopupClose.addEventListener('click', closePlacedDelayedPopup);
+  var placedDelayedPopupOverlay = document.getElementById('placedDelayedPopupOverlay');
+  if (placedDelayedPopupOverlay) placedDelayedPopupOverlay.addEventListener('click', function (e) { if (e.target === placedDelayedPopupOverlay) closePlacedDelayedPopup(); });
+  var placedDelayedCancelBtn = document.getElementById('placedDelayedCancelBtn');
+  if (placedDelayedCancelBtn) placedDelayedCancelBtn.addEventListener('click', function () {
+    if (this.classList.contains('disabled') || this.disabled) return;
+    if (state.selectedOrder) state.selectedOrder.orderStatus = 'cancelled';
+    showPlacedDelayedSuccessCancel();
+  });
+  var placedDelayedWaitBtn = document.getElementById('placedDelayedWaitBtn');
+  if (placedDelayedWaitBtn) placedDelayedWaitBtn.addEventListener('click', function () {
+    showPlacedDelayedNudgeSent();
+  });
+  var placedDelayedCloseBtn = document.getElementById('placedDelayedCloseBtn');
+  if (placedDelayedCloseBtn) placedDelayedCloseBtn.addEventListener('click', closePlacedDelayedPopup);
+  var cantLocateReportBtn = document.getElementById('cantLocateReportBtn');
+  if (cantLocateReportBtn) cantLocateReportBtn.addEventListener('click', function () {
+    if (this.classList.contains('disabled') || this.disabled) return;
+    closeCantLocatePopup();
+    state.category = 'delivery_tracking';
+    state.categoryLabel = 'Delivery and tracking';
+    state.article = { title: 'Report lost package' };
+    document.getElementById('prefillCategory').textContent = state.categoryLabel;
+    document.getElementById('prefillArticle').textContent = state.article.title;
+    showHelpScreen('contact');
+  });
 
   document.getElementById('reportLostBtn').addEventListener('click', function () {
     if (this.classList.contains('disabled')) return;
@@ -1517,6 +2072,36 @@
     document.getElementById('prefillCategory').textContent = state.categoryLabel;
     document.getElementById('prefillArticle').textContent = state.article ? state.article.title : 'General';
     showHelpScreen('contact');
+  });
+
+  var chatbotInput = document.getElementById('chatbotInput');
+  var chatbotSendBtn = document.getElementById('chatbotSendBtn');
+  if (chatbotSendBtn && chatbotInput) {
+    function sendChatbotMessage() {
+      var text = chatbotInput.value.trim();
+      if (!text) return;
+      appendChatMessage(text, 'user', false);
+      chatbotInput.value = '';
+      var ctx = state.chatbotContext || 'order_related';
+      var reply = getBotReply(text, ctx);
+      appendChatMessage(reply.text, 'bot', false);
+      if (reply.showMyCasesButton) {
+        appendChatbotMyCasesButton();
+      }
+    }
+    chatbotSendBtn.addEventListener('click', sendChatbotMessage);
+    chatbotInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatbotMessage(); }
+    });
+  }
+  document.getElementById('chatbotMessages').addEventListener('click', function (e) {
+    var btn = e.target.closest('.chatbot-msg-link[data-action="go-to-cases"]');
+    if (btn) {
+      e.preventDefault();
+      state.segment = 'cases';
+      showScreen('segmentCases');
+      renderCases();
+    }
   });
 
   document.getElementById('feedbackYes').addEventListener('click', function () {
@@ -1665,11 +2250,16 @@
       else if (active && active.id === 'screenSupportEntry') { /* stay on entry (back from account) */ return; }
       else if (active && active.id === 'screenArticleList') showHelpScreen('home');
       else if (active && active.id === 'screenArticle') showHelpScreen('articleList');
+      else if (active && active.id === 'screenChatbot') showHelpScreen(state.chatbotFrom === 'orderHelp' ? 'orderHelp' : 'articleList');
       else if (active && active.id === 'screenContact') showHelpScreen('article');
       else if (active && active.id === 'screenContactDone') showHelpScreen('home');
       else if (active && active.id === 'screenAllTransactions' || active && active.id === 'screenMyPurchases') showHelpScreen('home');
+      else if (active && active.id === 'screenOrderDetails') showHelpScreen(state.cameFrom === 'myPurchases' ? 'myPurchases' : (state.cameFrom === 'orderHelp' ? 'orderHelp' : (state.cameFrom === 'allTransactions' ? 'allTransactions' : 'home')));
       else if (active && active.id === 'screenOrderTracking') showHelpScreen('orderHelp');
-      else if (active && active.id === 'screenOrderHelp') showHelpScreen('home');
+      else if (active && active.id === 'screenOrderHelp') {
+        if (state.cameFromOrderDetails) { state.cameFromOrderDetails = false; showHelpScreen('orderDetails'); var t = document.getElementById('headerTitle'); if (t) t.textContent = 'Order Details'; }
+        else showHelpScreen('home');
+      }
       else showHelpScreen('supportEntry');
     }
   });
