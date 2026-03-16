@@ -667,7 +667,7 @@
     .thread-item .time { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
     .case-reply-box { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
     .case-reply-box label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .case-reply-box textarea { width: 100%; max-width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; font-family: inherit; min-height: 80px; margin-bottom: 12px; box-sizing: border-box; }
+    .case-reply-box textarea { width: 100%; max-width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; font-family: inherit; min-height: 80px; box-sizing: border-box; }
     .case-reply-box .btn-submit-case,
     .case-reply-box .btn-reopen {
       width: 100%;
@@ -682,6 +682,14 @@
     }
     .case-reply-box .btn-submit-case { border: none; background: var(--primary); color: #fff; }
     .case-reply-box .btn-reopen { border: 1px solid var(--primary); background: var(--card); color: var(--primary); }
+    .case-reply-box .case-input-row { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 10px; }
+    .case-reply-box .case-input-row .textarea-wrap { flex: 1; min-width: 0; }
+    .case-reply-box .case-input-row textarea { width: 100%; max-width: 100%; margin-bottom: 0; box-sizing: border-box; }
+    .case-reply-box .btn-attach { flex-shrink: 0; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--border); border-radius: 10px; background: var(--card); color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .case-reply-box .btn-attach:hover { background: var(--bg); }
+    .case-reply-box .btn-attach svg { width: 22px; height: 22px; }
+    .case-reply-box .case-attach-files { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+    .case-reply-box .case-attach-files .file-name { display: inline-block; margin-right: 8px; margin-bottom: 4px; }
 
     /* Order help (order page: details + What issue are you facing?) */
     .order-help-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 20px; }
@@ -940,6 +948,7 @@
             <li><a href="#" class="settings-menu-item" data-menu="guide"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8"/></svg></span><span class="menu-label">Your Guide to Poshmark</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="etiquette"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span><span class="menu-label">Posh Etiquette</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" id="menuPoshmarkSupportCenter"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="12" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg></span><span class="menu-label">Poshmark Support Center</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" id="menuTrackMyCases"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h6"/></svg></span><span class="menu-label">Track My Cases</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="faq"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span class="menu-label">Frequently Asked Questions</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="status"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="menu-label">Poshmark Status</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="about"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="menu-label">About Poshmark</span><span class="menu-arrow">›</span></a></li>
@@ -1228,7 +1237,14 @@
       </div>
       <div class="case-reply-box" id="caseReplyBox">
         <label for="caseReplyInput">Add more information to case</label>
-        <textarea id="caseReplyInput" placeholder="Type your message..."></textarea>
+        <div class="case-input-row">
+          <div class="textarea-wrap">
+            <textarea id="caseReplyInput" placeholder="Type your message..."></textarea>
+          </div>
+          <input type="file" id="caseAttachInput" accept="image/*,.pdf,application/pdf" multiple style="display:none;" aria-hidden="true">
+          <button type="button" class="btn-attach" id="caseAttachBtn" aria-label="Attach image or file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+        </div>
+        <div class="case-attach-files" id="caseAttachFiles"></div>
         <button type="button" class="btn-submit-case" id="caseSubmitBtn">Submit</button>
       </div>
       <div class="case-reply-box" id="caseReopenBox" style="display:none;">
@@ -1925,6 +1941,12 @@
     e.preventDefault();
     showHelpScreen('home');
   });
+  document.getElementById('menuTrackMyCases').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.segment = 'cases';
+    showScreen('segmentCases');
+    renderCases();
+  });
   document.querySelectorAll('#screenSupportEntry .settings-menu-item[data-menu]').forEach(function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); });
   });
@@ -2184,16 +2206,41 @@
     document.getElementById('caseReopenBox').style.display = isClosed ? 'block' : 'none';
     document.getElementById('caseReplyInput').value = '';
     document.getElementById('caseReopenInput').value = '';
+    var attachInput = document.getElementById('caseAttachInput');
+    if (attachInput) { attachInput.value = ''; }
+    var attachFilesEl = document.getElementById('caseAttachFiles');
+    if (attachFilesEl) { attachFilesEl.textContent = ''; }
   }
+
+  document.getElementById('caseAttachBtn').addEventListener('click', function () {
+    document.getElementById('caseAttachInput').click();
+  });
+  document.getElementById('caseAttachInput').addEventListener('change', function () {
+    var files = this.files;
+    var el = document.getElementById('caseAttachFiles');
+    if (!files || files.length === 0) { el.textContent = ''; return; }
+    var names = [];
+    for (var i = 0; i < files.length; i++) { names.push(files[i].name); }
+    el.innerHTML = names.map(function (n) { return '<span class="file-name">' + escapeHtml(n) + '</span>'; }).join('');
+  });
 
   document.getElementById('caseSubmitBtn').addEventListener('click', function () {
     var c = state.currentCase;
     var input = document.getElementById('caseReplyInput');
     var text = (input.value || '').trim();
-    if (!c || !text) return;
+    var attachInput = document.getElementById('caseAttachInput');
+    var files = attachInput && attachInput.files ? attachInput.files : [];
+    var fileNames = [];
+    for (var i = 0; i < files.length; i++) { fileNames.push(files[i].name); }
+    var hasAttachments = fileNames.length > 0;
+    if (!c || (!text && !hasAttachments)) return;
+    var body = text || '';
+    if (hasAttachments) { body += (body ? ' ' : '') + '(Attached: ' + fileNames.join(', ') + ')'; }
     c.messages = c.messages || [];
-    c.messages.push({ who: 'You', body: text, time: 'Just now' });
+    c.messages.push({ who: 'You', body: body, time: 'Just now' });
     input.value = '';
+    attachInput.value = '';
+    document.getElementById('caseAttachFiles').textContent = '';
     var thread = document.getElementById('threadMessages');
     var last = c.messages[c.messages.length - 1];
     thread.insertAdjacentHTML('beforeend',
