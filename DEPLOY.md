@@ -44,7 +44,7 @@ After a minute or two, the site will be available at:
 Example: `https://acme.github.io/poshmark-support-prototype/`
 
 Share that link with your team. The landing page links to:
-- **Article-led flow** (with optional tour)
+- **Article-led baseline** (`support_article_led_mobile.html`) and **Variant B** (`support_article_led_variant_b.html` — full copy for experiments; each has optional tour)
 - **Form-led flow**
 - Other prototypes (My Purchases, support flow, track cases, case detail)
 
