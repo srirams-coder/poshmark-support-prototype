@@ -1283,25 +1283,513 @@
     .order-tracking-actions .btn { padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: 1px solid var(--primary); background: var(--card); color: var(--primary); }
     .order-tracking-card .link { color: var(--link); text-decoration: none; font-size: 0.875rem; margin-left: 6px; }
 
-    /* Order Details (app-style: tracking on same page, Accept Order, Message Seller, Problems) */
+    /* Order Details (app-style: section dividers, collapsible payment, Order Status, Open cases) */
+    .app-wrapper.order-details-view .app-header .title.title-order-details-serif {
+      font-family: Georgia, 'Times New Roman', 'Noto Serif', serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
     .order-details-page { padding-bottom: 24px; }
-    .order-details-page .ordered-on { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-    .order-details-page .order-number-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; }
-    .order-details-page .order-number-row .copy-btn { background: none; border: none; padding: 4px; cursor: pointer; color: var(--text-muted); }
-    .order-details-page .sold-by { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
-    .order-details-page .product-row { display: flex; gap: 12px; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+    .order-details-page .od-section {
+      border-bottom: 1px solid #e5e5ea;
+      padding: 16px 0;
+      margin: 0;
+    }
+    .order-details-page .od-section:first-child { padding-top: 0; }
+    .order-details-page .od-section-meta .ordered-on { font-size: 1.05rem; font-weight: 700; color: #000; margin-bottom: 8px; }
+    .order-details-page .od-section-meta .order-number-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.875rem; color: #8e8e93; margin-bottom: 4px; }
+    .order-details-page .od-section-meta .order-number-row .copy-btn { background: none; border: none; padding: 4px; cursor: pointer; color: #8e8e93; font-size: 0.85rem; }
+    .order-details-page .od-section-meta .sold-by { font-size: 0.875rem; color: #8e8e93; margin: 0; }
+    .order-details-page .od-section-product { padding-top: 16px; padding-bottom: 16px; }
+    .order-details-page .product-row { display: flex; gap: 12px; padding: 0; margin: 0; border: none; }
     .order-details-page .product-row .thumb { width: 72px; height: 72px; border-radius: 8px; background: var(--bg); flex-shrink: 0; overflow: hidden; }
     .order-details-page .product-row .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .order-details-page .product-row .info { flex: 1; min-width: 0; }
-    .order-details-page .product-row .name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-    .order-details-page .product-row .meta { font-size: 0.875rem; color: var(--text-muted); }
-    .order-details-page .section-head { font-size: 1rem; font-weight: 700; color: var(--text); margin: 20px 0 12px; display: flex; align-items: center; gap: 6px; }
-    .order-details-page .section-head .info-icon { color: var(--text-muted); font-size: 0.9rem; }
-    .order-details-page .order-total { font-size: 0.95rem; color: var(--text); margin-bottom: 20px; }
-    .order-details-page .order-status-badge { display: inline-block; font-size: 0.9rem; font-weight: 700; color: var(--primary); background: rgba(198, 47, 43, 0.12); padding: 6px 12px; border-radius: 20px; margin-bottom: 10px; }
-    .order-details-page .tracking-status { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
-    .order-details-page .order-details-cant-locate-wrap { margin: 16px 0; padding: 12px 0; border-top: 1px solid var(--border); }
-    .order-details-page .link-cant-locate { background: none; border: none; padding: 0; font-size: 0.95rem; font-weight: 600; color: var(--primary); text-decoration: underline; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .order-details-page .product-row .name { font-size: 1rem; font-weight: 700; color: #000; margin-bottom: 4px; }
+    .order-details-page .product-row .meta { font-size: 0.875rem; color: #8e8e93; line-height: 1.35; }
+    .order-details-page .product-row .meta .od-meta-price { font-weight: 700; color: #000; }
+    .order-details-page .product-row .meta .od-meta-sep { font-weight: 400; color: #8e8e93; }
+    .order-details-page .od-collapsible-head {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0;
+      margin: 0 0 12px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      text-align: left;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .order-details-page .od-collapsible-head .od-chevron {
+      color: #8e8e93;
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .order-details-page .od-section-payment.is-collapsed .od-collapsible-head .od-chevron { transform: rotate(-90deg); }
+    .order-details-page .od-section-payment.is-collapsed .od-payment-body { display: none; }
+    .order-details-page .order-total { font-size: 0.9375rem; color: #000; font-weight: 400; margin: 0; }
+    .order-details-page .od-section-status .section-head,
+    .order-details-page .od-status-section-head {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .order-details-page .od-info-icon-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #aeaeb2;
+      font-size: 0.65rem;
+      font-weight: 700;
+      font-style: italic;
+      color: #636366;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .order-details-page #orderDetailsStatusActiveWrap .order-status-badge {
+      display: inline-block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(198, 47, 43, 0.12);
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .order-details-page #orderDetailsStatusActiveWrap .tracking-status { font-size: 0.9375rem; font-weight: 700; color: #000; margin-bottom: 12px; }
+    .order-details-page .od-cancel-status {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .order-details-page .od-cancel-ico-wrap {
+      position: relative;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .order-details-page .od-cancel-ico-wrap .od-ico-x {
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      color: #d32f2f;
+      font-size: 0.5rem;
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    }
+    .order-details-page .od-cancel-title { font-size: 0.9375rem; font-weight: 600; color: #000; }
+    .order-details-page .od-section-status .timeline-details { margin-top: 8px; }
+    .order-details-page .timeline-details .od-cancel-body {
+      font-size: 0.8125rem;
+      color: #8e8e93;
+      line-height: 1.45;
+      margin: 0;
+    }
+    .order-details-page .order-open-cases-section {
+      margin: 0;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e5ea;
+    }
+    .order-details-page .order-open-cases-section .od-open-cases-head,
+    .order-details-page .od-subsection-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      margin: 0 0 12px;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .order-details-page .order-open-cases-section .od-open-cases-head .od-clipboard-ico,
+    .order-details-page .od-subsection-head .od-troubleshoot-ico {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.55;
+    }
+    .order-details-page .order-troubleshooting-section {
+      margin: 0;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e5ea;
+    }
+    .order-details-page .order-troubleshooting-section .order-details-cant-locate-wrap {
+      padding: 0 0 12px;
+      margin: 0;
+    }
+    /* Open cases on order details — same card style as Track My Cases list */
+    .order-details-page .order-open-cases-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .order-details-page .order-open-cases-list > .case-card-compact {
+      margin: 0 0 12px;
+    }
+    .order-details-page .order-open-cases-list > .case-card-compact:last-child {
+      margin-bottom: 0;
+    }
+    /* Existing case modal (bottom sheet) — inside .device-screen so it never clips outside phone */
+    .order-existing-case-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 5000;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 10px 12px max(10px, env(safe-area-inset-bottom));
+      box-sizing: border-box;
+    }
+    .order-existing-case-overlay[aria-hidden="false"] { display: flex; }
+    .order-existing-case-sheet {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px 16px 0 0;
+      padding: 0 16px max(12px, env(safe-area-inset-bottom));
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
+      max-height: min(75vh, calc(100% - 20px));
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      box-sizing: border-box;
+    }
+    .order-existing-case-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .order-existing-case-header h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .order-existing-case-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 50%;
+    }
+    .order-existing-case-body {
+      padding-bottom: 4px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      min-height: 0;
+      flex: 1;
+    }
+    .order-existing-case-lead {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.45;
+      margin: 0 0 12px;
+      font-weight: 500;
+    }
+    .order-existing-case-body .btn-sheet {
+      display: block;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: 10px;
+      border: none;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .order-existing-case-body .btn-sheet-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .order-existing-case-body .btn-sheet-primary:active { opacity: 0.9; }
+    .order-existing-case-body .btn-sheet-secondary {
+      background: var(--card);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .order-existing-case-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin: 12px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    /* Me menu – profile + section headings (serif, app-style) */
+    .me-profile-strip {
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      margin: 0 -16px 0;
+      padding: 8px 0 4px;
+    }
+    .me-profile-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: #000;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .me-profile-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .me-profile-name { flex: 1; }
+    .settings-menu-section-title.me-section-serif {
+      font-family: Georgia, 'Times New Roman', 'Noto Serif', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding-top: 22px;
+      padding-bottom: 6px;
+    }
+    /* Purchases list — match app (serif title, pill search, thumb + PURCHASE pill + title/price row) */
+    .app-wrapper.purchases-list-view .app-header .my-cases-tag { display: none !important; }
+    .app-wrapper.purchases-list-view .app-header .back {
+      color: var(--primary);
+    }
+    .app-wrapper.purchases-list-view .app-header .title.title-purchases-serif {
+      font-family: Georgia, 'Times New Roman', 'Noto Serif', serif;
+      font-weight: 400;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .purchases-search {
+      margin: 4px 0 8px;
+    }
+    .purchases-search input {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      border: 1px solid #e8e4e0;
+      border-radius: 999px;
+      font-size: 16px;
+      font-family: inherit;
+      background: #f2f2f7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%239b9691' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") 16px center no-repeat;
+      box-sizing: border-box;
+    }
+    .purchases-search input::placeholder { color: #9b9691; }
+    .purchases-app-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: #fff;
+    }
+    .purchases-app-list .purchase-app-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 0;
+      margin: 0;
+      min-height: 88px;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      box-sizing: border-box;
+    }
+    .purchases-app-list .purchase-app-row::after {
+      content: '';
+      position: absolute;
+      left: calc(72px + 12px);
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: #ece8e4;
+      pointer-events: none;
+    }
+    .purchases-app-list .purchase-app-row:last-child::after {
+      display: none;
+    }
+    .purchases-app-list .purchase-app-row:active {
+      background: rgba(0, 0, 0, 0.02);
+    }
+    .purchase-app-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #f2f2f7;
+    }
+    .purchase-app-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .purchase-app-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+    .purchase-app-badge {
+      margin-bottom: 4px;
+    }
+    .purchase-app-badge-pill {
+      display: inline-block;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #5eb3e0;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .purchase-app-title-row {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+    }
+    .purchase-app-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      line-height: 1.25;
+      flex: 1;
+      min-width: 0;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .purchase-app-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      flex-shrink: 0;
+    }
+    .purchase-app-meta {
+      font-size: 0.8125rem;
+      color: #8e8e93;
+      margin-top: 4px;
+      line-height: 1.35;
+      width: 100%;
+    }
+    .purchase-app-status {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #000;
+    }
+    .purchase-app-status.is-cancelled .purchase-app-status-text {
+      color: #000;
+    }
+    .purchase-app-status-ico {
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .purchase-app-ico-cancelled {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.15em;
+      height: 1.15em;
+    }
+    .purchase-app-ico-cancelled .purchase-app-ico-box {
+      font-size: 1em;
+      line-height: 1;
+    }
+    .purchase-app-ico-cancelled .purchase-app-ico-x {
+      position: absolute;
+      right: -4px;
+      top: -4px;
+      color: #d32f2f;
+      font-size: 0.55em;
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    }
+    .purchase-app-chev {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      min-height: 32px;
+      border-radius: 50%;
+      background: #f2f2f7;
+      border: 1px solid #e8e4e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 300;
+      flex-shrink: 0;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .order-details-page .order-details-cant-locate-wrap { text-align: left; }
+    .order-details-page .link-cant-locate {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
     .order-details-page .link-cant-locate:hover { color: var(--primary-hover); }
     /* Delivered can't locate popup */
     .cant-locate-popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
@@ -1323,16 +1811,35 @@
     .cant-locate-popup-actions .placed-delayed-btns .btn-cta { margin-top: 0; }
     .cant-locate-popup-actions .placed-delayed-btns .btn-cta + .btn-cta { margin-top: 10px; }
     .cant-locate-popup-actions .report-available-hint { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 10px; }
-    .order-details-page .timeline-details { margin-top: 12px; }
     .order-details-page .timeline-details .step { display: flex; gap: 12px; margin-bottom: 16px; }
     .order-details-page .timeline-details .step .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; background: var(--border-muted); }
     .order-details-page .timeline-details .step.active .dot { background: var(--primary); }
     .order-details-page .timeline-details .step .label { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
     .order-details-page .timeline-details .step .hint { font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px; }
     .order-details-page .timeline-details .step.active .label { color: var(--primary); }
-    .order-details-page .accept-card { background: var(--bg); border-radius: 12px; padding: 16px; margin: 20px 0; }
-    .order-details-page .accept-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0 0 8px; }
-    .order-details-page .accept-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.45; margin: 0 0 16px; }
+    .order-details-page .od-section-actions { border-bottom: none; padding-top: 0; }
+    .order-details-page .od-section-actions .action-row:first-child { border-top: 1px solid #e5e5ea; }
+    .order-details-page .accept-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 16px;
+      margin: 0 0 12px;
+      text-align: left;
+    }
+    .order-details-page .od-troubleshooting-divider {
+      border: none;
+      border-top: 1px solid #e5e5ea;
+      margin: 20px 0 16px;
+      padding: 0;
+      height: 0;
+    }
+    .order-details-page .order-troubleshooting-section .accept-card {
+      margin-top: 0;
+    }
+    .order-details-page .accept-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0 0 8px; text-align: left; }
+    .order-details-page .accept-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.45; margin: 0 0 16px; text-align: left; }
     .order-details-page .accept-card .btn-accept { width: 100%; padding: 14px; border: none; border-radius: 10px; background: var(--text); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; }
     .order-details-page .action-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); cursor: pointer; min-height: var(--touch-min); touch-action: manipulation; }
     .order-details-page .action-row:last-child { border-bottom: none; }
@@ -1693,7 +2200,47 @@
     <div id="segmentHelp" class="screen active">
       <!-- First page: settings / Help & Resources (entry); click Poshmark Support Center -> home -->
       <div id="screenSupportEntry" class="screen active">
+        <div class="me-profile-strip">
+          <a href="#" class="me-profile-link" id="meProfileStrip">
+            <span class="me-profile-avatar" aria-hidden="true">@</span>
+            <span class="me-profile-name">@sps</span>
+            <span class="menu-arrow" style="margin-left:auto;color:#c7c7cc;">›</span>
+          </a>
+        </div>
         <div class="settings-menu-section">
+          <h2 class="settings-menu-section-title me-section-serif">Developer</h2>
+          <ul class="settings-menu">
+            <li><a href="#" class="settings-menu-item" data-menu="devcommands"><span class="menu-icon" aria-hidden="true">⚙️</span><span class="menu-label">Development Commands</span><span class="menu-arrow">›</span></a></li>
+          </ul>
+        </div>
+        <div class="settings-menu-section">
+          <h2 class="settings-menu-section-title me-section-serif">My Activity</h2>
+          <ul class="settings-menu">
+            <li><a href="#" class="settings-menu-item" data-menu="likes"><span class="menu-icon" aria-hidden="true">♡</span><span class="menu-label">Likes</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="offers"><span class="menu-icon" aria-hidden="true">💬</span><span class="menu-label">Active Offers</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" id="menuMePurchases"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span><span class="menu-label">Purchases</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="bundles"><span class="menu-icon" aria-hidden="true">👜</span><span class="menu-label">Bundles</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="recentviews"><span class="menu-icon" aria-hidden="true">👁</span><span class="menu-label">Recent Views</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="following"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></span><span class="menu-label">Following</span><span class="menu-arrow">›</span></a></li>
+          </ul>
+        </div>
+        <div class="settings-menu-section">
+          <h2 class="settings-menu-section-title me-section-serif">Selling</h2>
+          <ul class="settings-menu">
+            <li><a href="#" class="settings-menu-item" data-menu="closet"><span class="menu-icon" aria-hidden="true">🪝</span><span class="menu-label">Closet</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="sellertools"><span class="menu-icon" aria-hidden="true">🔧</span><span class="menu-label">Seller Tools</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="sales"><span class="menu-icon" aria-hidden="true">💲</span><span class="menu-label">Sales</span><span class="menu-arrow">›</span></a></li>
+          </ul>
+        </div>
+        <div class="settings-menu-section">
+          <h2 class="settings-menu-section-title me-section-serif">Shopper Settings</h2>
+          <ul class="settings-menu">
+            <li><a href="#" class="settings-menu-item" data-menu="size"><span class="menu-icon" aria-hidden="true">📏</span><span class="menu-label">Size</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" data-menu="addresses"><span class="menu-icon" aria-hidden="true">📍</span><span class="menu-label">Addresses</span><span class="menu-arrow">›</span></a></li>
+          </ul>
+        </div>
+        <div class="settings-menu-section">
+          <h2 class="settings-menu-section-title me-section-serif">Account Settings</h2>
           <ul class="settings-menu">
             <li><a href="#" class="settings-menu-item" data-menu="region"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="menu-label">Country / Region</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="sharing"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span class="menu-label">Sharing Settings</span><span class="menu-arrow">›</span></a></li>
@@ -1701,8 +2248,8 @@
             <li><a href="#" class="settings-menu-item" data-menu="invite"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="menu-label">Invite Friends, Earn FREE Cash!</span><span class="menu-arrow">›</span></a></li>
           </ul>
         </div>
-        <div class="settings-menu-section" style="margin-top:28px;">
-          <h2 class="settings-menu-section-title">Help &amp; Resources</h2>
+        <div class="settings-menu-section">
+          <h2 class="settings-menu-section-title me-section-serif">Help &amp; Resources</h2>
           <ul class="settings-menu">
             <li><a href="#" class="settings-menu-item" data-menu="guide"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8"/></svg></span><span class="menu-label">Your Guide to Poshmark</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="etiquette"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span><span class="menu-label">Posh Etiquette</span><span class="menu-arrow">›</span></a></li>
@@ -1845,58 +2392,92 @@
         <ul class="transactions-list" id="allTransactionsSales" style="display:none;"></ul>
       </div>
 
-      <!-- My Purchases (mock list) -->
+      <!-- Purchases list (from Me → Purchases) -->
       <div id="screenMyPurchases" class="screen">
-        <h2 class="section-title">My Purchases</h2>
-        <ul class="transactions-list" id="myPurchasesList"></ul>
+        <div class="purchases-search">
+          <input type="search" id="myPurchasesSearch" placeholder="Search My Purchases" enterkeyhint="search" autocomplete="off" />
+        </div>
+        <ul class="transactions-list purchases-app-list" id="myPurchasesList"></ul>
       </div>
 
       <!-- Order Details (app-style: tracking on same page, Accept Order, Message Seller, Problems) -->
       <div id="screenOrderDetails" class="screen">
-        <div class="order-details-page">
-          <div class="ordered-on" id="orderDetailsOrderedOn">Ordered On —</div>
-          <div class="order-number-row">
-            <span id="orderDetailsOrderNumber">Order Number: —</span>
-            <button type="button" class="copy-btn" id="orderDetailsCopyOrderId" aria-label="Copy order number">📋</button>
+        <div class="order-details-page" id="orderDetailsPageRoot">
+          <div class="od-section od-section-meta">
+            <div class="ordered-on" id="orderDetailsOrderedOn">Ordered On —</div>
+            <div class="order-number-row">
+              <span id="orderDetailsOrderNumber">Order Number: —</span>
+              <button type="button" class="copy-btn" id="orderDetailsCopyOrderId" aria-label="Copy order number">📋</button>
+            </div>
+            <div class="sold-by" id="orderDetailsSoldBy">Sold By: —</div>
           </div>
-          <div class="sold-by" id="orderDetailsSoldBy">Sold By: —</div>
-          <div class="product-row">
-            <div class="thumb" id="orderDetailsThumb"><img id="orderDetailsThumbImg" src="" alt="" /></div>
-            <div class="info">
-              <div class="name" id="orderDetailsProductName">—</div>
-              <div class="meta" id="orderDetailsProductMeta">—</div>
+          <div class="od-section od-section-product">
+            <div class="product-row">
+              <div class="thumb" id="orderDetailsThumb"><img id="orderDetailsThumbImg" src="" alt="" /></div>
+              <div class="info">
+                <div class="name" id="orderDetailsProductName">—</div>
+                <div class="meta" id="orderDetailsProductMeta">—</div>
+              </div>
             </div>
           </div>
-          <div class="section-head">Payment &amp; Shipping Info</div>
-          <div class="order-total" id="orderDetailsOrderTotal">Order Total: —</div>
-          <div class="section-head"><span class="info-icon" aria-hidden="true">ℹ️</span> Order Status</div>
-          <div class="order-status-badge" id="orderDetailsStatusBadge">Order Placed</div>
-          <div class="tracking-status" id="orderDetailsTrackingStatus">Tracking: Not Yet Available</div>
-          <div class="timeline-details" id="orderDetailsTimeline"></div>
-          <div class="order-details-cant-locate-wrap" id="orderDetailsCantLocateWrap" style="display:none;">
-            <div class="section-head">Troubleshooting</div>
-            <button type="button" class="link-cant-locate" id="orderDetailsCantLocateLink">Delivered but can&apos;t locate your order?</button>
+          <div class="od-section od-section-payment" id="orderDetailsPaymentSection">
+            <button type="button" class="od-collapsible-head" id="orderDetailsPaymentToggle" aria-expanded="true" aria-controls="orderDetailsPaymentBody">
+              <span>Payment &amp; Shipping Info</span>
+              <span class="od-chevron" aria-hidden="true">▼</span>
+            </button>
+            <div class="od-payment-body" id="orderDetailsPaymentBody">
+              <div class="order-total" id="orderDetailsOrderTotal">Order Total: —</div>
+            </div>
           </div>
-          <div class="order-details-cant-locate-wrap" id="orderDetailsTrackingNotUpdatedWrap" style="display:none;">
-            <div class="section-head">Troubleshooting</div>
-            <button type="button" class="link-cant-locate" id="orderDetailsTrackingNotUpdatedLink">Seller shipped but tracking not updated?</button>
+          <div class="od-section od-section-status">
+            <div class="section-head od-status-section-head"><span class="od-info-icon-circle" aria-hidden="true">i</span> Order Status</div>
+            <div id="orderDetailsStatusActiveWrap">
+              <div class="order-status-badge" id="orderDetailsStatusBadge">Order Placed</div>
+              <div class="tracking-status" id="orderDetailsTrackingStatus">Tracking: Not Yet Available</div>
+            </div>
+            <div class="od-cancel-status" id="orderDetailsCancelledStatus" style="display:none;">
+              <span class="od-cancel-ico-wrap" aria-hidden="true"><span>📦</span><span class="od-ico-x">✕</span></span>
+              <div class="od-cancel-text-wrap"><div class="od-cancel-title" id="orderDetailsCancelledTitle">Order Cancelled</div></div>
+            </div>
+            <div class="timeline-details" id="orderDetailsTimeline"></div>
           </div>
-          <div class="order-details-cant-locate-wrap" id="orderDetailsPlacedDelayedWrap" style="display:none;">
-            <div class="section-head">Troubleshooting</div>
-            <button type="button" class="link-cant-locate" id="orderDetailsPlacedDelayedLink">Order taking longer than expected to be processed?</button>
+          <div class="order-open-cases-section" id="orderDetailsOpenCasesSection" style="display:none;">
+            <div class="od-open-cases-head">
+              <svg class="od-clipboard-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>
+              Open cases
+            </div>
+            <div id="orderDetailsOpenCasesList" class="order-open-cases-list"></div>
           </div>
-          <div class="accept-card" id="orderDetailsAcceptCard">
-            <h3>Did You Receive The Order As Described?</h3>
-            <p>Sometimes tracking does not update for shipped items. If you have already received your order as described, please accept it to release payment to the seller.</p>
-            <button type="button" class="btn-accept" id="orderDetailsAcceptBtn">Accept Order</button>
+          <div class="order-troubleshooting-section od-section" id="orderDetailsTroubleshootingBlock">
+            <div class="od-subsection-head" id="orderDetailsTroubleshootingHead" style="display:none;">
+              <svg class="od-troubleshoot-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              Troubleshooting
+            </div>
+            <div class="order-details-cant-locate-wrap" id="orderDetailsCantLocateWrap" style="display:none;">
+              <button type="button" class="link-cant-locate" id="orderDetailsCantLocateLink">Delivered but can&apos;t locate your order?</button>
+            </div>
+            <div class="order-details-cant-locate-wrap" id="orderDetailsTrackingNotUpdatedWrap" style="display:none;">
+              <button type="button" class="link-cant-locate" id="orderDetailsTrackingNotUpdatedLink">Seller shipped but tracking not updated?</button>
+            </div>
+            <div class="order-details-cant-locate-wrap" id="orderDetailsPlacedDelayedWrap" style="display:none;">
+              <button type="button" class="link-cant-locate" id="orderDetailsPlacedDelayedLink">Order taking longer than expected to be processed?</button>
+            </div>
+            <hr class="od-troubleshooting-divider" aria-hidden="true" />
+            <div class="accept-card" id="orderDetailsAcceptCard">
+              <h3>Did You Receive The Order As Described?</h3>
+              <p>Sometimes tracking does not update for shipped items. If you have already received your order as described, please accept it to release payment to the seller.</p>
+              <button type="button" class="btn-accept" id="orderDetailsAcceptBtn">Accept Order</button>
+            </div>
           </div>
-          <div class="action-row" id="orderDetailsMessageSeller">
-            <span class="left"><span class="icon">💬</span><span class="text">Message Seller</span></span>
-            <span class="arrow">›</span>
-          </div>
-          <div class="action-row" id="orderDetailsProblemsInquiry">
-            <span class="left"><span class="icon">⚙</span><span class="text">Problems / Order Inquiry</span></span>
-            <span class="arrow">›</span>
+          <div class="od-section od-section-actions">
+            <div class="action-row" id="orderDetailsMessageSeller">
+              <span class="left"><span class="icon">💬</span><span class="text">Message Seller</span></span>
+              <span class="arrow">›</span>
+            </div>
+            <div class="action-row" id="orderDetailsProblemsInquiry">
+              <span class="left"><span class="icon" aria-hidden="true">🛟</span><span class="text">Problems / Order Inquiry</span></span>
+              <span class="arrow">›</span>
+            </div>
           </div>
         </div>
       </div>
@@ -2137,6 +2718,22 @@
           <button type="button" id="bottomNavMe" class="bottom-nav-item active" aria-current="page"><span class="nav-avatar">@</span><span>@sps</span></button>
         </nav>
       </div>
+
+    <!-- Existing open case — positioned inside phone frame (sibling of app-wrapper) -->
+    <div class="order-existing-case-overlay" id="orderExistingCaseOverlay" aria-hidden="true">
+      <div class="order-existing-case-sheet" role="dialog" aria-modal="true" aria-labelledby="orderExistingCaseTitle">
+        <div class="order-existing-case-header">
+          <h3 id="orderExistingCaseTitle">Contact Poshmark Support</h3>
+          <button type="button" class="order-existing-case-close" id="orderExistingCaseClose" aria-label="Close">&times;</button>
+        </div>
+        <div class="order-existing-case-body">
+          <p class="order-existing-case-lead">You already have an open case for this order. Do you want to continue replying there?</p>
+          <button type="button" class="btn-sheet btn-sheet-primary" id="orderExistingCaseContinue">Continue replying in my open case</button>
+          <button type="button" class="btn-sheet btn-sheet-secondary" id="orderExistingCaseNew">No, I want to report a new problem</button>
+          <p class="order-existing-case-note">Continuing your old thread will ensure the agent will have detailed context and will lead to a faster resolution.</p>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -2159,20 +2756,26 @@
     selectedOrder: null,
     cameFrom: 'home',
     cameFromOrderDetails: false,
+    contactSupportContinueCase: null,
+    existingCaseModalReturnTo: null,
+    myPurchasesBackTarget: 'home',
     cases: [
-      { id: 'PM-2026-001', orderName: 'Leather Crossbody Bag', openedTime: new Date('2026-03-02T10:00:00').getTime(), subject: 'Item not received', category: 'Orders', article: 'Item not received – what to do', status: 'open', openDate: 'Mar 2, 2026', estimatedClosure: 'Mar 9, 2026', messages: [
+      { id: 'PM-2026-001', linkedTxnId: 'txn2', orderName: 'Leather Crossbody Bag', openedTime: new Date('2026-03-02T10:00:00').getTime(), subject: 'Item not received', category: 'Orders', article: 'Item not received – what to do', status: 'open', openDate: 'Mar 2, 2026', estimatedClosure: 'Mar 9, 2026', messages: [
         { who: 'You', body: 'I read the article but my order still didn’t arrive. Order #12345.', time: 'Mar 2, 2:30 PM' },
         { who: 'Support', body: 'Thanks — we’ve received your case and will look into it.', time: 'Mar 3, 10:15 AM' }
       ]},
-      { id: 'PM-2026-002', orderName: 'Vintage Denim Jacket', openedTime: new Date('2026-03-01T14:00:00').getTime(), subject: 'Refund not issued', category: 'Payment and Earnings', article: 'Refund timeline', status: 'pending', openDate: 'Mar 1, 2026', estimatedClosure: 'Mar 8, 2026', messages: [
+      { id: 'PM-2026-002', linkedTxnId: 'txn1', orderName: 'Vintage Denim Jacket', openedTime: new Date('2026-03-01T14:00:00').getTime(), subject: 'Refund not issued', category: 'Payment and Earnings', article: 'Refund timeline', status: 'pending', openDate: 'Mar 1, 2026', estimatedClosure: 'Mar 8, 2026', messages: [
         { who: 'You', body: 'My return was accepted 5 days ago but I don\'t see the refund.', time: 'Mar 1, 4:00 PM' },
         { who: 'Support', body: 'We\'re reviewing your return. We\'ll update you within 2 business days — no action needed yet.', time: 'Mar 2, 9:00 AM' }
       ]},
       { id: 'PM-2026-009', orderName: 'Silk Scarf', openedTime: new Date('2026-03-03T09:00:00').getTime(), subject: 'Photos requested', category: 'Order Related', article: 'Item not as described or wrong item', status: 'pending', openDate: 'Mar 3, 2026', estimatedClosure: 'Mar 10, 2026', messages: [
         { who: 'Support', body: 'Please upload clear photos of the item and packaging so we can proceed.', time: 'Mar 3, 10:00 AM' }
       ]},
-      { id: 'PM-2026-003', orderName: 'Running Sneakers', openedTime: new Date('2026-03-04T11:00:00').getTime(), subject: 'Seller has not shipped', category: 'Order Related', article: 'Seller has not shipped my order', status: 'open', openDate: 'Mar 4, 2026', estimatedClosure: 'Mar 11, 2026', messages: [
+      { id: 'PM-2026-003', linkedTxnId: 'txn3', orderName: 'Running Sneakers', openedTime: new Date('2026-03-04T11:00:00').getTime(), subject: 'Seller has not shipped', category: 'Order Related', article: 'Seller has not shipped my order', status: 'open', openDate: 'Mar 4, 2026', estimatedClosure: 'Mar 11, 2026', messages: [
         { who: 'You', body: 'Order #98765 – seller has not shipped after 7 days.', time: 'Mar 4, 11:00 AM' }
+      ]},
+      { id: 'PM-2026-042', linkedTxnId: 'txn6', orderName: 'Shaving Cream', openedTime: new Date('2026-03-10T10:00:00').getTime(), subject: 'Refund not issued', category: 'Payment and Earnings', issueCategory: 'Payment and Earnings', article: 'Refund timeline', status: 'pending', openDate: 'Mar 10, 2026', expectedResolution: '48 hours', estimatedClosure: 'Mar 12, 2026', messages: [
+        { who: 'You', body: 'Refund for my cancelled order isn’t showing yet.', time: 'Mar 10, 10:00 AM' }
       ]},
       { id: 'PM-2026-004', orderName: 'Silk Blouse', openedTime: new Date('2026-02-20T15:00:00').getTime(), subject: 'Item not as described', category: 'Order Related', article: 'Item not as described or wrong item', status: 'closed', openDate: 'Feb 20, 2026', estimatedClosure: 'Feb 27, 2026', messages: [
         { who: 'You', body: 'Received wrong size. Requesting return.', time: 'Feb 20, 3:00 PM' },
@@ -2323,7 +2926,8 @@
       { id: 'txn2', type: 'purchase', name: 'Leather Crossbody Bag', meta: 'Paid Mar 1, 2026', amount: '$68.50', orderId: 'ORD-1002', orderDate: 'Mar 1, 2026', supplier: 'Fashion Co', price: '$68.50', size: 'OS', seller: '@style_co', orderStatus: 'delivered' },
       { id: 'txn3', type: 'purchase', name: 'Running Sneakers', meta: 'Paid Feb 28, 2026', amount: '$55.00', orderId: 'ORD-1003', orderDate: 'Feb 28, 2026', supplier: 'Sneaker Shop', price: '$55.00', size: '10', seller: '@sneaker', orderStatus: 'shipped', orderPlacedTimestamp: Date.now() - 4 * 86400000 },
       { id: 'txn4', type: 'purchase', name: 'Silk Blouse', meta: 'Paid Feb 25, 2026', amount: '$28.00', orderId: 'ORD-1004', orderDate: 'Feb 25, 2026', supplier: 'Boutique', price: '$28.00', size: 'S', seller: '@boutique', orderStatus: 'complete' },
-      { id: 'txn5', type: 'purchase', name: 'Wool Scarf', meta: 'Paid Feb 23, 2026', amount: '$32.00', orderId: 'ORD-1005', orderDate: 'Feb 23, 2026', supplier: 'Winter Co', price: '$32.00', size: 'OS', seller: '@winter_co', orderStatus: 'placed', orderPlacedTimestamp: Date.now() - 10 * 86400000 }
+      { id: 'txn5', type: 'purchase', name: 'Wool Scarf', meta: 'Paid Feb 23, 2026', amount: '$32.00', orderId: 'ORD-1005', orderDate: 'Feb 23, 2026', supplier: 'Winter Co', price: '$32.00', size: 'OS', seller: '@winter_co', orderStatus: 'placed', orderPlacedTimestamp: Date.now() - 10 * 86400000 },
+      { id: 'txn6', type: 'purchase', name: 'Shaving Cream', meta: 'Paid Mar 3, 2026', amount: '$100.00', orderId: '69a683ab29e1fdfa4453d147', orderDate: 'Mar 3, 2026', supplier: 'Demo Shop', price: '$100.00', size: 'OS', seller: '@preeyeshlohar', orderStatus: 'cancelled', orderTotal: '$117.40', cancelDate: 'March 12, 2026' }
     ],
     sales: [
       { id: 's1', type: 'sale', name: 'Designer Handbag', meta: 'Sold Mar 3, 2026', amount: '$120.00', orderId: 'SALE-2001', orderDate: 'Mar 3, 2026', soldTo: 'Jack', price: '$120.00', size: 'OS', orderTotal: '$117.40', orderStatus: 'shipped' },
@@ -2397,18 +3001,36 @@
     var titleEl = document.getElementById('headerTitle');
     if (titleEl) {
       titleEl.classList.remove('title-support-center');
-      if (name === 'supportEntry') titleEl.textContent = 'Account';
-      else if (name === 'supportCenterHub') {
+      if (name === 'supportEntry') {
+        titleEl.textContent = 'Account';
+        titleEl.classList.remove('title-purchases-serif');
+        titleEl.classList.remove('title-order-details-serif');
+      } else if (name === 'supportCenterHub') {
         titleEl.textContent = 'Support Center';
         titleEl.classList.add('title-support-center');
-      } else if (name === 'orderDetails') titleEl.textContent = 'Order Details';
-      else titleEl.textContent = 'Poshmark Support';
+        titleEl.classList.remove('title-purchases-serif');
+        titleEl.classList.remove('title-order-details-serif');
+      } else if (name === 'orderDetails') {
+        titleEl.textContent = 'Order Details';
+        titleEl.classList.remove('title-purchases-serif');
+        titleEl.classList.add('title-order-details-serif');
+      } else if (name === 'myPurchases') {
+        titleEl.textContent = 'Purchases';
+        titleEl.classList.remove('title-support-center');
+        titleEl.classList.remove('title-order-details-serif');
+        titleEl.classList.add('title-purchases-serif');
+      } else {
+        titleEl.textContent = 'Poshmark Support';
+        titleEl.classList.remove('title-purchases-serif');
+        titleEl.classList.remove('title-order-details-serif');
+      }
     }
     var wrapper = document.getElementById('appWrapper');
     if (wrapper) {
       wrapper.classList.toggle('entry-view', name === 'supportEntry');
       wrapper.classList.toggle('order-details-view', name === 'orderDetails');
       wrapper.classList.toggle('support-hub-view', name === 'supportCenterHub');
+      wrapper.classList.toggle('purchases-list-view', name === 'myPurchases');
     }
   }
 
@@ -2686,6 +3308,136 @@
     }
   }
 
+  function caseIsForOrder(c, order) {
+    if (!order || !c) return false;
+    if (c.caseType === 'general' && !(c.orderName && String(c.orderName).trim())) return false;
+    if (c.linkedTxnId && order.id === c.linkedTxnId) return true;
+    var on = (c.orderName || '').trim();
+    var pn = (order.name || '').trim();
+    if (on && pn && (pn === on || pn.indexOf(on) === 0 || on.indexOf(pn) === 0)) return true;
+    return false;
+  }
+
+  function getOpenCasesForOrder(order) {
+    var openStatuses = { open: 1, pending: 1, reopened: 1 };
+    return state.cases.filter(function (c) {
+      return openStatuses[c.status] && caseIsForOrder(c, order);
+    }).sort(function (a, b) {
+      var ta = a.openedTime || caseOpenedMs(a) || 0;
+      var tb = b.openedTime || caseOpenedMs(b) || 0;
+      return tb - ta;
+    });
+  }
+
+  function hideOrderExistingCaseModal() {
+    var o = document.getElementById('orderExistingCaseOverlay');
+    if (!o) return;
+    o.setAttribute('aria-hidden', 'true');
+    state.contactSupportContinueCase = null;
+    state.existingCaseModalReturnTo = null;
+  }
+
+  var PURCHASE_LIST_STATUS_LABELS = {
+    placed: 'Order Placed',
+    shipped: 'Shipped by Seller',
+    transit: 'In Transit',
+    delivered: 'Delivered',
+    complete: 'Order Complete',
+    cancelled: 'Order Cancelled'
+  };
+
+  function populateMyPurchasesList() {
+    var list = document.getElementById('myPurchasesList');
+    if (!list) return;
+    list.innerHTML = TRANSACTIONS.purchases.map(function (t) {
+      var price = t.price || t.amount || '—';
+      var sizePart = t.size ? 'Size: ' + t.size : '';
+      var sellerPart = t.seller || '';
+      var detailParts = [price, sizePart, sellerPart].filter(Boolean);
+      var detail = detailParts.join(' · ');
+      var st = t.orderStatus || 'placed';
+      var statusLabel = PURCHASE_LIST_STATUS_LABELS[st] || st;
+      var cancelledClass = st === 'cancelled' ? ' is-cancelled' : '';
+      var thumbSrc = t.imageUrl || ('https://picsum.photos/seed/' + encodeURIComponent(t.id) + '/144/144');
+      var statusIco = st === 'cancelled'
+        ? '<span class="purchase-app-status-ico purchase-app-ico-cancelled" aria-hidden="true"><span class="purchase-app-ico-box">📦</span><span class="purchase-app-ico-x">✕</span></span>'
+        : '<span class="purchase-app-status-ico" aria-hidden="true">📦</span>';
+      return '<li class="purchase-app-row" data-txn-id="' + escapeHtml(t.id) + '" role="button" tabindex="0">' +
+        '<div class="purchase-app-thumb"><img src="' + escapeAttr(thumbSrc) + '" alt="" width="72" height="72" loading="lazy" /></div>' +
+        '<div class="purchase-app-body">' +
+        '<div class="purchase-app-badge"><span class="purchase-app-badge-pill">Purchase</span></div>' +
+        '<div class="purchase-app-title-row">' +
+        '<span class="purchase-app-title">' + escapeHtml(t.name || '—') + '</span>' +
+        '<span class="purchase-app-price">' + escapeHtml(price) + '</span>' +
+        '</div>' +
+        '<div class="purchase-app-meta">' + escapeHtml(detail) + '</div>' +
+        '<div class="purchase-app-status' + cancelledClass + '">' + statusIco +
+        '<span class="purchase-app-status-text">' + escapeHtml(statusLabel) + '</span></div></div>' +
+        '<span class="purchase-app-chev" aria-hidden="true">›</span></li>';
+    }).join('');
+    list.querySelectorAll('.purchase-app-row').forEach(function (li) {
+      li.addEventListener('click', function () {
+        var t = findTransaction(li.getAttribute('data-txn-id'));
+        if (t) openOrderDetails(t, 'myPurchases');
+      });
+    });
+  }
+
+  function openMyPurchasesFromMeMenu() {
+    state.myPurchasesBackTarget = 'me';
+    populateMyPurchasesList();
+    showHelpScreen('myPurchases');
+  }
+
+  function openMyPurchasesFromHelpHome() {
+    state.myPurchasesBackTarget = 'home';
+    populateMyPurchasesList();
+    showHelpScreen('myPurchases');
+  }
+
+  function showOrderExistingCaseModal(mostRecentCase) {
+    state.contactSupportContinueCase = mostRecentCase || null;
+    var o = document.getElementById('orderExistingCaseOverlay');
+    if (!o) return;
+    o.setAttribute('aria-hidden', 'false');
+  }
+
+  function proceedContactPoshmarkNewProblem() {
+    hideOrderExistingCaseModal();
+    state.category = 'order_related';
+    state.categoryLabel = categoryLabels.order_related || 'Order Related';
+    state.article = { title: 'Contact Poshmark Support — order issue' };
+    var preCat = document.getElementById('prefillCategory');
+    var preArt = document.getElementById('prefillArticle');
+    if (preCat) preCat.textContent = state.categoryLabel;
+    if (preArt) preArt.textContent = state.article.title;
+    showHelpScreen('contact');
+  }
+
+  function renderOrderDetailsOpenCases(order) {
+    var section = document.getElementById('orderDetailsOpenCasesSection');
+    var listEl = document.getElementById('orderDetailsOpenCasesList');
+    if (!section || !listEl) return;
+    var cases = getOpenCasesForOrder(order);
+    if (cases.length === 0) {
+      section.style.display = 'none';
+      listEl.innerHTML = '';
+      return;
+    }
+    section.style.display = '';
+    listEl.innerHTML = cases.map(caseListCardHtml).join('');
+    listEl.querySelectorAll('.case-card').forEach(function (row) {
+      row.addEventListener('click', function () {
+        var id = row.getAttribute('data-case-id');
+        var c = state.cases.find(function (x) { return x.id === id; });
+        if (!c) return;
+        state.caseDetailFrom = 'orderDetails';
+        openCaseDetail(c);
+        showScreen('segmentCaseDetail');
+      });
+    });
+  }
+
   function openOrderDetails(order, from) {
     state.selectedOrder = order;
     state.cameFrom = from || 'home';
@@ -2694,21 +3446,39 @@
     document.getElementById('orderDetailsOrderNumber').textContent = 'Order Number: ' + (order.orderId || order.id);
     document.getElementById('orderDetailsSoldBy').textContent = 'Sold By: ' + (order.seller || order.supplier || '—');
     document.getElementById('orderDetailsProductName').textContent = order.name || '—';
-    var metaParts = [(order.price || order.amount || '—'), order.size ? 'Size: ' + order.size : ''];
-    document.getElementById('orderDetailsProductMeta').textContent = metaParts.filter(Boolean).join(' · ');
+    var price = order.price || order.amount || '—';
+    var sizePart = order.size ? 'Size: ' + order.size : '';
+    var metaEl = document.getElementById('orderDetailsProductMeta');
+    if (metaEl) {
+      metaEl.innerHTML = '<span class="od-meta-price">' + escapeHtml(price) + '</span>' +
+        (sizePart ? '<span class="od-meta-sep"> · </span>' + escapeHtml(sizePart) : '');
+    }
     var imgEl = document.getElementById('orderDetailsThumbImg');
     if (imgEl) {
       imgEl.src = order.imageUrl || ('https://picsum.photos/seed/' + encodeURIComponent(order.id) + '/144/144');
       imgEl.alt = order.name || 'Product';
     }
     document.getElementById('orderDetailsOrderTotal').textContent = 'Order Total: ' + (order.orderTotal || order.amount || '—');
+    var paySection = document.getElementById('orderDetailsPaymentSection');
+    if (paySection) paySection.classList.remove('is-collapsed');
+    var payToggle = document.getElementById('orderDetailsPaymentToggle');
+    if (payToggle) payToggle.setAttribute('aria-expanded', 'true');
     var statusKey = (order.orderStatus || 'placed');
     var activeIdx = (statusKey === 'cancelled') ? -1 : (ORDER_STATUS_TO_STEP[statusKey] != null ? ORDER_STATUS_TO_STEP[statusKey] : 0);
-    var statusLabels = { placed: 'Order Placed', shipped: 'Shipped by Seller', transit: 'In Transit', delivered: 'Delivered', complete: 'Order Complete', cancelled: 'Cancelled' };
+    var statusLabels = { placed: 'Order Placed', shipped: 'Shipped by Seller', transit: 'In Transit', delivered: 'Delivered', complete: 'Order Complete', cancelled: 'Order Cancelled' };
     var statusLabel = statusLabels[statusKey] || statusLabels.placed;
-    document.getElementById('orderDetailsStatusBadge').textContent = statusLabel;
-    var trackingLabel = (statusKey === 'cancelled') ? 'Order cancelled' : (activeIdx === 0 ? 'Tracking: Not Yet Available' : (activeIdx >= 3 ? 'Tracking: Delivered' : 'Tracking: Available'));
-    document.getElementById('orderDetailsTrackingStatus').textContent = trackingLabel;
+    var activeWrap = document.getElementById('orderDetailsStatusActiveWrap');
+    var cancelWrap = document.getElementById('orderDetailsCancelledStatus');
+    if (statusKey === 'cancelled') {
+      if (activeWrap) activeWrap.style.display = 'none';
+      if (cancelWrap) cancelWrap.style.display = 'flex';
+    } else {
+      if (activeWrap) activeWrap.style.display = '';
+      if (cancelWrap) cancelWrap.style.display = 'none';
+      document.getElementById('orderDetailsStatusBadge').textContent = statusLabel;
+      var trackingLabel = activeIdx === 0 ? 'Tracking: Not Yet Available' : (activeIdx >= 3 ? 'Tracking: Delivered' : 'Tracking: Available');
+      document.getElementById('orderDetailsTrackingStatus').textContent = trackingLabel;
+    }
     var acceptCard = document.getElementById('orderDetailsAcceptCard');
     if (acceptCard) acceptCard.style.display = (statusKey === 'complete' || statusKey === 'cancelled') ? 'none' : 'block';
     var cantLocateWrap = document.getElementById('orderDetailsCantLocateWrap');
@@ -2717,9 +3487,15 @@
     if (trackingNotUpdatedWrap) trackingNotUpdatedWrap.style.display = (statusKey === 'shipped') ? 'block' : 'none';
     var placedDelayedWrap = document.getElementById('orderDetailsPlacedDelayedWrap');
     if (placedDelayedWrap) placedDelayedWrap.style.display = (statusKey === 'placed') ? 'block' : 'none';
+    var troubleshootBlock = document.getElementById('orderDetailsTroubleshootingBlock');
+    var troubleshootHead = document.getElementById('orderDetailsTroubleshootingHead');
+    var showTroubleshootSection = (statusKey === 'delivered') || (statusKey === 'shipped') || (statusKey === 'placed') || (statusKey !== 'complete' && statusKey !== 'cancelled');
+    if (troubleshootHead) troubleshootHead.style.display = showTroubleshootSection ? 'flex' : 'none';
+    if (troubleshootBlock) troubleshootBlock.style.display = showTroubleshootSection ? '' : 'none';
     var timelineEl = document.getElementById('orderDetailsTimeline');
     if (statusKey === 'cancelled') {
-      timelineEl.innerHTML = '<div class="step"><span class="dot"></span><div><div class="label">Order cancelled</div><div class="hint">You will receive a confirmation email about your refund shortly.</div></div></div>';
+      var cancelWhen = order.cancelDate || 'March 12, 2026';
+      timelineEl.innerHTML = '<p class="od-cancel-body">Your order was cancelled on ' + escapeHtml(cancelWhen) + '. Your refund has been successfully processed back to your original method of payment.</p>';
     } else {
       timelineEl.innerHTML = TRACKING_STEPS.map(function (step, i) {
         var active = i <= activeIdx;
@@ -2727,6 +3503,7 @@
       }).join('');
     }
     showHelpScreen('orderDetails');
+    renderOrderDetailsOpenCases(order);
     var titleEl = document.getElementById('headerTitle');
     if (titleEl) titleEl.textContent = 'Order Details';
   }
@@ -2987,6 +3764,17 @@
   document.querySelectorAll('#screenSupportEntry .settings-menu-item[data-menu]').forEach(function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); });
   });
+  var menuMePurchases = document.getElementById('menuMePurchases');
+  if (menuMePurchases) {
+    menuMePurchases.addEventListener('click', function (e) {
+      e.preventDefault();
+      openMyPurchasesFromMeMenu();
+    });
+  }
+  var meProfileStrip = document.getElementById('meProfileStrip');
+  if (meProfileStrip) {
+    meProfileStrip.addEventListener('click', function (e) { e.preventDefault(); });
+  }
   document.querySelectorAll('.bottom-nav-item').forEach(function (el) {
     el.addEventListener('click', function (e) { e.preventDefault(); });
   });
@@ -3100,17 +3888,7 @@
   }
 
   document.getElementById('articleCtaBtn').addEventListener('click', function () {
-    var list = document.getElementById('myPurchasesList');
-    list.innerHTML = TRANSACTIONS.purchases.map(function (t) {
-      return '<li class="txn-row" data-txn-id="' + escapeHtml(t.id) + '"><div class="txn-tag-row"><span class="txn-tag purchase">Purchase</span></div><div class="txn-info"><div class="txn-name">' + escapeHtml(t.name) + '</div><div class="txn-meta">' + escapeHtml(t.meta) + '</div></div><div class="txn-amount">' + escapeHtml(t.amount) + '</div><span class="txn-support-icon">›</span></li>';
-    }).join('');
-    list.querySelectorAll('.txn-row').forEach(function (li) {
-      li.addEventListener('click', function () {
-        var t = findTransaction(li.getAttribute('data-txn-id'));
-        if (t) openOrderDetails(t, 'myPurchases');
-      });
-    });
-    showHelpScreen('myPurchases');
+    openMyPurchasesFromHelpHome();
   });
 
   var orderTrackingShowDetails = document.getElementById('orderTrackingShowDetails');
@@ -3122,6 +3900,15 @@
     var id = order && (order.orderId || order.id);
     if (id && navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(id);
   });
+  var orderDetailsPaymentToggle = document.getElementById('orderDetailsPaymentToggle');
+  if (orderDetailsPaymentToggle) {
+    orderDetailsPaymentToggle.addEventListener('click', function () {
+      var sec = document.getElementById('orderDetailsPaymentSection');
+      if (!sec) return;
+      var collapsed = sec.classList.toggle('is-collapsed');
+      orderDetailsPaymentToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    });
+  }
   var orderDetailsAcceptBtn = document.getElementById('orderDetailsAcceptBtn');
   if (orderDetailsAcceptBtn) orderDetailsAcceptBtn.addEventListener('click', function (e) { e.preventDefault(); });
   var orderDetailsMessageSeller = document.getElementById('orderDetailsMessageSeller');
@@ -3129,8 +3916,39 @@
   document.getElementById('orderDetailsProblemsInquiry').addEventListener('click', function (e) {
     e.preventDefault();
     state.cameFromOrderDetails = true;
-    if (state.selectedOrder) openOrderHelp(state.selectedOrder);
+    var order = state.selectedOrder;
+    if (!order) return;
+    var openList = getOpenCasesForOrder(order);
+    if (openList.length > 0) {
+      state.existingCaseModalReturnTo = 'orderDetails';
+      showOrderExistingCaseModal(openList[0]);
+    } else {
+      openOrderHelp(order);
+    }
   });
+
+  var orderExistingCaseOverlay = document.getElementById('orderExistingCaseOverlay');
+  if (orderExistingCaseOverlay) {
+    orderExistingCaseOverlay.addEventListener('click', function (e) {
+      if (e.target === orderExistingCaseOverlay) hideOrderExistingCaseModal();
+    });
+  }
+  var orderExistingCaseClose = document.getElementById('orderExistingCaseClose');
+  if (orderExistingCaseClose) orderExistingCaseClose.addEventListener('click', hideOrderExistingCaseModal);
+  var orderExistingCaseContinue = document.getElementById('orderExistingCaseContinue');
+  if (orderExistingCaseContinue) {
+    orderExistingCaseContinue.addEventListener('click', function () {
+      var c = state.contactSupportContinueCase;
+      var ret = state.existingCaseModalReturnTo || 'orderHelp';
+      hideOrderExistingCaseModal();
+      if (!c) return;
+      state.caseDetailFrom = ret;
+      openCaseDetail(c);
+      showScreen('segmentCaseDetail');
+    });
+  }
+  var orderExistingCaseNew = document.getElementById('orderExistingCaseNew');
+  if (orderExistingCaseNew) orderExistingCaseNew.addEventListener('click', proceedContactPoshmarkNewProblem);
 
   var orderDetailsCantLocateLink = document.getElementById('orderDetailsCantLocateLink');
   if (orderDetailsCantLocateLink) orderDetailsCantLocateLink.addEventListener('click', function (e) { e.preventDefault(); openCantLocatePopup(); });
@@ -3482,6 +4300,37 @@
     });
   }
 
+  /** Same compact card row as Track My Cases (also used on Order Details → Open cases). */
+  function caseListCardHtml(c) {
+    var statusClass = c.status === 'closed' ? 'closed' : (c.status === 'reopened' ? 'reopened' : (c.status === 'pending' ? 'pending' : 'open'));
+    var ctype = c.caseType || 'purchase';
+    var showItemImage = ctype === 'purchase' || ctype === 'sale';
+    var thumb = showItemImage
+      ? '<div class="case-card-thumb"><img src="' + escapeAttr(caseCardImageUrl(c)) + '" alt=""/></div>'
+      : '<div class="case-card-thumb case-card-thumb-placeholder">' + CASE_PLACEHOLDER_SVG + '</div>';
+    var header = ctype === 'general'
+      ? escapeHtml((c.subject || 'General').length > 40 ? (c.subject || '').substring(0, 38) + '…' : (c.subject || 'General question'))
+      : escapeHtml(c.orderName || 'Order');
+    var cat = escapeHtml(c.issueCategory || c.category || 'Support');
+    var lastShort = escapeHtml(caseLastUpdatedShort(c));
+    var statusLbl = escapeHtml(CASE_STATUS_DISPLAY[c.status] || c.status);
+    var statusTip = escapeAttr(caseStatusLine(c));
+    var etaLabel = caseEtaDateLabel(c);
+    var resInline = etaLabel
+      ? '<span class="case-card-st-res-inline" title="' + escapeAttr(caseEtaHoverTitle(caseExpectedResolution(c))) + '">' + escapeHtml(etaLabel) + '</span>'
+      : '';
+    var caseIdDisplay = 'Case #' + escapeHtml(c.id);
+    return '<div class="case-card case-card-compact" data-case-id="' + escapeAttr(c.id) + '" role="button" tabindex="0" aria-label="View case ' + escapeAttr(c.id) + '">' + thumb +
+      '<div class="case-card-body">' +
+      '<div class="case-card-id">' + caseIdDisplay + '</div>' +
+      '<div class="case-card-order">' + header + '</div>' +
+      '<div class="case-card-meta-line">' + cat + '<span class="sep">|</span> Updated ' + lastShort + '</div>' +
+      '<div class="case-card-status-line">' +
+      '<span class="case-card-st-pill ' + statusClass + '" title="' + statusTip + '">' + statusLbl + '</span>' +
+      resInline + '</div></div>' +
+      '<span class="case-card-ch" aria-hidden="true">›</span></div>';
+  }
+
   function renderCases() {
     var durationKey = state.casesDurationKey || '30d';
     var typeKey = state.casesTypeKey || 'all';
@@ -3496,35 +4345,6 @@
     var closedList = document.getElementById('casesClosedList');
     var pendingList = document.getElementById('casesPendingList');
     var empty = document.getElementById('emptyCases');
-    function row(c) {
-      var statusClass = c.status === 'closed' ? 'closed' : (c.status === 'reopened' ? 'reopened' : (c.status === 'pending' ? 'pending' : 'open'));
-      var ctype = c.caseType || 'purchase';
-      var showItemImage = ctype === 'purchase' || ctype === 'sale';
-      var thumb = showItemImage
-        ? '<div class="case-card-thumb"><img src="' + escapeHtml(caseCardImageUrl(c)) + '" alt=""/></div>'
-        : '<div class="case-card-thumb case-card-thumb-placeholder">' + CASE_PLACEHOLDER_SVG + '</div>';
-      var header = ctype === 'general'
-        ? escapeHtml((c.subject || 'General').length > 40 ? (c.subject || '').substring(0, 38) + '…' : (c.subject || 'General question'))
-        : escapeHtml(c.orderName || 'Order');
-      var cat = escapeHtml(c.issueCategory || c.category || 'Support');
-      var lastShort = escapeHtml(caseLastUpdatedShort(c));
-      var statusLbl = escapeHtml(CASE_STATUS_DISPLAY[c.status] || c.status);
-      var statusTip = escapeAttr(caseStatusLine(c));
-      var etaLabel = caseEtaDateLabel(c);
-      var resInline = etaLabel
-        ? '<span class="case-card-st-res-inline" title="' + escapeAttr(caseEtaHoverTitle(caseExpectedResolution(c))) + '">' + escapeHtml(etaLabel) + '</span>'
-        : '';
-      var caseIdDisplay = 'Case #' + escapeHtml(c.id);
-      return '<div class="case-card case-card-compact" data-case-id="' + escapeHtml(c.id) + '" role="button" tabindex="0" aria-label="View case ' + escapeHtml(c.id) + '">' + thumb +
-        '<div class="case-card-body">' +
-        '<div class="case-card-id">' + caseIdDisplay + '</div>' +
-        '<div class="case-card-order">' + header + '</div>' +
-        '<div class="case-card-meta-line">' + cat + '<span class="sep">|</span> Updated ' + lastShort + '</div>' +
-        '<div class="case-card-status-line">' +
-        '<span class="case-card-st-pill ' + statusClass + '" title="' + statusTip + '">' + statusLbl + '</span>' +
-        resInline + '</div></div>' +
-        '<span class="case-card-ch" aria-hidden="true">›</span></div>';
-    }
     var hasAnyCases = state.cases.length > 0;
     if (filtered.length === 0) {
       openList.innerHTML = '';
@@ -3538,14 +4358,14 @@
     }
     empty.style.display = 'none';
     openList.innerHTML = open.length
-      ? open.map(function (c) { return row(c); }).join('')
+      ? open.map(caseListCardHtml).join('')
       : '<p class="cases-tab-empty">No open cases for this period.</p>';
     closedList.innerHTML = closed.length
-      ? closed.map(function (c) { return row(c); }).join('')
+      ? closed.map(caseListCardHtml).join('')
       : '<p class="cases-tab-empty">No closed cases for this period.</p>';
     if (pendingList) {
       pendingList.innerHTML = pending.length
-        ? pending.map(function (c) { return row(c); }).join('')
+        ? pending.map(caseListCardHtml).join('')
         : '<p class="cases-tab-empty">No pending cases for this period.</p>';
     }
   }
@@ -3669,6 +4489,13 @@
       if (state.caseDetailFrom === 'news') {
         showScreen('segmentNews');
         renderNewsNotifications();
+      } else if (state.caseDetailFrom === 'orderHelp') {
+        showScreen('segmentHelp');
+        showHelpScreen('orderHelp');
+      } else if (state.caseDetailFrom === 'orderDetails') {
+        showScreen('segmentHelp');
+        showHelpScreen('orderDetails');
+        if (state.selectedOrder) renderOrderDetailsOpenCases(state.selectedOrder);
       } else {
         showScreen('segmentCases');
         renderCases();
@@ -3723,7 +4550,11 @@
         else showHelpScreen('articleList');
       } else if (active && active.id === 'screenContact') showHelpScreen('article');
       else if (active && active.id === 'screenContactDone') showHelpScreen('home');
-      else if (active && active.id === 'screenAllTransactions' || active && active.id === 'screenMyPurchases') showHelpScreen('home');
+      else if (active && active.id === 'screenAllTransactions') showHelpScreen('home');
+      else if (active && active.id === 'screenMyPurchases') {
+        if (state.myPurchasesBackTarget === 'me') showHelpScreen('supportEntry');
+        else showHelpScreen('home');
+      }
       else if (active && active.id === 'screenOrderDetails') showHelpScreen(state.cameFrom === 'myPurchases' ? 'myPurchases' : (state.cameFrom === 'orderHelp' ? 'orderHelp' : (state.cameFrom === 'allTransactions' ? 'allTransactions' : 'home')));
       else if (active && active.id === 'screenOrderTracking') showHelpScreen('orderHelp');
       else if (active && active.id === 'screenOrderHelp') {
