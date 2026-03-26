@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cases | Recently Viewed (mock)</title>
+  <style>
+    /* SLDS-aligned tokens (Lightning Experience console) */
+    :root {
+      --sf-page: #ffffff;
+      --sf-header: #ffffff;
+      --sf-border: #dddbda;
+      --sf-text: #080707;
+      --sf-muted: #706e6b;
+      --sf-header-shade: #f3f2f2;
+      --posh-accent: #8b2152;
+      --posh-accent-dark: #6c1a40;
+      --list-control-bg: #f3f2f2;
+      --console-nav-bg: #ffffff;
+      --sf-focus: #1b96ff;
+      --row-hover: #f3f2f2;
+      --content-padding-x: 24px;
+      --console-footer-h: 42px;
+    }
+    * { box-sizing: border-box; }
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      margin: 0;
+      font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--sf-text);
+      background: var(--sf-page);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* —— Global header (LEX app header) —— */
+    .global-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 48px;
+      padding: 0 16px;
+      background: var(--sf-header);
+      border-bottom: 1px solid var(--sf-border);
+      flex-shrink: 0;
+    }
+    .org-brand {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+    .org-logo {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+    .global-search-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      max-width: calc(100% - 280px);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .global-search {
+      width: 100%;
+      max-width: 480px;
+      height: 32px;
+      padding: 0 12px 0 2rem;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--sf-text);
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23706e6b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 0.625rem center no-repeat;
+    }
+    .global-search::placeholder {
+      color: var(--sf-muted);
+    }
+    .global-search:focus {
+      outline: none;
+      border-color: var(--sf-focus);
+      box-shadow: 0 0 0 1px var(--sf-focus);
+    }
+    .global-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: default;
+      color: var(--sf-muted);
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    .icon-btn:hover { background: #f3f2f2; color: var(--sf-text); }
+
+    /* —— Console tab bar (white strip, magenta underline) —— */
+    .console-nav {
+      display: flex;
+      align-items: stretch;
+      min-height: 40px;
+      background: var(--console-nav-bg);
+      border-bottom: 2px solid var(--posh-accent);
+      flex-shrink: 0;
+    }
+    .app-launcher-cell {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-right: 1px solid var(--sf-border);
+      background: var(--console-nav-bg);
+    }
+    .app-launcher-cell button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: default;
+      color: var(--sf-muted);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .app-launcher-cell button:hover { background: #e5e5e5; color: var(--sf-text); }
+    .app-name {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--sf-text);
+      border-right: 1px solid var(--sf-border);
+      background: var(--console-nav-bg);
+      white-space: nowrap;
+    }
+    .tabs {
+      display: flex;
+      align-items: stretch;
+      flex: 1;
+      min-width: 0;
+      background: var(--console-nav-bg);
+    }
+    /* Primary workspace tab: magenta pill, white label */
+    a.tab.tab-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border-right: 1px solid var(--sf-border);
+      white-space: nowrap;
+      background: var(--posh-accent);
+      color: #fff;
+    }
+    a.tab.tab-main .tab-dd {
+      font-size: 10px;
+      opacity: 0.95;
+    }
+    a.tab.tab-main:hover {
+      background: var(--posh-accent-dark);
+      color: #fff;
+    }
+    /* Subtabs (open records): white, grey text, icons */
+    .tab-sub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 6px 0 10px;
+      font-size: 13px;
+      color: var(--sf-muted);
+      background: #fff;
+      border-right: 1px solid var(--sf-border);
+      max-width: 220px;
+      min-height: 40px;
+      flex-shrink: 0;
+    }
+    .tab-sub .tab-sub-ic {
+      display: flex;
+      color: var(--sf-text);
+      flex-shrink: 0;
+    }
+    .tab-sub .tab-sub-ic svg {
+      width: 16px;
+      height: 16px;
+    }
+    .tab-sub .tab-sub-label {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--sf-muted);
+    }
+    .tab-sub .tab-sub-dd {
+      font-size: 10px;
+      color: var(--sf-muted);
+      flex-shrink: 0;
+    }
+    .tab-sub .tab-sub-close {
+      width: 28px;
+      height: 28px;
+      margin: 0 2px 0 4px;
+      padding: 0;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--sf-muted);
+      font-size: 18px;
+      line-height: 1;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tab-sub .tab-sub-close:hover {
+      background: #f3f2f2;
+      color: var(--sf-text);
+    }
+    /* Subtab currently focused (e.g. My Cases list workspace) */
+    .tab-sub.is-active {
+      background: #faf8f9;
+      box-shadow: inset 0 3px 0 0 var(--posh-accent);
+    }
+    /* Contact “Cases” full list (related list View All): LEX blue underline */
+    .tab-sub.is-active-listnav {
+      background: #faf8f9;
+      box-shadow: inset 0 -3px 0 0 #1589ee;
+    }
+
+    .list-breadcrumbs {
+      display: none;
+      font-size: 13px;
+      margin: 0 0 4px;
+      line-height: 1.35;
+    }
+    .list-breadcrumbs a {
+      color: var(--posh-accent);
+      text-decoration: none;
+    }
+    .list-breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+    .list-breadcrumbs .bc-sep {
+      color: var(--sf-muted);
+      padding: 0 2px;
+    }
+    .list-page-title-main {
+      display: none;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.25;
+      color: var(--sf-text);
+    }
+    body.parent-contact-mode .list-breadcrumbs {
+      display: block;
+    }
+    body.parent-contact-mode .object-label-small,
+    body.parent-contact-mode .list-view-picker-row {
+      display: none !important;
+    }
+    body.parent-contact-mode #listViewPanel {
+      display: none !important;
+    }
+    body.parent-contact-mode .list-page-title-main {
+      display: block;
+    }
+    body.parent-contact-mode .list-actions button[data-mock="assign10"],
+    body.parent-contact-mode .list-actions button[data-mock="assign25"],
+    body.parent-contact-mode .list-actions button[data-mock="bulk"],
+    body.parent-contact-mode .list-actions button[data-mock="agent"],
+    body.parent-contact-mode .action-seg {
+      display: none;
+    }
+    body.parent-contact-mode .toolbar-icons button[title="Display As Table"],
+    body.parent-contact-mode .toolbar-icons button[title="Inline Edit"],
+    body.parent-contact-mode .toolbar-icons button[title="Charts"] {
+      display: none;
+    }
+    #consoleTabContactCasesList {
+      display: none;
+    }
+    body.parent-contact-mode #consoleTabContactCasesList {
+      display: inline-flex;
+    }
+    body.parent-contact-mode table.data tbody td:nth-child(4) {
+      max-width: min(340px, 42vw);
+    }
+    body.parent-contact-mode table.data tbody td:nth-child(4) a {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .idx-col {
+      width: 2.25rem;
+      text-align: right;
+      color: var(--sf-muted);
+      font-weight: 400;
+      padding-right: 0.35rem !important;
+    }
+
+    /* —— Main workspace —— */
+    .workspace {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--sf-page);
+      min-height: 0;
+      overflow: hidden;
+    }
+    .workspace-inner {
+      flex: 1;
+      min-height: 0;
+      padding: 0 var(--content-padding-x) var(--console-footer-h);
+      overflow: hidden;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Single light-grey list toolbar: title left; actions + search row right-aligned */
+    .list-view-toolbar {
+      background: var(--list-control-bg);
+      padding: 14px var(--content-padding-x) 12px;
+      border-bottom: 1px solid var(--sf-border);
+      margin: 0 calc(-1 * var(--content-padding-x));
+      flex-shrink: 0;
+    }
+    .list-toolbar-right-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      flex-shrink: 0;
+      max-width: 100%;
+    }
+    .list-toolbar-row2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--sf-border);
+    }
+    .list-toolbar-row2 .search-list {
+      flex: 1 1 auto;
+      min-width: 120px;
+      width: auto;
+      max-width: none;
+    }
+    .list-header-row-primary {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px 24px;
+      flex-wrap: wrap;
+    }
+    .list-header-left {
+      display: block;
+      flex: 1 1 auto;
+      min-width: 220px;
+      max-width: 100%;
+    }
+    .list-header-anchor {
+      position: relative;
+      display: block;
+    }
+    .list-header-brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .case-icon-tile {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      background: var(--posh-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .case-icon-tile img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display: block;
+    }
+    .list-header-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .object-label-small {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--sf-muted);
+      line-height: 1.2;
+      margin: 0;
+    }
+    .list-view-picker-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .list-view-picker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      padding: 2px 6px 2px 0;
+      min-height: auto;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--sf-text);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1.25;
+    }
+    .list-view-picker:hover {
+      background: rgba(139, 33, 82, 0.06);
+    }
+    .list-view-picker:focus {
+      outline: none;
+      border-color: var(--sf-focus);
+      box-shadow: 0 0 0 1px var(--sf-focus);
+    }
+    .list-view-picker .chev {
+      font-size: 12px;
+      color: var(--sf-muted);
+      margin-top: 2px;
+    }
+    .list-view-picker.open {
+      background: rgba(139, 33, 82, 0.08);
+      border-color: var(--sf-border);
+    }
+    .pin-list-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--sf-border);
+      background: #ecebea;
+      border-radius: 4px;
+      color: var(--posh-accent);
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pin-list-btn:hover { background: #e0dfdf; color: var(--posh-accent-dark); }
+    .pin-list-btn svg { width: 18px; height: 18px; }
+    .items-count {
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: var(--sf-muted);
+      line-height: 1.4;
+    }
+    .list-view-panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      min-width: 280px;
+      max-width: 320px;
+      background: #fff;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      z-index: 60;
+      padding: 8px 0;
+    }
+    .list-view-panel.open {
+      display: block;
+    }
+    .list-view-panel .panel-search {
+      padding: 0 8px 8px;
+      border-bottom: 1px solid var(--sf-border);
+    }
+    .list-view-panel .panel-search input {
+      width: 100%;
+      height: 32px;
+      padding: 0 32px 0 12px;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      font-size: 13px;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23706e6b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") right 10px center no-repeat;
+    }
+    .list-view-panel .panel-section-label {
+      padding: 10px 16px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--sf-muted);
+      letter-spacing: 0.03em;
+    }
+    .list-view-option {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      padding: 8px 16px;
+      border: none;
+      background: none;
+      font-size: 13px;
+      font-family: inherit;
+      text-align: left;
+      color: var(--sf-text);
+      cursor: pointer;
+      gap: 8px;
+    }
+    .list-view-option:hover,
+    .list-view-option:focus {
+      background: #f3f2f2;
+      outline: none;
+    }
+    .list-view-option .check {
+      width: 16px;
+      font-size: 12px;
+      color: var(--sf-focus);
+      flex-shrink: 0;
+    }
+    .list-view-option .sub {
+      display: block;
+      font-size: 11px;
+      color: var(--sf-muted);
+      font-weight: 400;
+    }
+    /* List actions: SLDS-style grouped neutral buttons (brand-colored label text) */
+    .list-actions {
+      display: inline-flex;
+      align-items: stretch;
+      border: 1px solid var(--sf-border);
+      border-radius: 0.25rem;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .list-actions button,
+    .list-actions .action-seg {
+      margin: 0;
+      padding: 0 0.75rem;
+      min-height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-family: inherit;
+      line-height: normal;
+      color: var(--posh-accent);
+      background: #fff;
+      border: none;
+      border-right: 1px solid var(--sf-border);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .list-actions button:hover,
+    .list-actions .action-seg:hover {
+      background: var(--sf-header-shade);
+    }
+    .list-actions button:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 1px var(--sf-focus);
+      position: relative;
+      z-index: 1;
+    }
+    .list-actions .action-seg.dropdown {
+      padding: 0 0.5rem;
+      min-width: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sf-muted);
+      cursor: default;
+    }
+    .list-actions .action-seg.dropdown:hover { background: #fff; }
+
+    .search-list {
+      height: 32px;
+      padding: 0 12px 0 2rem;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      background: var(--sf-header) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23706e6b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 0.625rem center no-repeat;
+    }
+    .search-list:focus {
+      outline: none;
+      border-color: var(--sf-focus);
+      box-shadow: 0 0 0 1px var(--sf-focus);
+    }
+    .toolbar-icons {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 4px;
+    }
+    .toolbar-icons button {
+      width: 32px;
+      min-width: 32px;
+      height: 32px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--sf-muted);
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+    }
+    .toolbar-icons button svg {
+      width: 18px;
+      height: 18px;
+    }
+    .toolbar-icons button:hover {
+      background: #f9f9f9;
+      color: var(--sf-text);
+      border-color: #c9c9c9;
+    }
+    .toolbar-icons button:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 1px var(--sf-focus);
+      position: relative;
+      z-index: 1;
+    }
+
+    .table-wrap {
+      border: 1px solid var(--sf-border);
+      border-radius: 0;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1 1 0;
+      min-height: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: calc(-1 * var(--content-padding-x));
+      margin-right: calc(-1 * var(--content-padding-x));
+      background: #fff;
+    }
+    table.data {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    table.data thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      box-shadow: 0 1px 0 var(--sf-border);
+    }
+    table.data th {
+      text-align: left;
+      padding: 0.4rem 0.6rem;
+      background: var(--sf-header-shade);
+      border-bottom: 1px solid var(--sf-border);
+      border-right: 1px solid var(--sf-border);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--sf-text);
+      white-space: nowrap;
+    }
+    table.data th:last-child {
+      border-right: none;
+    }
+    table.data th .sort-mark {
+      font-size: 0.65rem;
+      color: var(--sf-muted);
+      margin-left: 0.25rem;
+      vertical-align: middle;
+      opacity: 0.85;
+    }
+    table.data td {
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid var(--sf-border);
+      border-right: none;
+      vertical-align: middle;
+    }
+    table.data .link-line {
+      color: var(--posh-accent);
+      text-decoration: underline;
+    }
+    table.data .link-line:hover {
+      color: var(--posh-accent-dark);
+    }
+    /* Case number: plain black per LEX list */
+    table.data .case-num {
+      color: var(--sf-text);
+      text-decoration: none;
+      font-weight: 400;
+    }
+    table.data .case-num:hover {
+      color: var(--posh-accent);
+      text-decoration: underline;
+    }
+    table.data .contact-link {
+      color: var(--posh-accent);
+      text-decoration: underline;
+    }
+    table.data .contact-link:hover {
+      color: var(--posh-accent-dark);
+    }
+    table.data .agent-link {
+      color: var(--posh-accent);
+      text-decoration: underline;
+    }
+    table.data .agent-link:hover {
+      color: var(--posh-accent-dark);
+    }
+    table.data tbody tr:hover td { background: var(--row-hover); }
+    .checkbox-col { width: 2rem; text-align: center; }
+    .checkbox-col input { cursor: pointer; }
+    .row-actions {
+      text-align: center;
+      color: var(--sf-muted);
+      width: 2rem;
+      cursor: default;
+    }
+    .case-priority-cell {
+      color: var(--sf-text);
+      white-space: normal;
+      line-height: 1.2;
+      max-width: 4.25rem;
+      vertical-align: middle;
+    }
+    .case-priority-p0 {
+      font-weight: 700;
+    }
+
+    @keyframes assign-row-in {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    table.data tbody tr.row-just-added td {
+      animation: assign-row-in 0.38s ease-out;
+    }
+    .list-actions.is-assigning button[data-mock="assign10"],
+    .list-actions.is-assigning button[data-mock="assign25"] {
+      opacity: 0.65;
+      cursor: wait;
+      pointer-events: none;
+    }
+
+    /* Utility bar: fixed to viewport bottom */
+    .console-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      min-height: var(--console-footer-h);
+      padding: 0 var(--content-padding-x);
+      border-top: 1px solid var(--sf-border);
+      border-top-left-radius: 6px;
+      background: #fff;
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.06);
+      border-bottom: 2px solid var(--posh-accent);
+    }
+    .console-footer .footer-sep {
+      color: var(--sf-muted);
+      font-size: 13px;
+      padding: 0 6px;
+      user-select: none;
+    }
+    .console-footer button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-family: inherit;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--sf-text);
+      cursor: default;
+    }
+    .console-footer button:hover {
+      background: #e5e5e5;
+    }
+    .console-footer button svg {
+      width: 14px;
+      height: 14px;
+      color: var(--sf-muted);
+    }
+
+    /* Toast for mock clicks */
+    .toast {
+      position: fixed;
+      bottom: calc(var(--console-footer-h) + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      padding: 12px 20px;
+      background: #032d60;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 13px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 100;
+      max-width: 90vw;
+    }
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="global-header">
+    <a class="org-brand" href="#" onclick="return false;" aria-label="Poshmark home">
+      <img src="assets/poshmark-logo.png" alt="Poshmark" class="org-logo" width="120" height="34" />
+    </a>
+    <div class="global-search-wrap">
+      <input class="global-search" type="search" placeholder="Search..." aria-label="Global search" />
+    </div>
+    <div class="global-actions" aria-hidden="true">
+      <button type="button" class="icon-btn" title="Favorites" aria-label="Favorites">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Global Actions" aria-label="Global Actions">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Guidance Center" aria-label="Guidance Center">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 18L9.5 9l3.5 5 3-3L21 18M3 18h18" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Help" aria-label="Help">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Setup" aria-label="Setup">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Notifications" aria-label="Notifications">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.082A2.02 2.02 0 0021 14.422v-.81M15.09 7.757a2.5 2.5 0 00-3.18-3.181M9.878 9.87A4.5 4.5 0 117.5 6.257V4.5l-2.25 2.25" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="User menu" aria-label="User menu">
+        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097.48.48 0 00.727-.401l-.07-.085a9 9 0 0114.456 0l-.07.085a.48.48 0 00.727.401zM12 9a3 3 0 100-6 3 3 0 000 6zm-7 8.25a7.49 7.49 0 0114 0 .75.75 0 01-.372.664A7.492 7.492 0 0112 20.25a7.492 7.492 0 01-6.628-3.336.75.75 0 01-.372-.664z" clip-rule="evenodd" /></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="console-nav">
+    <div class="app-launcher-cell">
+      <button type="button" title="App Launcher" aria-label="App Launcher">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+      </button>
+    </div>
+    <div class="app-name">Service Console</div>
+    <div class="tabs" id="consoleTabs">
+      <a class="tab tab-main active" href="#">Cases <span class="tab-dd" aria-hidden="true">▼</span></a>
+      <div class="tab-sub" role="group" aria-label="Open tab">
+        <span class="tab-sub-ic" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.184 2.94-.458.969-1.377 1.59-2.316 1.59H7.25c-.94 0-1.857-.621-2.316-1.59-.397-.904-1.184-1.846-1.184-2.94v-4.15M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 6v2.25M4.5 8.25h15" /></svg>
+        </span>
+        <span class="tab-sub-label">114146641 | Case</span>
+        <span class="tab-sub-dd" aria-hidden="true">▼</span>
+        <button type="button" class="tab-sub-close" title="Close tab" aria-label="Close tab">×</button>
+      </div>
+      <div class="tab-sub" role="group" aria-label="Open tab">
+        <span class="tab-sub-ic" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.184 2.94-.458.969-1.377 1.59-2.316 1.59H7.25c-.94 0-1.857-.621-2.316-1.59-.397-.904-1.184-1.846-1.184-2.94v-4.15M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 6v2.25M4.5 8.25h15" /></svg>
+        </span>
+        <span class="tab-sub-label">114050678 | Case</span>
+        <span class="tab-sub-dd" aria-hidden="true">▼</span>
+        <button type="button" class="tab-sub-close" title="Close tab" aria-label="Close tab">×</button>
+      </div>
+      <div class="tab-sub" id="consoleTabContactCasesList" role="group" aria-label="Cases for contact list">
+        <span class="tab-sub-ic" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.184 2.94-.458.969-1.377 1.59-2.316 1.59H7.25c-.94 0-1.857-.621-2.316-1.59-.397-.904-1.184-1.846-1.184-2.94v-4.15M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 6v2.25M4.5 8.25h15" /></svg>
+        </span>
+        <span class="tab-sub-label">Cases</span>
+        <span class="tab-sub-dd" aria-hidden="true">▼</span>
+        <button type="button" class="tab-sub-close" title="Close tab" aria-label="Close tab">×</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="workspace">
+    <div class="workspace-inner">
+      <div class="list-view-toolbar">
+      <div class="list-header-row-primary">
+        <div class="list-header-left" id="listViewAnchor">
+          <div class="list-header-anchor">
+          <div class="list-header-brand">
+            <div class="case-icon-tile" aria-hidden="true">
+              <img src="assets/case_120.png" alt="" width="22" height="22" />
+            </div>
+            <div class="list-header-brand-text">
+              <nav class="list-breadcrumbs" id="listBreadcrumbs" aria-label="Breadcrumb">
+                <a href="#">Contacts</a><span class="bc-sep" aria-hidden="true"> › </span><a href="#" id="breadcrumbContactName">Stacey Rondinelli</a>
+              </nav>
+              <p class="object-label-small">Cases</p>
+              <h1 class="list-page-title-main" id="listPageTitleMain">Cases</h1>
+              <div class="list-view-picker-row">
+                <button type="button" class="list-view-picker" id="listViewPicker" aria-expanded="false" aria-haspopup="listbox" aria-controls="listViewPanel">
+                  <span id="listViewLabel">Recently Viewed</span>
+                  <span class="chev" aria-hidden="true">▼</span>
+                </button>
+                <button type="button" class="pin-list-btn" title="Pin list" data-mock="pin-list" aria-label="Pin list">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 9.4V7.116A2.25 2.25 0 0014.25 4.5h-4.5A2.25 2.25 0 007.5 7.116V9.4m9 0l-2.25-2.25M16.5 9.4l2.25-2.25M7.5 9.4L9.75 7.11M7.5 9.4l-2.25-2.25M9.75 21h4.5a2.25 2.25 0 002.25-2.25V13.5a2.25 2.25 0 00-2.25-2.25h-4.5a2.25 2.25 0 00-2.25 2.25v5.25A2.25 2.25 0 009.75 21z" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="list-view-panel" id="listViewPanel" role="listbox" aria-labelledby="listViewPicker">
+            <div class="panel-search">
+              <input type="search" placeholder="Search lists..." aria-label="Search lists" id="listViewSearch" />
+            </div>
+            <div class="panel-section-label">Recent List Views</div>
+            <button type="button" class="list-view-option" role="option" data-list-label="All Cases"><span class="check" aria-hidden="true"></span><span>All Cases</span></button>
+            <button type="button" class="list-view-option" role="option" data-list-label="IND Authenticity A"><span class="check" aria-hidden="true"></span><span>IND Authenticity A</span></button>
+            <button type="button" class="list-view-option" role="option" data-list-label="My Cases"><span class="check" aria-hidden="true"></span><span>My Cases</span></button>
+            <button type="button" class="list-view-option is-current" role="option" data-list-label="Recently Viewed">
+              <span class="check" aria-hidden="true">✓</span>
+              <span>Recently Viewed<span class="sub">Pinned list</span></span>
+            </button>
+            <button type="button" class="list-view-option" role="option" data-list-label="Reopen Analysis"><span class="check" aria-hidden="true"></span><span>Reopen Analysis</span></button>
+            <button type="button" class="list-view-option" role="option" data-list-label="Resolved"><span class="check" aria-hidden="true"></span><span>Resolved</span></button>
+            <button type="button" class="list-view-option" role="option" data-list-label="Support Tier 1"><span class="check" aria-hidden="true"></span><span>Support Tier 1</span></button>
+          </div>
+          </div>
+          <p class="items-count" id="itemsCountLine">30 items • Updated just now</p>
+        </div>
+        <div class="list-toolbar-right-wrap">
+          <div class="list-actions" role="toolbar" aria-label="Case list actions">
+            <button type="button" data-mock="assign10">Assign 10 Cases</button>
+            <button type="button" data-mock="assign25">Assign 25 Cases</button>
+            <button type="button" data-mock="new">New</button>
+            <button type="button" data-mock="change-owner">Change Owner</button>
+            <button type="button" data-mock="merge">Merge Cases</button>
+            <button type="button" data-mock="bulk">Bulk Actions</button>
+            <button type="button" data-mock="agent">Update Agent</button>
+            <span class="action-seg dropdown" title="More actions" aria-hidden="true">▾</span>
+          </div>
+          <div class="list-toolbar-row2">
+          <input class="search-list" type="search" placeholder="Search this list..." aria-label="Search this list" />
+          <div class="toolbar-icons" role="toolbar" aria-label="List view toolbar">
+          <button type="button" title="List View Controls" aria-label="List View Controls">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          </button>
+          <button type="button" title="Display As Table" aria-label="Display As Table">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3.75 6A2.25 2.25 0 016 3.75h3A2.25 2.25 0 0111.25 6v3A2.25 2.25 0 019 11.25H6A2.25 2.25 0 013.75 9V6zM12.75 6A2.25 2.25 0 0115 3.75h3A2.25 2.25 0 0120.25 6v3A2.25 2.25 0 0118 11.25h-3A2.25 2.25 0 0112.75 9V6zM6 12.75A2.25 2.25 0 013.75 15v3A2.25 2.25 0 016 20.25h3A2.25 2.25 0 0111.25 18v-3A2.25 2.25 0 019 12.75H6zM12.75 12.75A2.25 2.25 0 0115 15v3a2.25 2.25 0 01-2.25 2.25h-3A2.25 2.25 0 0112.75 18v-3a2.25 2.25 0 012.25-2.25zM18 12.75a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25h-3A2.25 2.25 0 0112.75 18v-3a2.25 2.25 0 012.25-2.25h3z" /></svg>
+          </button>
+          <button type="button" title="Refresh" aria-label="Refresh">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+          </button>
+          <button type="button" title="Sort" aria-label="Sort">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5-4.5L16.5 21m0 0L12 16.5m4.5 4.5V7.5" /></svg>
+          </button>
+          <button type="button" title="Inline Edit" aria-label="Inline Edit">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" /></svg>
+          </button>
+          <button type="button" title="Charts" aria-label="Charts">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+          </button>
+          <button type="button" title="Filter" aria-label="Filter">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" /></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead id="casesThead">
+            <tr id="casesTheadRow">
+              <th class="checkbox-col"><input type="checkbox" aria-label="Select all" /></th>
+              <th>Case Nu…<span class="sort-mark">▼</span></th>
+              <th>Contact Name<span class="sort-mark">▼</span></th>
+              <th>Subject<span class="sort-mark">▼</span></th>
+              <th>Status<span class="sort-mark">▼</span></th>
+              <th>Case Own…<span class="sort-mark">▼</span></th>
+              <th>Agent<span class="sort-mark">▼</span></th>
+              <th>Date/Time Opened<span class="sort-mark">▼</span></th>
+              <th>Order Id<span class="sort-mark">▼</span></th>
+              <th>Case Priority<span class="sort-mark">▼</span></th>
+              <th class="row-actions" aria-hidden="true"></th>
+            </tr>
+          </thead>
+          <tbody id="casesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="console-footer">
+    <button type="button">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      History
+    </button>
+    <span class="footer-sep" aria-hidden="true">»</span>
+    <button type="button">
+      Macros
+    </button>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams((typeof location !== 'undefined' && location.search) ? location.search : '');
+      var isParentContactScope = params.get('scope') === 'parentContact';
+      var parentContactDisplayName = decodeURIComponent((params.get('contact') || 'Stacey+Rondinelli').replace(/\+/g, ' '));
+      var contactBucketRaw = (params.get('bucket') || 'all').toLowerCase();
+      var contactBucket = ['related', 'open', 'all'].indexOf(contactBucketRaw) !== -1 ? contactBucketRaw : 'all';
+      var CONTACT_BUCKET_TITLES = { related: 'Related Cases', open: 'Open Cases', all: 'All Cases' };
+
+      var toast = document.getElementById('toast');
+      var t = null;
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('visible');
+        clearTimeout(t);
+        t = setTimeout(function () { toast.classList.remove('visible'); }, 2800);
+      }
+
+      var messages = {
+        new: 'Mock: New — standard case create.',
+        'change-owner': 'Mock: Change Owner.',
+        merge: 'Mock: Merge Cases.',
+        bulk: 'Mock: Bulk Actions.',
+        agent: 'Mock: Update Agent.',
+        'pin-list': 'Mock: Pin this list to the org’s pinned list views.'
+      };
+
+      var picker = document.getElementById('listViewPicker');
+      var panel = document.getElementById('listViewPanel');
+      var label = document.getElementById('listViewLabel');
+      var anchor = document.getElementById('listViewAnchor');
+      var searchInput = document.getElementById('listViewSearch');
+      var tbody = document.getElementById('casesTableBody');
+      var itemsCountLine = document.getElementById('itemsCountLine');
+      var tableScrollWrap = tbody ? tbody.closest('.table-wrap') : null;
+      var consoleTabsEl = document.getElementById('consoleTabs');
+
+      function briefcaseTabIconSvg() {
+        return '<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.184 2.94-.458.969-1.377 1.59-2.316 1.59H7.25c-.94 0-1.857-.621-2.316-1.59-.397-.904-1.184-1.846-1.184-2.94v-4.15M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 6v2.25M4.5 8.25h15" /></svg>';
+      }
+
+      function ensureMyCasesConsoleTab() {
+        if (!consoleTabsEl || document.getElementById('consoleTabMyCases')) return;
+        var div = document.createElement('div');
+        div.className = 'tab-sub';
+        div.id = 'consoleTabMyCases';
+        div.setAttribute('role', 'group');
+        div.setAttribute('aria-label', 'My Cases list');
+        div.innerHTML =
+          '<span class="tab-sub-ic" aria-hidden="true">' + briefcaseTabIconSvg() + '</span>' +
+          '<span class="tab-sub-label">My Cases | List</span>' +
+          '<span class="tab-sub-dd" aria-hidden="true">▼</span>' +
+          '<button type="button" class="tab-sub-close" title="Close tab" aria-label="Close My Cases tab" data-my-cases-tab-close="1">×</button>';
+        consoleTabsEl.appendChild(div);
+      }
+
+      function removeMyCasesConsoleTab() {
+        var t = document.getElementById('consoleTabMyCases');
+        if (t) t.remove();
+      }
+
+      function refreshConsoleTabActiveState() {
+        if (!consoleTabsEl) return;
+        var myTab = document.getElementById('consoleTabMyCases');
+        var contactListTab = document.getElementById('consoleTabContactCasesList');
+        if (listState.mode === 'parentContact') {
+          consoleTabsEl.querySelectorAll('.tab-sub').forEach(function (t) {
+            t.classList.remove('is-active');
+            t.classList.remove('is-active-listnav');
+            if (contactListTab && t === contactListTab) t.classList.add('is-active-listnav');
+          });
+          return;
+        }
+        var onMy = listState.currentList === 'My Cases';
+        consoleTabsEl.querySelectorAll('.tab-sub').forEach(function (t) {
+          t.classList.remove('is-active-listnav');
+          if (contactListTab && t === contactListTab) return;
+          t.classList.toggle('is-active', onMy && t === myTab);
+        });
+      }
+
+      function scrollTableToBottom() {
+        if (!tableScrollWrap) return;
+        requestAnimationFrame(function () {
+          tableScrollWrap.scrollTop = tableScrollWrap.scrollHeight;
+        });
+      }
+
+      var listState = {
+        mode: 'default',
+        currentList: 'Recently Viewed',
+        myCasesRows: [],
+        contactBucket: 'all'
+      };
+
+      var SUBJ_ORDER_DELAY = 'Order 692b86652714fcfa46da7eb | Order Status Update | Delayed order cancelled — buyer notification';
+      var SUBJ_CARRIER = 'Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested';
+      var SUBJ_WALLET = 'Wallet payout pending identity verification | Additional documents requested — account security review ongoing';
+
+      var PARENT_CONTACT_ROWS_RELATED = [
+        { caseNum: '114050678', subject: 'Order Not Delivered', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
+        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' }
+      ];
+      var PARENT_CONTACT_ROWS_OPEN = [
+        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
+        { caseNum: '115210902', subject: SUBJ_WALLET, status: 'Open', caseOwner: 'Support', agent: 'Mia Rodriguez', orderId: '69d210902681234fcfa46da7eb', dispute: '—', casePriority: '' }
+      ];
+      var PARENT_CONTACT_ROWS_ALL = [
+        { caseNum: '114050678', subject: 'Order Not Delivered', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
+        { caseNum: '113053486', subject: SUBJ_ORDER_DELAY, status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '69c05348681234fcfa46da7eb', dispute: '—', casePriority: '' },
+        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
+        { caseNum: '115210902', subject: SUBJ_WALLET, status: 'Open', caseOwner: 'Support', agent: 'Mia Rodriguez', orderId: '69d210902681234fcfa46da7eb', dispute: '—', casePriority: '' }
+      ];
+
+      function getParentContactRows() {
+        if (listState.contactBucket === 'related') return PARENT_CONTACT_ROWS_RELATED;
+        if (listState.contactBucket === 'open') return PARENT_CONTACT_ROWS_OPEN;
+        return PARENT_CONTACT_ROWS_ALL;
+      }
+
+      var RECENT_ROWS = [
+        { caseNum: '114050678', contact: 'Stacey Rondinelli', subject: 'Order Not Delivered', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', opened: '1/28/2026 8:54 AM', orderId: '696eb9647a89c80ea3d94875', casePriority: 'P0' },
+        { caseNum: '114747637', contact: 'Susan Dutcher', subject: 'Regarding your order "Hot...', status: 'Resolved', caseOwner: 'Support', agent: 'Araceli Hamann', opened: '2/28/2026 8:09 PM', orderId: '699c4c7c5e25ae9198cef5b', casePriority: '' },
+        { caseNum: '114674773', contact: 'Amy Miller', subject: 'Made my first sale. It\'s say...', status: 'Resolved', caseOwner: 'Support', agent: 'Renni I', opened: '2/25/2026 1:39 PM', orderId: '', casePriority: '' },
+        { caseNum: '114746597', contact: 'Maeve Carthy', subject: 'Order 699e1cf935ee22bb...', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', opened: '2/28/2026 6:49 PM', orderId: '699e1cf935ee22bbe71c3608', casePriority: '' },
+        { caseNum: '115085047', contact: 'Rebecca Brendler', subject: 'Order 69aff8c1ecfbf7c76e...', status: 'Resolved', caseOwner: 'Support', agent: 'Roshni Ramesh', opened: '3/16/2026 3:18 AM', orderId: '69aff8c1ecfbf7c76e7093a7', casePriority: 'P0' },
+        { caseNum: '114146641', contact: 'Heather Vaughn', subject: 'Order 6972fde8e1498a42...', status: 'Resolved', caseOwner: 'Support', agent: 'Ramya Selvam', opened: '2/1/2026 8:07 AM', orderId: '6972fde8e1498a42d8a89f15', casePriority: '' },
+        { caseNum: '114829913', contact: 'Brittany Miller', subject: 'Reinstate account', status: 'Open', caseOwner: 'Shipping Escal...', agent: 'Katelyn Tarwater', opened: '3/4/2026 7:32 AM', orderId: '', ownerTitle: 'Shipping Escalations', casePriority: 'P0' },
+        { caseNum: '114711204', contact: 'Nicole Fraser', subject: 'Posh Protect claim follow-up', status: 'Resolved', caseOwner: 'Support', agent: 'Justinne Dutchie Suplico', opened: '2/12/2026 11:20 AM', orderId: '697a44b2c91e33d0e81ac902', casePriority: '' },
+        { caseNum: '114026608', contact: 'Ashleigh Mcgregor', subject: 'Order 69785ce5c08c21a0...', status: 'Resolved', caseOwner: 'Support', agent: 'Krizalynne Guese', opened: '1/15/2026 3:44 PM', orderId: '69785ce5c08c21a0a3b91cee', casePriority: '' },
+        { caseNum: '114091995', contact: 'Carrie Pfeifer', subject: 'Re: Poshmark purchase "H...', status: 'Resolved', caseOwner: 'Support', agent: 'Almina Grace Crisostomo', opened: '1/22/2026 10:08 AM', orderId: '698102ab4e5dd2c10fa81234', casePriority: '' },
+        { caseNum: '114902334', contact: 'Priya Nandakumar', subject: 'Late shipment — buyer inquiry', status: 'Open', caseOwner: 'CA Support', agent: 'Mia Rodriguez', opened: '3/10/2026 2:51 AM', orderId: '69a10f33c44b8de012345678', casePriority: 'P0' },
+        { caseNum: '115002891', contact: 'Taylor Brooks', subject: 'Authentication result dispute', status: 'Resolved', caseOwner: 'IND Authenticity', agent: 'S. Okonkwo', opened: '3/14/2026 4:36 PM', orderId: '', casePriority: '' }
+      ];
+      (function augmentRecentViewTo30() {
+        var agents = ['Amber Henderson', 'Mia Rodriguez', 'S. Okonkwo', 'Roshni Ramesh', 'Araceli Hamann', 'D. Patel', 'Katelyn Tarwater'];
+        var owners = ['Support', 'CA Support', 'IND Authenticity', 'Shipping Escal...'];
+        var subjects = [
+          'Return label not received',
+          'Buyer cancelled order',
+          'Listing removed — policy review',
+          'Payment held — verification',
+          'Duplicate charge inquiry',
+          'Account appeal',
+          'Shipping delay escalation',
+          'Item not as described',
+          'Bundle shipping question',
+          'Tax document request',
+          'Seller payout question',
+          'Authentication pending',
+          'Offer expired dispute',
+          'Lost package claim',
+          'Posh credit balance',
+          'Email change request',
+          'Phone verification help',
+          'Counterfeit concern'
+        ];
+        var firstNames = ['Morgan', 'Alex', 'Jamie', 'Riley', 'Casey', 'Quinn', 'Skylar', 'Reese', 'Avery', 'Jordan', 'Sam', 'Cameron', 'Drew', 'Blake', 'Dana', 'River', 'Emery', 'Kai'];
+        var lastNames = ['Nguyen', 'Patel', 'Garcia', 'Chen', 'Martinez', 'Lopez', 'Kim', 'Singh'];
+        var startNum = 113992100;
+        for (var i = 0; i < 18; i++) {
+          var mm = (i * 11) % 60;
+          var mmStr = mm < 10 ? '0' + mm : String(mm);
+          RECENT_ROWS.push({
+            caseNum: String(startNum + i * 1749),
+            contact: firstNames[i] + ' ' + lastNames[i % lastNames.length],
+            subject: subjects[i],
+            status: i % 5 === 0 ? 'Open' : 'Resolved',
+            caseOwner: owners[i % owners.length],
+            agent: agents[i % agents.length],
+            opened: '3/' + (i % 26 + 1) + '/2026 ' + (8 + (i % 9)) + ':' + mmStr + ' AM',
+            orderId: i % 2 === 0 ? ('69f' + String(100400 + i * 17)) : '',
+            casePriority: i % 7 === 2 ? 'P0' : ''
+          });
+        }
+      })();
+
+      var GENERIC_AGENTS = ['Amber Henderson', 'Mia Rodriguez', 'S. Okonkwo', 'Roshni Ramesh', 'Araceli Hamann', 'D. Patel', 'Katelyn Tarwater'];
+      var FN = ['Morgan', 'Alex', 'Jamie', 'Riley', 'Casey', 'Quinn', 'Skylar', 'Reese', 'Avery', 'Jordan', 'Sam', 'Taylor', 'Cameron', 'Drew'];
+      var LN = ['Nguyen', 'Patel', 'Garcia', 'Chen', 'Wright', 'Martinez', 'Brown', 'Lee', 'Lopez', 'Wilson', 'Anderson'];
+
+      function escapeHtml(s) {
+        if (s == null || s === '') return '';
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+      }
+
+      function pad2(n) {
+        return n < 10 ? '0' + n : String(n);
+      }
+
+      /** P0 first, then FIFO order as rows appear in Recently Viewed. */
+      function sortRowsForAssignment(rows) {
+        return rows.slice().sort(function (a, b) {
+          var ap = a.casePriority === 'P0' ? 0 : 1;
+          var bp = b.casePriority === 'P0' ? 0 : 1;
+          if (ap !== bp) return ap - bp;
+          var ai = a._fifo != null ? a._fifo : 0;
+          var bi = b._fifo != null ? b._fifo : 0;
+          return ai - bi;
+        });
+      }
+
+      function pickRowsForAssignment(total) {
+        var annotated = RECENT_ROWS.map(function (r, idx) {
+          return Object.assign({ _fifo: idx }, r);
+        });
+        var sorted = sortRowsForAssignment(annotated);
+        var picked = [];
+        for (var j = 0; j < sorted.length && picked.length < total; j++) {
+          var row = sorted[j];
+          var copy = Object.assign({}, row);
+          delete copy._fifo;
+          picked.push(copy);
+        }
+        if (picked.length < total) {
+          picked = picked.concat(buildAssignedRows(total - picked.length));
+        }
+        return picked;
+      }
+
+      function buildAssignedRows(n) {
+        /* Same column semantics as Recently Viewed: Support teams, named agents, Open/Resolved only */
+        var agents = GENERIC_AGENTS.concat(['Renni I', 'Ramya Selvam', 'Krizalynne Guese', 'Justinne Dutchie Suplico', 'Almina Grace Crisostomo']);
+        var owners = ['Support', 'CA Support', 'IND Authenticity', 'Shipping Escal...'];
+        var subjects = [
+          'Order not delivered — buyer update',
+          'Regarding your listing verification',
+          'Return request — seller response',
+          'Posh Protect inquiry',
+          'Order 696a1bb2c91e00...',
+          'Account restriction appeal',
+          'Shipping address change',
+          'Authentication result — question',
+          'Escalation from Tier 1',
+          'Refund status check',
+          'Buyer protection — timing',
+          'Seller fee clarification',
+          'Duplicate order concern',
+          'Wallet transfer delay',
+          'Tax form follow-up',
+          'Counterfeit item report',
+          'Listing mistakenly removed',
+          'Offer acceptance issue',
+          'Bundle discount not applied',
+          'International shipping help',
+          'Chargeback documentation',
+          'Promoted Closet billing',
+          'Re: Poshmark purchase inquiry',
+          'Shipping label expired',
+          'Buyer cancelled — seller question'
+        ];
+        var rows = [];
+        var base = 115400000;
+        for (var i = 0; i < n; i++) {
+          var hh = 8 + (i % 9);
+          var mm = (i * 13) % 60;
+          var day = (i % 26) + 1;
+          rows.push({
+            caseNum: String(base + i * 17),
+            contact: FN[i % FN.length] + ' ' + LN[(i * 5) % LN.length],
+            subject: subjects[i % subjects.length],
+            status: i % 5 === 0 ? 'Open' : 'Resolved',
+            caseOwner: owners[i % owners.length],
+            agent: agents[i % agents.length],
+            opened: '3/' + day + '/2026 ' + hh + ':' + pad2(mm) + ' AM',
+            orderId: i % 3 === 0 ? ('69c' + String(101000 + i * 31)) : '',
+            casePriority: i % 6 === 0 ? 'P0' : ''
+          });
+        }
+        return rows;
+      }
+
+      function generateQueueRows(count, listLabel) {
+        var rows = [];
+        var base = 115210000;
+        for (var i = 0; i < count; i++) {
+          rows.push({
+            caseNum: String(base + i),
+            contact: 'Buyer ' + (i + 1) + ' (' + listLabel.slice(0, 4) + ')',
+            subject: 'Tier queue item — follow-up ' + (i + 1),
+            status: i % 3 === 0 ? 'Open' : 'Resolved',
+            caseOwner: listLabel,
+            agent: GENERIC_AGENTS[i % GENERIC_AGENTS.length],
+            opened: '3/' + pad2((i % 25) + 1) + '/2026 ' + (10 + (i % 8)) + ':' + pad2((i * 7) % 60) + ' AM',
+            orderId: i % 2 === 0 ? ('69d' + String(10000 + i)) : '',
+            casePriority: i % 5 === 0 ? 'P0' : ''
+          });
+        }
+        return rows;
+      }
+
+      function getRowsForCurrentList() {
+        if (listState.mode === 'parentContact') return getParentContactRows();
+        var name = listState.currentList;
+        if (name === 'Recently Viewed') return RECENT_ROWS;
+        if (name === 'My Cases') return listState.myCasesRows;
+        return generateQueueRows(30, name);
+      }
+
+      function tableColspan() {
+        return listState.mode === 'parentContact' ? 10 : 11;
+      }
+
+      function ownerCell(r) {
+        var t = r.ownerTitle ? ' title="' + escapeHtml(r.ownerTitle) + '"' : '';
+        return '<td' + t + '>' + escapeHtml(r.caseOwner) + '</td>';
+      }
+
+      function agentCell(r) {
+        if (!r.agent || r.agent === '—') return '<td>—</td>';
+        return '<td><a class="agent-link" href="#">' + escapeHtml(r.agent) + '</a></td>';
+      }
+
+      function priorityCellHtml(r) {
+        var p = r.casePriority;
+        if (!p) return '<td class="case-priority-cell">—</td>';
+        var cls = p === 'P0' ? ' case-priority-p0' : '';
+        return '<td class="case-priority-cell' + cls + '">' + escapeHtml(p) + '</td>';
+      }
+
+      function rowTr(r, index) {
+        var aria = index === 0 ? ' aria-label="Select row"' : '';
+        return (
+          '<tr>' +
+          '<td class="checkbox-col"><input type="checkbox"' + aria + ' /></td>' +
+          '<td><a class="case-num" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.caseNum) + '</a></td>' +
+          '<td><a class="contact-link" href="#">' + escapeHtml(r.contact) + '</a></td>' +
+          '<td><a class="link-line" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.subject) + '</a></td>' +
+          '<td>' + escapeHtml(r.status) + '</td>' +
+          ownerCell(r) +
+          agentCell(r) +
+          '<td>' + escapeHtml(r.opened) + '</td>' +
+          '<td>' + escapeHtml(r.orderId) + '</td>' +
+          priorityCellHtml(r) +
+          '<td class="row-actions">▾</td>' +
+          '</tr>'
+        );
+      }
+
+      function rowTrParentContact(r, index) {
+        var aria = index === 0 ? ' aria-label="Select row"' : '';
+        var idx = index + 1;
+        return (
+          '<tr>' +
+          '<td class="idx-col">' + idx + '</td>' +
+          '<td class="checkbox-col"><input type="checkbox"' + aria + ' /></td>' +
+          '<td><a class="link-line" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.caseNum) + '</a></td>' +
+          '<td><a class="link-line" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.subject) + '</a></td>' +
+          '<td>' + escapeHtml(r.status) + '</td>' +
+          '<td>' + escapeHtml(r.caseOwner) + '</td>' +
+          '<td>' + escapeHtml(r.orderId) + '</td>' +
+          agentCell(r) +
+          '<td>' + escapeHtml(r.dispute) + '</td>' +
+          priorityCellHtml(r) +
+          '</tr>'
+        );
+      }
+
+      function updateItemsCount(n) {
+        var when = listState.mode === 'parentContact' ? 'Updated a few seconds ago' : 'Updated just now';
+        var sortPart = listState.mode === 'parentContact' ? ' • Sorted by Case' : '';
+        if (n === 0) itemsCountLine.textContent = '0 items' + sortPart + ' • ' + when;
+        else if (n === 1) itemsCountLine.textContent = '1 item' + sortPart + ' • ' + when;
+        else itemsCountLine.textContent = n + ' items' + sortPart + ' • ' + when;
+      }
+
+      function initParentContactMode() {
+        document.body.classList.add('parent-contact-mode');
+        listState.mode = 'parentContact';
+        listState.currentList = '__parentContact__';
+        listState.contactBucket = contactBucket;
+        var bucketTitle = CONTACT_BUCKET_TITLES[listState.contactBucket] || CONTACT_BUCKET_TITLES.all;
+        var titleEl = document.getElementById('listPageTitleMain');
+        if (titleEl) titleEl.textContent = bucketTitle;
+        document.title = bucketTitle + ' — ' + parentContactDisplayName + ' (mock)';
+        var contactTabLabel = document.querySelector('#consoleTabContactCasesList .tab-sub-label');
+        if (contactTabLabel) contactTabLabel.textContent = bucketTitle + ' | List';
+        var bc = document.getElementById('breadcrumbContactName');
+        if (bc) bc.textContent = parentContactDisplayName;
+        var theadRow = document.getElementById('casesTheadRow');
+        if (theadRow) {
+          theadRow.innerHTML =
+            '<th class="idx-col" aria-hidden="true"></th>' +
+            '<th class="checkbox-col"><input type="checkbox" aria-label="Select all" /></th>' +
+            '<th>Case<span class="sort-mark">▼</span></th>' +
+            '<th>Subject<span class="sort-mark">▼</span></th>' +
+            '<th>Status<span class="sort-mark">▼</span></th>' +
+            '<th>Owner<span class="sort-mark">▼</span></th>' +
+            '<th>Order Id<span class="sort-mark">▼</span></th>' +
+            '<th>Agent<span class="sort-mark">▼</span></th>' +
+            '<th>Disput…<span class="sort-mark">▼</span></th>' +
+            '<th>Case Priority<span class="sort-mark">▼</span></th>';
+        }
+        refreshConsoleTabActiveState();
+        renderTable();
+      }
+
+      function renderTable() {
+        if (listState.mode !== 'parentContact' && listState.currentList === 'My Cases') {
+          var myRows = listState.myCasesRows;
+          if (myRows.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="' + tableColspan() + '" style="padding:1.25rem;color:#706e6b;text-align:center;">No cases in My Cases yet. Use <strong>Assign 10 Cases</strong> or <strong>Assign 25 Cases</strong>.</td></tr>';
+            updateItemsCount(0);
+            refreshConsoleTabActiveState();
+            return;
+          }
+        }
+        var rows = getRowsForCurrentList();
+        var trFn = listState.mode === 'parentContact' ? rowTrParentContact : rowTr;
+        tbody.innerHTML = rows.map(function (row, i) { return trFn(row, i); }).join('');
+        updateItemsCount(rows.length);
+        refreshConsoleTabActiveState();
+      }
+
+      function findOption(name) {
+        return panel.querySelector('.list-view-option[data-list-label="' + name + '"]');
+      }
+
+      function syncOptionsChecks(selectedBtn) {
+        panel.querySelectorAll('.list-view-option').forEach(function (opt) {
+          opt.classList.remove('is-current');
+          var chk = opt.querySelector('.check');
+          if (chk) chk.textContent = '';
+        });
+        if (selectedBtn) {
+          selectedBtn.classList.add('is-current');
+          var c = selectedBtn.querySelector('.check');
+          if (c) c.textContent = '✓';
+        }
+      }
+
+      function applyListView(name, optBtn, opts) {
+        opts = opts || {};
+        listState.currentList = name;
+        label.textContent = name;
+        syncOptionsChecks(optBtn);
+        if (name === 'My Cases') ensureMyCasesConsoleTab();
+        if (!opts.skipRender) renderTable();
+        else refreshConsoleTabActiveState();
+        if (opts.toast) showToast(opts.toast);
+      }
+
+      var assignStaggerTimer = null;
+      var ASSIGN_STAGGER_MS = 200;
+      var listActionsEl = document.querySelector('.list-actions');
+
+      function setAssignButtonsBusy(busy) {
+        listActionsEl.classList.toggle('is-assigning', !!busy);
+      }
+
+      function clearAssignStagger() {
+        if (assignStaggerTimer) {
+          clearInterval(assignStaggerTimer);
+          assignStaggerTimer = null;
+        }
+        setAssignButtonsBusy(false);
+      }
+
+      function startStaggeredAssign(total) {
+        clearAssignStagger();
+        setAssignButtonsBusy(true);
+        var full = pickRowsForAssignment(total);
+        listState.myCasesRows = [];
+        listState.currentList = 'My Cases';
+        label.textContent = 'My Cases';
+        syncOptionsChecks(findOption('My Cases'));
+        ensureMyCasesConsoleTab();
+        refreshConsoleTabActiveState();
+        tbody.innerHTML = '';
+        updateItemsCount(0);
+        showToast('Assigning ' + total + ' cases (P0 first, then FIFO from Recently Viewed)…');
+        scrollTableToBottom();
+
+        var i = 0;
+        assignStaggerTimer = setInterval(function cb() {
+          if (i >= full.length) {
+            clearAssignStagger();
+            scrollTableToBottom();
+            showToast(total + ' cases assigned (P0 first, then FIFO). My Cases is up to date.');
+            return;
+          }
+          listState.myCasesRows.push(full[i]);
+          tbody.insertAdjacentHTML('beforeend', rowTr(full[i], i));
+          var last = tbody.lastElementChild;
+          if (last) {
+            last.classList.add('row-just-added');
+            setTimeout(function () {
+              last.classList.remove('row-just-added');
+            }, 400);
+          }
+          updateItemsCount(listState.myCasesRows.length);
+          scrollTableToBottom();
+          i++;
+        }, ASSIGN_STAGGER_MS);
+      }
+
+      function setListDropdown(open) {
+        panel.classList.toggle('open', open);
+        picker.classList.toggle('open', open);
+        picker.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) searchInput.focus();
+      }
+
+      document.querySelector('.list-actions').addEventListener('click', function (e) {
+        var btnI = e.target.closest('button[data-mock]');
+        if (!btnI) return;
+        var key = btnI.getAttribute('data-mock');
+        if (key === 'assign10') {
+          startStaggeredAssign(10);
+          setListDropdown(false);
+          return;
+        }
+        if (key === 'assign25') {
+          startStaggeredAssign(25);
+          setListDropdown(false);
+          return;
+        }
+        showToast(messages[key] || 'Mock action');
+      });
+
+      picker.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        setListDropdown(!panel.classList.contains('open'));
+      });
+
+      document.addEventListener('click', function () {
+        setListDropdown(false);
+      });
+
+      anchor.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+      });
+
+      panel.addEventListener('click', function (e) {
+        var opt = e.target.closest('.list-view-option');
+        if (!opt) return;
+        var name = opt.getAttribute('data-list-label');
+        if (name) {
+          clearAssignStagger();
+          applyListView(name, opt, {});
+        }
+        setListDropdown(false);
+      });
+
+      searchInput.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      searchInput.addEventListener('input', function () {
+        var q = (searchInput.value || '').trim().toLowerCase();
+        panel.querySelectorAll('.list-view-option').forEach(function (opt) {
+          var text = (opt.textContent || '').toLowerCase().replace(/\s+/g, ' ');
+          opt.style.display = !q || text.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+
+      document.querySelector('.pin-list-btn').addEventListener('click', function (e) {
+        e.stopPropagation();
+        showToast(messages['pin-list']);
+      });
+
+      if (consoleTabsEl) {
+        consoleTabsEl.addEventListener('click', function (e) {
+          var closeBtn = e.target.closest('.tab-sub-close');
+          if (closeBtn) {
+            var tab = closeBtn.closest('.tab-sub');
+            if (!tab) return;
+            if (tab.id === 'consoleTabContactCasesList') {
+              e.preventDefault();
+              window.location.href = 'salesforce_cases_list_mock.html';
+              return;
+            }
+            if (tab.id === 'consoleTabMyCases') {
+              e.preventDefault();
+              removeMyCasesConsoleTab();
+              clearAssignStagger();
+              if (listState.currentList === 'My Cases') {
+                applyListView('Recently Viewed', findOption('Recently Viewed'), {});
+              } else {
+                refreshConsoleTabActiveState();
+              }
+              return;
+            }
+            tab.remove();
+            showToast('Mock: Closed workspace tab.');
+            return;
+          }
+          var myTab = e.target.closest('#consoleTabMyCases');
+          if (myTab && !e.target.closest('.tab-sub-close')) {
+            clearAssignStagger();
+            applyListView('My Cases', findOption('My Cases'), {});
+          }
+        });
+      }
+
+      if (isParentContactScope) initParentContactMode();
+      else renderTable();
+    })();
+  </script>
+</body>
+</html>

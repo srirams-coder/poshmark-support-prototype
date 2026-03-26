@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>114050678 | Case — Service Console (mock)</title>
+  <style>
+    :root {
+      /* LEX case tile icon; Poshmark UI pink from original console (#C12267) */
+      --lex-case-icon-bg: #FF538A;
+      --lex-agent-avatar-bg: #1B96FF;
+      --posh-brand: #c12267;
+      --posh-brand-dark: #a31d57;
+      --posh-accent: var(--posh-brand);
+      --posh-accent-dark: var(--posh-brand-dark);
+      --sf-page: #ffffff;
+      --sf-surface: #ffffff;
+      --sf-header: #ffffff;
+      --sf-border: #dddbda;
+      --sf-border-strong: #c9c9c9;
+      --sf-text: #080707;
+      --sf-muted: #706e6b;
+      --console-strip-bg: #f3f3f2;
+      --warn-red: #ba0517;
+      --warn-banner-bg: #fff0f0;
+      --feed-accent: var(--posh-brand);
+      --feed-accent-dark: var(--posh-brand-dark);
+      --publisher-selected-bg: #f3f3f2;
+      --link-blue: #0176d3;
+      --sf-focus: #1b96ff;
+      --sf-focus-ring: #1b96ff;
+      --pill-blue-bg: #e8f0fe;
+      --pill-blue-text: #014486;
+      --pill-blue-border: #b6d3ff;
+      --logistics-bar: #e8e0f4;
+      --console-footer-h: 42px;
+      --content-pad: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      margin: 0;
+      font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--sf-text);
+      background: var(--sf-page);
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* —— Global app header (original LEX) —— */
+    .global-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 48px;
+      padding: 0 16px;
+      background: var(--sf-header);
+      border-bottom: 1px solid var(--sf-border);
+      flex-shrink: 0;
+    }
+    .org-brand {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+    .org-logo {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+    .global-search-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      max-width: calc(100% - 280px);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .global-search {
+      width: 100%;
+      max-width: 480px;
+      height: 32px;
+      padding: 0 12px 0 2rem;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--sf-text);
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23706e6b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") 0.625rem center no-repeat;
+    }
+    .global-search::placeholder { color: var(--sf-muted); }
+    .global-search:focus {
+      outline: none;
+      border-color: var(--sf-focus);
+      box-shadow: 0 0 0 1px var(--sf-focus);
+    }
+    .global-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .global-header .icon-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: default;
+      color: var(--sf-muted);
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .global-header .icon-btn svg { width: 18px; height: 18px; }
+    .global-header .icon-btn:hover { background: var(--console-strip-bg); color: var(--sf-text); }
+
+    /* —— Console chrome —— */
+    .console-shell {
+      flex-shrink: 0;
+      background: var(--console-strip-bg);
+      border-bottom: 1px solid var(--sf-border);
+    }
+    .console-row-primary {
+      display: flex;
+      align-items: stretch;
+      min-height: 40px;
+      border-bottom: 1px solid var(--sf-border);
+      background: var(--console-strip-bg);
+    }
+    .app-launcher-cell {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-right: 1px solid var(--sf-border);
+      background: var(--console-strip-bg);
+    }
+    .app-launcher-cell button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      color: var(--sf-muted);
+      cursor: default;
+      padding: 0;
+    }
+    .app-name {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-weight: 700;
+      font-size: 13px;
+      border-right: 1px solid var(--sf-border);
+      white-space: nowrap;
+      background: var(--console-strip-bg);
+    }
+    a.nav-cases {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--sf-text);
+      border-right: 1px solid var(--sf-border);
+      background: var(--console-strip-bg);
+    }
+    a.nav-cases .tab-dd { font-size: 10px; color: var(--sf-muted); }
+
+    .console-row-tabs {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+      background: var(--console-strip-bg);
+      min-height: 40px;
+    }
+    .tab-sub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 6px 0 10px;
+      font-size: 13px;
+      color: var(--sf-muted);
+      background: var(--console-strip-bg);
+      border-right: 1px solid var(--sf-border);
+      max-width: 220px;
+      min-height: 40px;
+      flex-shrink: 0;
+    }
+    .tab-sub.is-open-focus {
+      background: var(--publisher-selected-bg);
+      box-shadow: inset 0 3px 0 0 var(--posh-brand);
+      color: var(--sf-text);
+    }
+    .tab-sub .tab-sub-ic svg { width: 16px; height: 16px; }
+    .tab-sub-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tab-sub-dd { font-size: 10px; flex-shrink: 0; }
+    .tab-sub-close {
+      width: 28px;
+      height: 28px;
+      margin: 0 2px 0 4px;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--sf-muted);
+      font-size: 18px;
+      cursor: default;
+    }
+    .tab-sub-close:hover { background: #fff; color: var(--sf-text); }
+
+    .console-accent-line {
+      height: 3px;
+      background: var(--posh-accent);
+      flex-shrink: 0;
+    }
+
+    /* LEX: .record-avatar-container + case_120.png; icon sits on #FF538A */
+    .record-avatar-case {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.25rem;
+      background-color: var(--lex-case-icon-bg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .record-avatar-case_sm {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+    .record-avatar-case img {
+      width: 65%;
+      height: 65%;
+      max-width: 22px;
+      max-height: 22px;
+      object-fit: contain;
+      display: block;
+    }
+    .record-avatar-case_lg {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    .record-avatar-case_lg img {
+      max-width: 28px;
+      max-height: 28px;
+    }
+
+    /* —— Workspace: page gray; each block white + border —— */
+    .case-workspace {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-bottom: var(--console-footer-h);
+    }
+    .case-three-col {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(180px, 20%) minmax(0, 55%) minmax(200px, 25%);
+      gap: 0;
+      overflow: hidden;
+    }
+    .case-col-left,
+    .case-col-main,
+    .case-col-right {
+      min-height: 0;
+      overflow-y: auto;
+      background: var(--sf-page);
+    }
+    .case-col-left {
+      border-right: 1px solid var(--sf-border);
+      padding: var(--content-pad);
+    }
+    .case-col-main {
+      border-right: 1px solid var(--sf-border);
+      padding: var(--content-pad);
+    }
+    .case-col-right {
+      padding: var(--content-pad);
+    }
+
+    .lex-card {
+      background: var(--sf-surface);
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .lex-card-h {
+      padding: 10px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      border-bottom: 1px solid var(--sf-border);
+      background: #fafaf9;
+    }
+    .lex-card-h-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .lex-card-h-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+    .lex-card-h-title .record-avatar-case_sm {
+      margin-top: 2px;
+    }
+    .lex-card-h-dd {
+      border: none;
+      background: transparent;
+      padding: 4px;
+      color: var(--sf-muted);
+      cursor: default;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .lex-card-b { padding: 8px 12px; }
+    .related-case {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--sf-border);
+      font-size: 12px;
+      min-width: 0;
+    }
+    .related-case:last-child { border-bottom: none; }
+    .related-case .case-num-link {
+      color: var(--posh-brand);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .related-case .case-num-link:hover {
+      text-decoration: underline;
+    }
+    .related-case .subject-line {
+      color: var(--posh-brand);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .related-case .meta-line {
+      color: var(--sf-text);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .related-card-title-stack {
+      min-width: 0;
+    }
+    .related-card-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 0;
+    }
+    .related-card-title a {
+      color: var(--sf-text);
+      text-decoration: none;
+    }
+    .related-card-title a:hover {
+      color: var(--posh-brand);
+      text-decoration: underline;
+    }
+    .related-card-title span.count {
+      font-weight: 600;
+      color: var(--sf-muted);
+    }
+    .related-dl {
+      margin: 8px 0 0;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 4px 12px;
+      font-size: 12px;
+      min-width: 0;
+    }
+    .related-dl dt {
+      margin: 0;
+      color: var(--sf-muted);
+      font-weight: 400;
+    }
+    .related-dl dd {
+      margin: 0;
+      color: var(--sf-text);
+      min-width: 0;
+    }
+    /* Subject (and any linked) values: LEX related list — one line + ellipsis */
+    .related-dl dd a {
+      color: var(--posh-brand);
+      font-weight: 600;
+      display: block;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .view-all {
+      display: block;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--posh-brand);
+      text-decoration: none;
+      border-top: 1px solid var(--sf-border);
+      text-align: center;
+      background: var(--sf-surface);
+    }
+    .view-all:hover {
+      text-decoration: underline;
+    }
+
+    .related-card-sub {
+      margin: 2px 0 0;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--sf-muted);
+      line-height: 1.35;
+    }
+    .related-list-tabs {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 0;
+      border-bottom: 1px solid var(--sf-border);
+      background: #fafaf9;
+      padding: 0 2px;
+    }
+    .related-list-tabs button {
+      position: relative;
+      flex: 1 1 0;
+      min-width: 0;
+      margin: 0;
+      border: none;
+      background: transparent;
+      padding: 8px 4px 7px;
+      font-size: 12px;
+      font-family: inherit;
+      color: var(--sf-muted);
+      cursor: pointer;
+      border-radius: 0;
+      border-bottom: 2px solid transparent;
+      line-height: 1.2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1px;
+    }
+    .related-list-tabs .related-tab-label {
+      display: block;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+      font-size: 11px;
+      line-height: 1.2;
+    }
+    .related-list-tabs button:hover {
+      color: var(--sf-text);
+      background: rgba(0, 0, 0, 0.03);
+    }
+    .related-list-tabs button[aria-selected="true"] {
+      color: var(--sf-text);
+      font-weight: 600;
+      border-bottom-color: var(--sf-focus);
+    }
+    .related-list-tabs .tab-count {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--sf-muted);
+      line-height: 1.1;
+    }
+    .related-list-tabs button[aria-selected="true"] .tab-count {
+      color: var(--sf-muted);
+    }
+    .lex-card-b--tabbed {
+      padding-top: 6px;
+    }
+    .related-tab-panel {
+      display: none;
+    }
+    .related-tab-panel.is-active {
+      display: block;
+    }
+
+    .chart-empty {
+      padding: 24px 12px;
+      text-align: center;
+      color: var(--sf-muted);
+      font-size: 12px;
+      line-height: 1.5;
+      background: var(--sf-surface);
+    }
+
+    /* LEX: .cGetNext .agent-assigned-banner */
+    .agent-assigned-banner,
+    .case-warn {
+      margin: 0 0 12px;
+      padding: 8px var(--content-pad);
+      background: var(--warn-banner-bg);
+      color: var(--warn-red);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid var(--warn-red);
+      border-radius: 4px;
+    }
+
+    .main-record-card {
+      background: var(--sf-surface);
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .case-hero {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--sf-border);
+    }
+    .case-hero-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-width: 0;
+    }
+    .case-hero-titles { min-width: 0; }
+    .object-label-tiny {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--sf-muted);
+    }
+    .case-hero-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--sf-text);
+    }
+    .btn-follow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-family: inherit;
+      border: 1px solid var(--posh-brand);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--posh-brand);
+      cursor: default;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .btn-follow .follow-plus {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* LEX: records-highlights-details-item.slds-page-header__detail-block */
+    .highlights-detail-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px 16px;
+      padding: 14px 18px 16px;
+      background: var(--sf-surface);
+    }
+    .slds-page-header__detail-block .slds-text-title {
+      margin: 0 0 4px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--sf-muted);
+    }
+    .slds-page-header__detail-block .fieldComponent {
+      margin: 0;
+      font-size: 13px;
+      color: var(--sf-text);
+    }
+    .owner-dd {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-change-owner {
+      border: none;
+      background: transparent;
+      padding: 2px;
+      color: var(--sf-muted);
+      cursor: default;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-change-owner:hover {
+      background: var(--sf-page);
+      color: var(--sf-text);
+    }
+    .agent-dd {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lex-user-avatar {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      background: var(--lex-agent-avatar-bg);
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    a.agent-name-link {
+      color: var(--posh-brand);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a.agent-name-link:hover {
+      text-decoration: underline;
+    }
+
+    .feed-panel-card {
+      background: var(--sf-surface);
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    /* Feed / Details / Other Cases — bold dark label + brand underline */
+    .internal-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--sf-border);
+      padding: 0 12px;
+      gap: 4px;
+      background: var(--sf-surface);
+    }
+    .internal-tabs button {
+      padding: 10px 14px 8px;
+      font-size: 13px;
+      font-family: inherit;
+      border: none;
+      border-bottom: 3px solid transparent;
+      background: transparent;
+      color: var(--sf-muted);
+      cursor: default;
+      margin-bottom: -1px;
+    }
+    .internal-tabs button.active {
+      color: var(--sf-text);
+      font-weight: 700;
+      border-bottom-color: var(--posh-brand);
+    }
+
+    /* Publisher: white action chips; Pending selected = light grey */
+    .publisher-shell {
+      margin: 12px 16px;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      background: var(--sf-surface);
+      overflow: hidden;
+    }
+    .publisher-action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #fff;
+      border-bottom: 1px solid var(--sf-border);
+    }
+    .publisher-action-bar .pub-action {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: inherit;
+      font-weight: 400;
+      text-align: center;
+      color: var(--sf-text);
+      cursor: default;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      background: #fff;
+      margin: 0;
+    }
+    .publisher-action-bar .pub-action.is-selected {
+      background: var(--publisher-selected-bg);
+      border-color: var(--sf-border);
+      font-weight: 600;
+    }
+
+    .compose-row {
+      display: flex;
+      align-items: stretch;
+      padding: 12px 16px;
+      background: var(--sf-surface);
+    }
+    .compose-row .compose-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 2.5rem;
+      padding: 0.5rem 12px;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px 0 0 4px;
+      border-right-width: 0;
+      background: var(--sf-surface);
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--sf-text);
+    }
+    .compose-row .compose-input::placeholder {
+      color: var(--sf-muted);
+    }
+    .compose-row .compose-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px var(--sf-focus-ring) inset;
+      z-index: 1;
+      position: relative;
+    }
+    .compose-row .compose-submit {
+      min-height: 2.5rem;
+      padding: 0 1.25rem;
+      border: 1px solid var(--posh-brand);
+      border-radius: 0 4px 4px 0;
+      background: var(--posh-brand);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .compose-row .compose-submit:hover {
+      background: var(--posh-brand-dark);
+      border-color: var(--posh-brand-dark);
+    }
+
+    .feed-toolbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--sf-border);
+      background: var(--sf-surface);
+    }
+    .feed-toolbar select {
+      height: 32px;
+      padding: 0 28px 0 10px;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: inherit;
+      background: var(--sf-surface);
+      color: var(--sf-text);
+    }
+    .feed-search-wrap {
+      flex: 1;
+      min-width: 140px;
+      position: relative;
+    }
+    .feed-search-wrap .search-ic {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      color: var(--sf-muted);
+      pointer-events: none;
+    }
+    .feed-search {
+      width: 100%;
+      height: 32px;
+      padding: 0 12px 0 32px;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      background: var(--sf-surface);
+      color: var(--sf-text);
+    }
+    .feed-search:focus {
+      outline: none;
+      border-color: var(--sf-focus-ring);
+      box-shadow: 0 0 0 1px var(--sf-focus-ring);
+    }
+    .feed-toolbar .icon-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--sf-border);
+      background: var(--sf-surface);
+      border-radius: 4px;
+      color: var(--sf-muted);
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      flex-shrink: 0;
+    }
+    .feed-toolbar .icon-btn:hover {
+      background: var(--console-strip-bg);
+      color: var(--sf-text);
+    }
+
+    .feed-subtabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--sf-border);
+      background: var(--sf-surface);
+    }
+    .feed-subtabs button {
+      padding: 10px 12px 7px;
+      font-size: 13px;
+      font-family: inherit;
+      border: none;
+      background: transparent;
+      color: var(--sf-muted);
+      cursor: default;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+    }
+    .feed-subtabs button.active {
+      color: var(--sf-text);
+      font-weight: 700;
+      border-bottom-color: var(--posh-brand);
+    }
+    .feed-subtabs .feed-subtabs-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+    .feed-subtabs .icon-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--sf-border);
+      background: var(--sf-surface);
+      border-radius: 4px;
+      color: var(--sf-muted);
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+    }
+    .feed-body {
+      min-height: 64px;
+      background: var(--sf-surface);
+    }
+
+    /* LEX: flexipage-tabset2.slds-tabs_card + lightning-tab-bar */
+    .slds-tabs_card {
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      font-size: 12px;
+      background: var(--sf-surface);
+    }
+    .slds-tabs_default__nav {
+      list-style: none;
+      margin: 0;
+      padding: 0 4px;
+      display: flex;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--sf-border);
+      background: var(--sf-surface);
+    }
+    .slds-tabs_default__item { margin: 0; }
+    .slds-tabs_default__link {
+      display: block;
+      padding: 10px 12px 8px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--sf-muted);
+      text-decoration: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      background: transparent;
+      cursor: default;
+    }
+    .slds-tabs_default__item.slds-is-active .slds-tabs_default__link {
+      color: var(--posh-brand);
+      font-weight: 600;
+      border-bottom-color: var(--posh-brand);
+    }
+    .tab-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 10px 8px;
+      margin-bottom: -1px;
+      border: none;
+      border-bottom: 3px solid transparent;
+      background: transparent;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--sf-muted);
+      cursor: default;
+    }
+    .tab-more-btn svg { width: 14px; height: 14px; }
+    .admin-tab-panel { padding: 12px; background: var(--sf-surface); }
+    .admin-section-title {
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 10px;
+      color: var(--sf-text);
+    }
+    .case-labels-box {
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      padding: 10px;
+      background: var(--sf-surface);
+    }
+    .case-labels-box .labels-caption {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--sf-muted);
+      margin-bottom: 8px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--pill-blue-bg);
+      color: var(--pill-blue-text);
+      border: 1px solid var(--pill-blue-border);
+    }
+    .pill-remove {
+      border: none;
+      background: transparent;
+      color: var(--pill-blue-text);
+      padding: 0 2px;
+      cursor: default;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    /* Logistics: purple accent + bordered table */
+    .logistics-card {
+      overflow: hidden;
+    }
+    .logistics-purple-bar {
+      height: 8px;
+      background: var(--logistics-bar);
+      border-bottom: 1px solid var(--sf-border);
+    }
+    .logistics-card .lex-card-h {
+      background: #fafaf9;
+    }
+    .logistics-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      background: var(--sf-surface);
+    }
+    .logistics-table th,
+    .logistics-table td {
+      border: 1px solid var(--sf-border);
+      padding: 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+    .logistics-table th {
+      width: 34%;
+      background: #fafaf9;
+      color: var(--sf-text);
+      font-weight: 700;
+    }
+    .logistics-table td p {
+      margin: 0 0 8px;
+      line-height: 1.4;
+      color: var(--sf-text);
+    }
+    .logistics-table td p:last-child { margin-bottom: 0; }
+    .logistics-table .track {
+      display: inline-block;
+      color: var(--link-blue);
+      text-decoration: underline;
+      word-break: break-all;
+      margin-bottom: 8px;
+    }
+    /* LEX neutral / .slds-button_neutral: light surface, gray border, dark text */
+    .logistics-table .side-btn {
+      display: inline-block;
+      width: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
+      padding: 4px 10px;
+      min-height: 1.75rem;
+      font-size: 12px;
+      font-family: inherit;
+      font-weight: 400;
+      line-height: 1.2;
+      border: 1px solid var(--sf-border-strong);
+      border-radius: 4px;
+      background: var(--publisher-selected-bg);
+      color: var(--sf-text);
+      cursor: default;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .logistics-table .side-btn--center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .console-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      min-height: var(--console-footer-h);
+      padding: 0 24px;
+      border-top: 1px solid var(--sf-border);
+      background: var(--sf-surface);
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.06);
+      border-bottom: 2px solid var(--posh-brand);
+    }
+    .console-footer button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-family: inherit;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: transparent;
+      cursor: default;
+      color: var(--sf-text);
+    }
+    .footer-sep { color: var(--sf-muted); padding: 0 6px; }
+
+    @media (max-width: 1100px) {
+      .case-three-col {
+        grid-template-columns: 20% 1fr;
+      }
+      .case-col-right { grid-column: 1 / -1; max-height: 380px; border-top: 1px solid var(--sf-border); }
+      .highlights-detail-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Case icon: LEX asset from lex_case_export (copied to assets/case_120.png) -->
+
+  <header class="global-header">
+    <a class="org-brand" href="#" onclick="return false;" aria-label="Poshmark home">
+      <img src="assets/poshmark-logo.png" alt="Poshmark" class="org-logo" width="120" height="34" />
+    </a>
+    <div class="global-search-wrap">
+      <input class="global-search" type="search" placeholder="Search..." aria-label="Global search" />
+    </div>
+    <div class="global-actions" aria-hidden="true">
+      <button type="button" class="icon-btn" title="Favorites" aria-label="Favorites">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Global Actions" aria-label="Global Actions">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="App grid" aria-label="App grid">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Help" aria-label="Help">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Setup" aria-label="Setup">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="Notifications" aria-label="Notifications">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.082A2.02 2.02 0 0021 14.422v-.81M15.09 7.757a2.5 2.5 0 00-3.18-3.181M9.878 9.87A4.5 4.5 0 117.5 6.257V4.5l-2.25 2.25" /></svg>
+      </button>
+      <button type="button" class="icon-btn" title="User menu" aria-label="User menu">
+        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097.48.48 0 00.727-.401l-.07-.085a9 9 0 0114.456 0l-.07.085a.48.48 0 00.727.401zM12 9a3 3 0 100-6 3 3 0 000 6zm-7 8.25a7.49 7.49 0 0114 0 .75.75 0 01-.372.664A7.492 7.492 0 0112 20.25a7.492 7.492 0 01-6.628-3.336.75.75 0 01-.372-.664z" clip-rule="evenodd" /></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="console-shell">
+    <div class="console-row-primary">
+      <div class="app-launcher-cell">
+        <button type="button" aria-label="App Launcher">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        </button>
+      </div>
+      <div class="app-name">Service Console</div>
+      <a class="nav-cases" href="salesforce_cases_list_mock.html">Cases <span class="tab-dd" aria-hidden="true">▼</span></a>
+    </div>
+    <div class="console-row-tabs">
+      <div class="tab-sub" role="group" aria-label="Case tab">
+        <span class="tab-sub-ic" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.184 2.94-.458.969-1.377 1.59-2.316 1.59H7.25c-.94 0-1.857-.621-2.316-1.59-.397-.904-1.184-1.846-1.184-2.94v-4.15M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 6v2.25M4.5 8.25h15" /></svg>
+        </span>
+        <span class="tab-sub-label">114146641 | Case</span>
+        <span class="tab-sub-dd" aria-hidden="true">▼</span>
+        <button type="button" class="tab-sub-close" aria-label="Close tab">×</button>
+      </div>
+      <div class="tab-sub is-open-focus" role="group" aria-label="Active case tab">
+        <span class="tab-sub-ic" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.184 2.94-.458.969-1.377 1.59-2.316 1.59H7.25c-.94 0-1.857-.621-2.316-1.59-.397-.904-1.184-1.846-1.184-2.94v-4.15M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 6v2.25M4.5 8.25h15" /></svg>
+        </span>
+        <span class="tab-sub-label">114050678 | Case</span>
+        <span class="tab-sub-dd" aria-hidden="true">▼</span>
+        <button type="button" class="tab-sub-close" aria-label="Close tab">×</button>
+      </div>
+    </div>
+    <div class="console-accent-line" aria-hidden="true"></div>
+  </div>
+
+  <div class="case-workspace">
+    <div class="case-three-col">
+      <aside class="case-col-left">
+        <div class="lex-card">
+          <div class="lex-card-h lex-card-h-row">
+            <div class="lex-card-h-title">
+              <div class="record-avatar-case record-avatar-case_sm" aria-hidden="true">
+                <img src="assets/case_120.png" alt="" width="18" height="18" />
+              </div>
+              <div class="related-card-title-stack">
+                <h2 class="related-card-title">
+                  <a href="#" title="Cases for Parent Contact">Cases for Parent Contact</a>
+                </h2>
+                <p class="related-card-sub">Parent contact · <span id="relatedActiveFilterLabel">Related Cases</span></p>
+              </div>
+            </div>
+            <button type="button" class="lex-card-h-dd" aria-label="List view actions" title="List view actions">▼</button>
+          </div>
+          <div class="related-list-tabs" role="tablist" aria-label="Case scope for parent contact">
+            <button type="button" role="tab" id="related-tab-related" aria-controls="related-panel-related" data-bucket="related" aria-selected="true"><span class="related-tab-label">Related Cases</span><span class="tab-count">(2)</span></button>
+            <button type="button" role="tab" id="related-tab-open" aria-controls="related-panel-open" data-bucket="open" aria-selected="false"><span class="related-tab-label">Open Cases</span><span class="tab-count">(2)</span></button>
+            <button type="button" role="tab" id="related-tab-all" aria-controls="related-panel-all" data-bucket="all" aria-selected="false"><span class="related-tab-label">All Cases</span><span class="tab-count">(4)</span></button>
+          </div>
+          <div class="lex-card-b lex-card-b--tabbed">
+            <div class="related-tab-panel is-active" role="tabpanel" id="related-panel-related" data-bucket="related" aria-labelledby="related-tab-related">
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">114050678</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">Order Not Delivered</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Resolved</dd>
+                  <dt>Owner:</dt>
+                  <dd>CA Support</dd>
+                </dl>
+              </article>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">115210901</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer" title="Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested">Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Open</dd>
+                  <dt>Owner:</dt>
+                  <dd>CA Support</dd>
+                </dl>
+              </article>
+            </div>
+            <div class="related-tab-panel" role="tabpanel" id="related-panel-open" data-bucket="open" aria-labelledby="related-tab-open" hidden>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">115210901</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer" title="Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested">Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Open</dd>
+                  <dt>Owner:</dt>
+                  <dd>CA Support</dd>
+                </dl>
+              </article>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">115210902</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer" title="Wallet payout pending identity verification | Additional documents requested — account security review ongoing">Wallet payout pending identity verification | Additional documents requested — account security review ongoing</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Open</dd>
+                  <dt>Owner:</dt>
+                  <dd>Support</dd>
+                </dl>
+              </article>
+            </div>
+            <div class="related-tab-panel" role="tabpanel" id="related-panel-all" data-bucket="all" aria-labelledby="related-tab-all" hidden>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">114050678</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">Order Not Delivered</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Resolved</dd>
+                  <dt>Owner:</dt>
+                  <dd>CA Support</dd>
+                </dl>
+              </article>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">113053486</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer" title="Order 692b86652714fcfa46da7eb | Order Status Update | Delayed order cancelled — buyer notification">Order 692b86652714fcfa46da7eb | Order Status Update | Delayed order cancelled — buyer notification</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Resolved</dd>
+                  <dt>Owner:</dt>
+                  <dd>CA Support</dd>
+                </dl>
+              </article>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">115210901</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer" title="Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested">Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Open</dd>
+                  <dt>Owner:</dt>
+                  <dd>CA Support</dd>
+                </dl>
+              </article>
+              <article class="related-case">
+                <a class="case-num-link" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">115210902</a>
+                <dl class="related-dl">
+                  <dt>Subject:</dt>
+                  <dd><a href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer" title="Wallet payout pending identity verification | Additional documents requested — account security review ongoing">Wallet payout pending identity verification | Additional documents requested — account security review ongoing</a></dd>
+                  <dt>Status:</dt>
+                  <dd>Open</dd>
+                  <dt>Owner:</dt>
+                  <dd>Support</dd>
+                </dl>
+              </article>
+            </div>
+          </div>
+          <a class="view-all" id="relatedViewAll" href="salesforce_cases_list_mock.html?scope=parentContact&amp;contact=Stacey+Rondinelli&amp;bucket=related" target="_blank" rel="noopener noreferrer">View All</a>
+        </div>
+        <div class="lex-card">
+          <div class="lex-card-h">View Resolved Cases</div>
+          <div class="chart-empty">We can't draw this chart because there is no data.</div>
+        </div>
+      </aside>
+
+      <section class="case-col-main">
+        <div class="agent-assigned-banner">Warning: This case is assigned to another agent</div>
+
+        <div class="main-record-card">
+          <div class="case-hero">
+            <div class="case-hero-left">
+              <div class="record-avatar-case record-avatar-case_lg" aria-hidden="true">
+                <img src="assets/case_120.png" alt="" width="24" height="24" />
+              </div>
+              <div class="case-hero-titles">
+                <p class="object-label-tiny">Case</p>
+                <h1 class="case-hero-title">Order Not Delivered</h1>
+              </div>
+            </div>
+            <button type="button" class="btn-follow"><span class="follow-plus" aria-hidden="true">+</span> Follow</button>
+          </div>
+          <div class="highlights-detail-row">
+            <div class="slds-page-header__detail-block">
+              <p class="slds-text-title" title="Case Number">Case Number</p>
+              <p class="fieldComponent">114050678</p>
+            </div>
+            <div class="slds-page-header__detail-block">
+              <p class="slds-text-title" title="Case Owner">Case Owner</p>
+              <p class="fieldComponent owner-dd">
+                <span>CA Support</span>
+                <button type="button" class="btn-change-owner" title="Change Owner" aria-label="Change Owner">
+                  <svg width="18" height="18" viewBox="0 0 520 520" fill="currentColor" aria-hidden="true"><path d="M273 376c-30-12-35-23-35-35s8-23 18-32a82 82 0 0026-64c0-47-29-85-83-85s-83 38-83 85c0 25 8 49 26 64 10 9 18 20 18 32s-5 23-35 35c-44 18-86 38-87 76 2 26 22 48 47 48h230c25 0 45-22 45-47-1-38-43-59-87-77m172-186c0-74-61-135-135-135V20l-68 55c-3 3-2 8 1 11l67 54v-35c47 0 85 38 85 85h-35l55 68c3 3 8 3 11 0l54-68z"/></svg>
+                </button>
+              </p>
+            </div>
+            <div class="slds-page-header__detail-block">
+              <p class="slds-text-title" title="Agent">Agent</p>
+              <p class="fieldComponent agent-dd">
+                <span class="lex-user-avatar" aria-hidden="true"></span>
+                <a class="agent-name-link" href="#">Amber Henderson</a>
+              </p>
+            </div>
+            <div class="slds-page-header__detail-block">
+              <p class="slds-text-title" title="Status">Status</p>
+              <p class="fieldComponent">Resolved</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feed-panel-card">
+          <div class="internal-tabs" role="tablist">
+            <button type="button" class="active" role="tab" aria-selected="true">Feed</button>
+            <button type="button" role="tab" aria-selected="false">Details</button>
+            <button type="button" role="tab" aria-selected="false">Other Cases</button>
+          </div>
+
+          <div class="publisher-shell">
+            <div class="publisher-action-bar" role="tablist" aria-label="Publisher actions">
+              <button type="button" class="pub-action" role="tab" aria-selected="false">Send Email &amp; Clo…</button>
+              <button type="button" class="pub-action is-selected" role="tab" aria-selected="true">Pending</button>
+              <button type="button" class="pub-action" role="tab" aria-selected="false">Close the Case</button>
+              <button type="button" class="pub-action" role="tab" aria-selected="false">Update fields</button>
+              <button type="button" class="pub-action" role="tab" aria-selected="false">Case Comment</button>
+            </div>
+            <div class="compose-row">
+              <input class="compose-input" type="text" placeholder="Write an email..." aria-label="Write an email" />
+              <button type="button" class="compose-submit" title="Compose">Compose</button>
+            </div>
+          </div>
+
+          <div class="feed-toolbar">
+            <select aria-label="Activity sort">
+              <option>Most Recent Activity</option>
+            </select>
+            <div class="feed-search-wrap">
+              <svg class="search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path stroke-linecap="round" d="M16 16l4.5 4.5"/></svg>
+              <input class="feed-search" type="search" placeholder="Search this feed..." aria-label="Search this feed" />
+            </div>
+            <button type="button" class="icon-btn" title="Filter" aria-label="Filter">
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.4-.994.917-1.096C6.544 3.233 9.246 3 12 3z" /></svg>
+            </button>
+            <button type="button" class="icon-btn" title="Refresh" aria-label="Refresh">
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992M2.985 19.644v-4.992h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7" /></svg>
+            </button>
+          </div>
+
+          <div class="feed-subtabs">
+            <button type="button" class="active">All Updates</button>
+            <button type="button">Emails</button>
+            <button type="button">Status Changes</button>
+            <div class="feed-subtabs-actions">
+              <button type="button" class="icon-btn" title="Refresh feed" aria-label="Refresh feed">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992M2.985 19.644v-4.992h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="feed-body" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <aside class="case-col-right">
+        <div class="slds-tabs_card">
+          <ul class="slds-tabs_default__nav" role="tablist">
+            <li class="slds-tabs_default__item slds-is-active" role="presentation" title="Poshmark Admin">
+              <a class="slds-tabs_default__link" role="tab" href="#" tabindex="0" aria-selected="true">Poshmark Admin</a>
+            </li>
+            <li class="slds-tabs_default__item" role="presentation">
+              <button type="button" class="tab-more-btn" title="More Tabs">More
+                <svg viewBox="0 0 520 520" fill="currentColor" aria-hidden="true"><path d="M476 178L271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21"/></svg>
+              </button>
+            </li>
+          </ul>
+          <div class="admin-tab-panel">
+            <div class="admin-section-title">Poshmark Order / SR / Post Details</div>
+            <div class="case-labels-box">
+              <div class="labels-caption">Case Labels</div>
+              <div class="pill-row">
+                <span class="pill">Power User <button type="button" class="pill-remove" aria-label="Remove">×</button></span>
+                <span class="pill">CANADA <button type="button" class="pill-remove" aria-label="Remove">×</button></span>
+                <span class="pill">Survey Sent <button type="button" class="pill-remove" aria-label="Remove">×</button></span>
+                <span class="pill">Status is Delivered but Recipient Cannot Loca <button type="button" class="pill-remove" aria-label="Remove">×</button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lex-card logistics-card">
+          <div class="logistics-purple-bar" aria-hidden="true"></div>
+          <div class="lex-card-h">Logistics Info</div>
+          <table class="logistics-table">
+            <tbody>
+              <tr>
+                <th scope="row">Inventory Unit Status</th>
+                <td>
+                  <p><strong>Status:</strong> received</p>
+                  <p><strong>Tracking Last Checked:</strong> 3/25/2026 2:14 PM</p>
+                  <button type="button" class="side-btn side-btn--center">Hold Payment</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Shipping label</th>
+                <td>
+                  <a class="track" href="#">9400111899223344556677</a>
+                  <button type="button" class="side-btn">Push Label to Front of Refund Queue</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Shipping label</th>
+                <td>
+                  <a class="track" href="#">9400111899229988776655</a>
+                  <button type="button" class="side-btn">Push Label to Front of Refund Queue</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var CONTACT_ENC = 'Stacey+Rondinelli';
+      var baseList = 'salesforce_cases_list_mock.html?scope=parentContact&contact=' + CONTACT_ENC;
+      var viewAll = document.getElementById('relatedViewAll');
+      var filterLabel = document.getElementById('relatedActiveFilterLabel');
+      var tabButtons = document.querySelectorAll('.related-list-tabs [role="tab"]');
+      var panels = document.querySelectorAll('.related-tab-panel');
+      var titles = { related: 'Related Cases', open: 'Open Cases', all: 'All Cases' };
+
+      function setBucket(bucket) {
+        if (!viewAll || !titles[bucket]) bucket = 'related';
+        tabButtons.forEach(function (btn) {
+          var on = btn.getAttribute('data-bucket') === bucket;
+          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(function (panel) {
+          var on = panel.getAttribute('data-bucket') === bucket;
+          panel.classList.toggle('is-active', on);
+          if (on) panel.removeAttribute('hidden');
+          else panel.setAttribute('hidden', '');
+        });
+        viewAll.href = baseList + '&bucket=' + encodeURIComponent(bucket);
+        if (filterLabel) filterLabel.textContent = titles[bucket];
+      }
+
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setBucket(btn.getAttribute('data-bucket'));
+        });
+      });
+    })();
+  </script>
+
+  <footer class="console-footer">
+    <button type="button">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      History
+    </button>
+    <span class="footer-sep" aria-hidden="true">»</span>
+    <button type="button">Macros</button>
+  </footer>
+</body>
+</html>

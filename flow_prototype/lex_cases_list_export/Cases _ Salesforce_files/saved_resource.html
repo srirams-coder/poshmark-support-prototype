@@ -1,0 +1,1696 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0281)https://poshmark-%2Dc.vf.force.com/apex/iframe_integration?ltn_app_id=06m1I000001BOFaQAO&sfdcIFrameHost=web&id=500Ug00000gtTvjIAE&isdtp=p1&clc=1&sfdcIFrameOrigin=https%3A%2F%2Fposhmark.lightning.force.com&nonce=c0f11872b1ef9aca59656d22257c672acd8fdefec5f4d2295cee394c7be3f177&tour= -->
+<html lang="en-US" class=" ext-strict"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./stub.js" type="text/javascript"></script><script src="./3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript" type="text/javascript"></script><script src="./VFRemote.js" type="text/javascript"></script><script type="text/javascript">window.Sfdc = window.Sfdc || {};
+Sfdc.xdomain = Sfdc.xdomain || {};
+Sfdc.xdomain.sfdcXDomainProxy = 'https://poshmark.my.salesforce.com/support/console/xdomain/30.0/crossDomainProxy.html';
+</script><script src="./SfdcCore.js" type="text/javascript"></script><script src="./xdomain.js" type="text/javascript"></script><script>
+//<![CDATA[ 
+(function() {
+    window.lmsInitialized = false;
+
+    // only initialize config data if not already present.  If present someone else is attempting to spoof it.
+    if(!window.lmsConfig) {
+    
+        window.lmsConfig = {
+            lmsRegistry: {},
+        };
+        window.lmsInitialized = true;
+    } else {
+        window.console.error('window.lmsConfig has already been defined.');
+    }})();
+//]]></script><script src="./AuraAlohaFrameNavigator.js" type="text/javascript"></script><script src="./api.js" type="text/javascript"></script><script src="./IframeThirdPartyContextLogging.js" type="text/javascript"></script><script src="./jquery.min.js" type="text/javascript"></script><script src="./select2.min.js" type="text/javascript"></script><script src="./picklist4.js" type="text/javascript"></script><script src="./VFState.js" type="text/javascript"></script><script src="./main.js" type="text/javascript"></script><script src="./en_US.js" type="text/javascript"></script><link class="user" href="./zen-componentsCompatible.css" rel="stylesheet" type="text/css"><link class="user" href="./elements.css" rel="stylesheet" type="text/css"><link class="user" href="./common.css" rel="stylesheet" type="text/css"><link class="user" href="./dStandard.css" rel="stylesheet" type="text/css"><link class="user" href="./dCustom0.css" rel="stylesheet" type="text/css"><link class="user" href="./extended.css" rel="stylesheet" type="text/css"><link class="user" href="./setup.css" rel="stylesheet" type="text/css"><link class="user" href="./select2.min.css" rel="stylesheet" type="text/css"><script src="./NetworkTracking.js" type="text/javascript"></script><script>try{ NetworkTracking.init('/_ui/networks/tracking/NetworkTrackingServlet', 'network', '0661I000003Vk3Y'); }catch(x){}</script><script>(function(UITheme) {
+    UITheme.getUITheme = function() { 
+        return UserContext.uiTheme;
+    };
+}(window.UITheme = window.UITheme || {}));</script><script type="text/javascript">
+Visualforce.remoting.Manager.add(new $VFRM.RemotingProviderImpl({"vf":{"vid":"0661I000003Vk3Y","xhr":false,"dev":false,"tst":false,"dbg":false,"tm":1774530580157,"ovrprm":true},"actions":{"labelController":{"ms":[{"name":"AddDatasetLabelToCase","len":2,"ns":"","ver":43.0,"csrf":"VmpFPSxNakF5Tmkwd015MHlPVlF4TXpvd09UbzBNQzR4TlRkYSxEOVpNNXJZbnI4RnpObDB2UU1JTWhqNVV3X0xPZnRsUDlHLW1laUoySTVrPSxZVE01WVdFMg==","authorization":"eyJub25jZSI6InlKNHN0VTdVUGhZSFpaZV9LOVlWOUE1S0hfMHloelJrRGFDQldmeVQxLThcdTAwM2QiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IntcInRcIjpcIjAwRDFJMDAwMDAyTUYxU1wiLFwidlwiOlwiMDJHMUkwMDAwMDBSQUNKXCIsXCJhXCI6XCJ2ZnJlbW90aW5nc2lnbmluZ2tleVwiLFwidVwiOlwiMDA1VWcwMDAwMEtVWkdBXCJ9IiwiY3JpdCI6WyJpYXQiXSwiaWF0IjoxNzc0NTMwNTgwMTYwLCJleHAiOjB9.Q2lWc1lXSmxiRU52Ym5SeWIyeHNaWEl1UVdSa1JHRjBZWE5sZEV4aFltVnNWRzlEWVhObA==.02bRAMU9risaiYgqFkpXg3Aa-HJl9o9SzDqB3kNwfi8="},{"name":"GetUserIdFromEmail","len":1,"ns":"","ver":43.0,"csrf":"VmpFPSxNakF5Tmkwd015MHlPVlF4TXpvd09UbzBNQzR4TmpGYSxHV3doMTl6UlRKSFkxTjB2VHlvZFN1OEJNbmswZE1DdldXSzVYWWw2NTBJPSxNamhqTVRVMA==","authorization":"eyJub25jZSI6InZUQU1yRTNJeXZNZW5yaWxUZzNOdGlfeXlsLWdaMmt3eE5JQ1BRcHZKYUlcdTAwM2QiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IntcInRcIjpcIjAwRDFJMDAwMDAyTUYxU1wiLFwidlwiOlwiMDJHMUkwMDAwMDBSQUNKXCIsXCJhXCI6XCJ2ZnJlbW90aW5nc2lnbmluZ2tleVwiLFwidVwiOlwiMDA1VWcwMDAwMEtVWkdBXCJ9IiwiY3JpdCI6WyJpYXQiXSwiaWF0IjoxNzc0NTMwNTgwMTY0LCJleHAiOjB9.Q2lKc1lXSmxiRU52Ym5SeWIyeHNaWEl1UjJWMFZYTmxja2xrUm5KdmJVVnRZV2xz.MkJBnsR8ngt9WDHpmiSs4hiWnJjSEx2WSXB4y-8q00I="}],"prm":1}},"service":"apexremote"}));
+</script></head><body onunload="if(this.bodyOnUnload)bodyOnUnload();" onbeforeunload="if(this.bodyOnBeforeUnload){var s=bodyOnBeforeUnload();if(s)return s;}" onload="if(this.bodyOnLoad)bodyOnLoad();" class="hasMotif caseTab  sfdcBody brandQuaternaryBgr   ext-webkit ext-chrome ext-mac" onfocus="if(this.bodyOnFocus)bodyOnFocus();"><title>Salesforce - Unlimited Edition</title><link href="./DesktopFrameCommon.css" rel="stylesheet" type="text/css"><link href="./AuraAlohaContentFrame.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+window.sfdcExternalNavigationWithWarning = function(url) {
+    var target = '/servlet/servlet.ExternalRedirect?url=' + encodeURIComponent(url);
+    blankshield.open(target);
+};</script>
+<script>window.sfdcPage = new GenericSfdcPage();
+UserContext.initialize({"ampm":["AM","PM"],"isAccessibleMode":false,"salesforceURL":"https://poshmark.my.salesforce.com","dateFormat":"M/d/yyyy","dayPeriods":[],"language":"en_US","locale":"en_US","cloud":"service","enableLoggingInAuraAlohaFrameNavigator":true,"dateTimeFormat":"M/d/yyyy h:mm a","labelLastModified":"1772047265000","today":"3/26/2026 6:39 PM","userPreferences":[{"index":112,"name":"HideInlineEditSplash","value":false},{"index":114,"name":"OverrideTaskSendNotification","value":false},{"index":115,"name":"DefaultTaskSendNotification","value":false},{"index":119,"name":"HideUserLayoutStdFieldInfo","value":false},{"index":116,"name":"HideRPPWarning","value":false},{"index":87,"name":"HideInlineSchedulingSplash","value":false},{"index":88,"name":"HideCRUCNotification","value":false},{"index":89,"name":"HideNewPLESplash","value":false},{"index":90,"name":"HideNewPLEWarnIE6","value":false},{"index":122,"name":"HideOverrideSharingMessage","value":false},{"index":91,"name":"HideProfileILEWarn","value":false},{"index":93,"name":"HideProfileElvVideo","value":false},{"index":97,"name":"ShowPicklistEditSplash","value":false},{"index":92,"name":"HideDataCategorySplash","value":false},{"index":128,"name":"ShowDealView","value":false},{"index":129,"name":"HideDealViewGuidedTour","value":false},{"index":132,"name":"HideKnowledgeFirstTimeSetupMsg","value":false},{"index":104,"name":"DefaultOffEntityPermsMsg","value":false},{"index":135,"name":"HideNewCsnSplash","value":false},{"index":101,"name":"HideBrowserWarning","value":false},{"index":139,"name":"HideDashboardBuilderGuidedTour","value":false},{"index":140,"name":"HideSchedulingGuidedTour","value":false},{"index":180,"name":"HideReportBuilderGuidedTour","value":false},{"index":183,"name":"HideAssociationQueueCallout","value":false},{"index":194,"name":"HideQTEBanner","value":false},{"index":270,"name":"HideIDEGuidedTour","value":false},{"index":282,"name":"HideQueryToolGuidedTour","value":false},{"index":196,"name":"HideCSIGuidedTour","value":false},{"index":271,"name":"HideFewmetGuidedTour","value":false},{"index":272,"name":"HideEditorGuidedTour","value":false},{"index":205,"name":"HideApexTestGuidedTour","value":false},{"index":206,"name":"HideSetupProfileHeaderTour","value":false},{"index":207,"name":"HideSetupProfileObjectsAndTabsTour","value":false},{"index":213,"name":"DefaultOffArticleTypeEntityPermMsg","value":false},{"index":214,"name":"HideSelfInfluenceGetStarted","value":false},{"index":215,"name":"HideOtherInfluenceGetStarted","value":false},{"index":216,"name":"HideFeedToggleGuidedTour","value":false},{"index":268,"name":"ShowChatterTab178GuidedTour","value":false},{"index":275,"name":"HidePeopleTabDeprecationMsg","value":false},{"index":276,"name":"HideGroupTabDeprecationMsg","value":false},{"index":224,"name":"HideUnifiedSearchGuidedTour","value":false},{"index":226,"name":"ShowDevContextMenu","value":true},{"index":227,"name":"HideWhatRecommenderForActivityQueues","value":false},{"index":228,"name":"HideLiveAgentFirstTimeSetupMsg","value":false},{"index":232,"name":"HideGroupAllowsGuestsMsgOnMemberWidget","value":false},{"index":233,"name":"HideGroupAllowsGuestsMsg","value":false},{"index":234,"name":"HideWhatAreGuestsMsg","value":false},{"index":235,"name":"HideNowAllowGuestsMsg","value":false},{"index":236,"name":"HideSocialAccountsAndContactsGuidedTour","value":false},{"index":237,"name":"HideAnalyticsHomeGuidedTour","value":false},{"index":238,"name":"ShowQuickCreateGuidedTour","value":false},{"index":245,"name":"HideFilePageGuidedTour","value":false},{"index":250,"name":"HideForecastingGuidedTour","value":false},{"index":251,"name":"HideBucketFieldGuide","value":false},{"index":263,"name":"HideSmartSearchCallOut","value":false},{"index":273,"name":"ShowForecastingQuotaAttainment","value":false},{"index":280,"name":"HideForecastingQuotaColumn","value":false},{"index":301,"name":"HideManyWhoGuidedTour","value":false},{"index":298,"name":"HideFileSyncBannerMsg","value":false},{"index":299,"name":"HideTestConsoleGuidedTour","value":false},{"index":302,"name":"HideManyWhoInlineEditTip","value":false},{"index":303,"name":"HideSetupV2WelcomeMessage","value":false},{"index":312,"name":"ForecastingShowQuantity","value":false},{"index":313,"name":"HideDataImporterIntroMsg","value":false},{"index":314,"name":"HideEnvironmentHubLightbox","value":false},{"index":316,"name":"HideSetupV2GuidedTour","value":false},{"index":317,"name":"HideFileSyncMobileDownloadDialog","value":false},{"index":322,"name":"HideEnhancedProfileHelpBubble","value":false},{"index":328,"name":"ForecastingHideZeroRows","value":false},{"index":330,"name":"HideEmbeddedComponentsFeatureCallout","value":false},{"index":341,"name":"HideDedupeMatchResultCallout","value":false},{"index":340,"name":"HideS1BrowserUI","value":true},{"index":346,"name":"HideS1Banner","value":false},{"index":358,"name":"HideEmailVerificationAlert","value":false},{"index":354,"name":"HideLearningPathModal","value":false},{"index":359,"name":"HideAtMentionsHelpBubble","value":false},{"index":368,"name":"LightningExperiencePreferred","value":true},{"index":373,"name":"PreviewLightning","value":false},{"index":281,"name":"HideMSPPopup","value":false}],"networkId":"","uiTheme":"Theme4u","uiSkin":"Theme3","userName":"sriram.s@poshmark.com","userId":"005Ug00000KUZGA","isCurrentlySysAdminSU":false,"renderMode":"RETRO","startOfWeek":"1","vfDomainPattern":"poshmark--(?:[^.]+).vf.force.com","auraDomain":"poshmark.lightning.force.com","useNativeAlertConfirmPrompt":false,"orgPreferences":[{"index":257,"name":"TabOrganizer","value":true},{"index":113,"name":"GroupTasks","value":true}],"siteUrlPrefix":"","isDefaultNetwork":true,"timeFormat":"h:mm a"});
+</script><script type="text/javascript">
+var MOTIF_KEY='Case';</script><script>try{DynamicCss.addCssUrl("/sCSS/66.0/sprites/1765773136000/Theme3/default/gc/DesktopFrameCommon.css")}catch(e){}
+try{DynamicCss.addCssUrl("/sCSS/66.0/sprites/1765773136000/Theme3/default/gc/AuraAlohaContentFrame.css")}catch(e){}
+try{DynamicCss.doneLoading()}catch(e){}</script><meta http-equiv="Expires" content="Mon, 01 Jan 1990 12:00:00 GMT"><meta http-equiv="Cache-control" content="no-cache"><meta http-equiv="Cache-control" content="must-revalidate"><meta http-equiv="Cache-control" content="max-age=0"><meta http-equiv="origin-trial" content="AkBgNlDiY3u6JLOlyCHNo+uI//ZsQNGdALGkaqj2TaJPsaytJKhRW2ej+qKdkIs3auzeCWPCYX2AE/jVxzJS0AwAAABaeyJvcmlnaW4iOiJodHRwczovL2ZvcmNlLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHBjZCIsImV4cGlyeSI6MTczNTM0Mzk5OSwiaXNTdWJkb21haW4iOnRydWV9"><link rel="shortcut icon" href="https://poshmark.my.salesforce.com/favicon.ico">
+<link rel="manifest" href="https://poshmark--c.vf.force.com/one/manifest.json?96721268928c53bb38f97d28a869f106b130753b5fc8a562e866d7565b37fc39">
+<script src="./Security.js"></script><script>ClientHash.prototype.needsClientHash('sid_Client','g00000KUZGAI000002MF1S','14.194.30.210','/servlet/servlet.ClientHashValidator?ResponseRequestedURL=%2Fapex%2Fiframe_integration%3Fltn_app_id%3D06m1I000001BOFaQAO%26sfdcIFrameHost%3Dweb%26id%3D500Ug00000gtTvjIAE%26isdtp%3Dp1%26clc%3D1%26sfdcIFrameOrigin%3Dhttps%253A%252F%252Fposhmark.lightning.force.com%26nonce%3Dc0f11872b1ef9aca59656d22257c672acd8fdefec5f4d2295cee394c7be3f177%26tour%3D');</script>
+<!-- Main Body Starts Here -->
+<a name="skiplink"><img src="./s.gif" height="1" width="1" alt="Content Starts Here" class="skiplink skipLinkTargetInner zen-skipLinkTarget" title="Content Starts Here"></a>
+
+      <style>
+
+          .select2-container--bootstrap {
+              display: block;
+              
+          }
+
+          .select2-container--bootstrap .select2-selection {
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              background-color: #fff;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              color: #555555;
+              font-size: 14px;
+              outline: 0;
+          }
+
+          .select2-container--bootstrap .select2-selection.form-control {
+              border-radius: 4px;
+          }
+
+          .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              background-color: #fff;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              color: #555555;
+              font-size: 14px;
+          }
+
+          .select2-container--bootstrap .select2-search__field {
+              outline: 0;
+              /* Firefox 18- */
+              /**
+                 * Firefox 19+
+                 *
+                 * @see http://stackoverflow.com/questions/24236240/color-for-styled-placeholder-text-is-muted-in-firefox
+                 */
+          }
+
+          .select2-container--bootstrap .select2-search__field::-webkit-input-placeholder {
+              color: #999;
+          }
+
+          .select2-container--bootstrap .select2-search__field:-moz-placeholder {
+              color: #999;
+          }
+
+          .select2-container--bootstrap .select2-search__field::-moz-placeholder {
+              color: #999;
+              opacity: 1;
+          }
+
+          .select2-container--bootstrap .select2-search__field:-ms-input-placeholder {
+              color: #999;
+          }
+
+          .select2-container--bootstrap .select2-results__option {
+              padding: 6px 12px;
+              /**
+                 * Disabled results.
+                 *
+                 * @see https://select2.github.io/examples.html#disabled-results
+                 */
+              /**
+                 * Hover state.
+                 */
+              /**
+                 * Selected state.
+                 */
+          }
+
+          .select2-container--bootstrap .select2-results__option[role=group] {
+              padding: 0;
+          }
+
+          .select2-container--bootstrap .select2-results__option[aria-disabled=true] {
+              color: #777777;
+              cursor: not-allowed;
+          }
+
+          .select2-container--bootstrap .select2-results__option[aria-selected=true] {
+              background-color: #f5f5f5;
+              color: #262626;
+          }
+
+          .select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
+              background-color: #337ab7;
+              color: #fff;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option {
+              padding: 6px 12px;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__group {
+              padding-left: 0;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option {
+              margin-left: -12px;
+              padding-left: 24px;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+              margin-left: -24px;
+              padding-left: 36px;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+              margin-left: -36px;
+              padding-left: 48px;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+              margin-left: -48px;
+              padding-left: 60px;
+          }
+
+          .select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+              margin-left: -60px;
+              padding-left: 72px;
+          }
+
+          .select2-container--bootstrap .select2-results__group {
+              color: #777777;
+              display: block;
+              padding: 6px 12px;
+              font-size: 12px;
+              line-height: 1.42857143;
+              white-space: nowrap;
+          }
+
+          .select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection {
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+              -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+              -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+              -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+              transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+              transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+              transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+              border-color: #66afe9;
+          }
+
+          .select2-container--bootstrap.select2-container--open {
+              /**
+                 * Make the dropdown arrow point up while the dropdown is visible.
+                 */
+              /**
+                 * Handle border radii of the container when the dropdown is showing.
+                 */
+          }
+
+          .select2-container--bootstrap.select2-container--open .select2-selection .select2-selection__arrow b {
+              border-color: transparent transparent #999 transparent;
+              border-width: 0 4px 4px 4px;
+          }
+
+          .select2-container--bootstrap.select2-container--open.select2-container--below .select2-selection {
+              border-bottom-right-radius: 0;
+              border-bottom-left-radius: 0;
+              border-bottom-color: transparent;
+          }
+
+          .select2-container--bootstrap.select2-container--open.select2-container--above .select2-selection {
+              border-top-right-radius: 0;
+              border-top-left-radius: 0;
+              border-top-color: transparent;
+          }
+
+          .select2-container--bootstrap .select2-selection__clear {
+              color: #999;
+              cursor: pointer;
+              float: right;
+              font-weight: bold;
+              margin-right: 10px;
+          }
+
+          .select2-container--bootstrap .select2-selection__clear:hover {
+              color: #333;
+          }
+
+          .select2-container--bootstrap.select2-container--disabled .select2-selection {
+              border-color: #ccc;
+              -webkit-box-shadow: none;
+              box-shadow: none;
+          }
+
+          .select2-container--bootstrap.select2-container--disabled .select2-selection,
+          .select2-container--bootstrap.select2-container--disabled .select2-search__field {
+              cursor: not-allowed;
+          }
+
+          .select2-container--bootstrap.select2-container--disabled .select2-selection,
+          .select2-container--bootstrap.select2-container--disabled .select2-selection--multiple .select2-selection__choice {
+              background-color: #eeeeee;
+          }
+
+          .select2-container--bootstrap.select2-container--disabled .select2-selection__clear,
+          .select2-container--bootstrap.select2-container--disabled .select2-selection--multiple .select2-selection__choice__remove {
+              display: none;
+          }
+
+          .select2-container--bootstrap .select2-dropdown {
+              -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+              box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+              border-color: #66afe9;
+              overflow-x: hidden;
+              margin-top: -1px;
+          }
+
+          .select2-container--bootstrap .select2-dropdown--above {
+              -webkit-box-shadow: 0px -6px 12px rgba(0, 0, 0, 0.175);
+              box-shadow: 0px -6px 12px rgba(0, 0, 0, 0.175);
+              margin-top: 1px;
+          }
+
+          .select2-container--bootstrap .select2-results > .select2-results__options {
+              max-height: 200px;
+              overflow-y: auto;
+          }
+
+          .select2-container--bootstrap .select2-selection--single {
+              height: 34px;
+              line-height: 1.42857143;
+              padding: 6px 24px 6px 12px;
+              /**
+                 * Adjust the single Select2's dropdown arrow button appearance.
+                 */
+          }
+
+          .select2-container--bootstrap .select2-selection--single .select2-selection__arrow {
+              position: absolute;
+              bottom: 0;
+              right: 12px;
+              top: 0;
+              width: 4px;
+          }
+
+          .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+              border-color: #999 transparent transparent transparent;
+              border-style: solid;
+              border-width: 4px 4px 0 4px;
+              height: 0;
+              left: 0;
+              margin-left: -4px;
+              margin-top: -2px;
+              position: absolute;
+              top: 50%;
+              width: 0;
+          }
+
+          .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
+              color: #555555;
+              padding: 0;
+          }
+
+          .select2-container--bootstrap .select2-selection--single .select2-selection__placeholder {
+              color: #999;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple {
+              min-height: 34px;
+              padding: 0;
+              height: auto;
+              /**
+                 * Make Multi Select2's choices match Bootstrap 3's default button styles.
+                 */
+              /**
+                 * Minus 2px borders.
+                 */
+              /**
+                 * Clear the selection.
+                 */
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              display: block;
+              line-height: 1.42857143;
+              list-style: none;
+              margin: 0;
+              overflow: hidden;
+              padding: 0;
+              width: 100%;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__placeholder {
+              color: #999;
+              float: left;
+              margin-top: 5px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+              color: #555555;
+              background: #fff;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              cursor: default;
+              float: left;
+              margin: 5px 0 0 6px;
+              padding: 0 6px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+              background: transparent;
+              padding: 0 12px;
+              height: 32px;
+              line-height: 1.42857143;
+              margin-top: 0;
+              min-width: 5em;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove {
+              color: #999;
+              cursor: pointer;
+              display: inline-block;
+              font-weight: bold;
+              margin-right: 3px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove:hover {
+              color: #333;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear {
+              margin-top: 6px;
+          }
+
+          .select2-container--bootstrap .select2-selection--single.input-sm,
+          .input-group-sm .select2-container--bootstrap .select2-selection--single,
+          .form-group-sm .select2-container--bootstrap .select2-selection--single {
+              border-radius: 3px;
+              font-size: 12px;
+              height: 30px;
+              line-height: 1.5;
+              padding: 5px 22px 5px 10px;
+              /* 2 */
+          }
+
+          .select2-container--bootstrap .select2-selection--single.input-sm .select2-selection__arrow b,
+          .input-group-sm .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b,
+          .form-group-sm .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+              margin-left: -5px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-sm,
+          .input-group-sm .select2-container--bootstrap .select2-selection--multiple,
+          .form-group-sm .select2-container--bootstrap .select2-selection--multiple {
+              min-height: 30px;
+              border-radius: 3px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-sm .select2-selection__choice,
+          .input-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice,
+          .form-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+              font-size: 12px;
+              line-height: 1.5;
+              margin: 4px 0 0 5px;
+              padding: 0 5px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-sm .select2-search--inline .select2-search__field,
+          .input-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field,
+          .form-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+              padding: 0 10px;
+              font-size: 12px;
+              height: 28px;
+              line-height: 1.5;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-sm .select2-selection__clear,
+          .input-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear,
+          .form-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear {
+              margin-top: 5px;
+          }
+
+          .select2-container--bootstrap .select2-selection--single.input-lg,
+          .input-group-lg .select2-container--bootstrap .select2-selection--single,
+          .form-group-lg .select2-container--bootstrap .select2-selection--single {
+              border-radius: 6px;
+              font-size: 18px;
+              height: 46px;
+              line-height: 1.3333333;
+              padding: 10px 31px 10px 16px;
+              /* 1 */
+          }
+
+          .select2-container--bootstrap .select2-selection--single.input-lg .select2-selection__arrow,
+          .input-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow,
+          .form-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow {
+              width: 5px;
+          }
+
+          .select2-container--bootstrap .select2-selection--single.input-lg .select2-selection__arrow b,
+          .input-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b,
+          .form-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+              border-width: 5px 5px 0 5px;
+              margin-left: -5px;
+              margin-left: -10px;
+              margin-top: -2.5px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-lg,
+          .input-group-lg .select2-container--bootstrap .select2-selection--multiple,
+          .form-group-lg .select2-container--bootstrap .select2-selection--multiple {
+              min-height: 46px;
+              border-radius: 6px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-lg .select2-selection__choice,
+          .input-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice,
+          .form-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+              font-size: 18px;
+              line-height: 1.3333333;
+              border-radius: 4px;
+              margin: 9px 0 0 8px;
+              padding: 0 10px;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-lg .select2-search--inline .select2-search__field,
+          .input-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field,
+          .form-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+              padding: 0 16px;
+              font-size: 18px;
+              height: 44px;
+              line-height: 1.3333333;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple.input-lg .select2-selection__clear,
+          .input-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear,
+          .form-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear {
+              margin-top: 10px;
+          }
+
+          .select2-container--bootstrap .select2-selection.input-lg.select2-container--open .select2-selection--single {
+              /**
+                 * Make the dropdown arrow point up while the dropdown is visible.
+                 */
+          }
+
+          .select2-container--bootstrap .select2-selection.input-lg.select2-container--open .select2-selection--single .select2-selection__arrow b {
+              border-color: transparent transparent #999 transparent;
+              border-width: 0 5px 5px 5px;
+          }
+
+          .input-group-lg .select2-container--bootstrap .select2-selection.select2-container--open .select2-selection--single {
+              /**
+                 * Make the dropdown arrow point up while the dropdown is visible.
+                 */
+          }
+
+          .input-group-lg .select2-container--bootstrap .select2-selection.select2-container--open .select2-selection--single .select2-selection__arrow b {
+              border-color: transparent transparent #999 transparent;
+              border-width: 0 5px 5px 5px;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] {
+              /**
+                 * Single Select2
+                 *
+                 * 1. Makes sure that .select2-selection__placeholder is positioned
+                 *    correctly.
+                 */
+              /**
+                 * Multiple Select2
+                 */
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--single {
+              padding-left: 24px;
+              padding-right: 12px;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+              padding-right: 0;
+              padding-left: 0;
+              text-align: right;
+              /* 1 */
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__clear {
+              float: left;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+              left: 12px;
+              right: auto;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__arrow b {
+              margin-left: 0;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__choice,
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder,
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-search--inline {
+              float: right;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+              margin-left: 0;
+              margin-right: 6px;
+          }
+
+          .select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+              margin-left: 2px;
+              margin-right: auto;
+          }
+
+          /*------------------------------------*  #ADDITIONAL GOODIES
+          \*------------------------------------*/
+          /**
+           * Address Bootstrap's validation states
+           *
+           * If a Select2 widget parent has one of Bootstrap's validation state modifier
+           * classes, adjust Select2's border colors and focus states accordingly.
+           * You may apply said classes to the Select2 dropdown (body > .select2-container)
+           * via JavaScript match Bootstraps' to make its styles match.
+           *
+           * @see http://getbootstrap.com/css/#forms-control-validation
+           */
+          .has-warning .select2-dropdown,
+          .has-warning .select2-selection {
+              border-color: #8a6d3b;
+          }
+
+          .has-warning .select2-container--focus .select2-selection,
+          .has-warning .select2-container--open .select2-selection {
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+              border-color: #66512c;
+          }
+
+          .has-warning.select2-drop-active {
+              border-color: #66512c;
+          }
+
+          .has-warning.select2-drop-active.select2-drop.select2-drop-above {
+              border-top-color: #66512c;
+          }
+
+          .has-error .select2-dropdown,
+          .has-error .select2-selection {
+              border-color: #a94442;
+          }
+
+          .has-error .select2-container--focus .select2-selection,
+          .has-error .select2-container--open .select2-selection {
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+              border-color: #843534;
+          }
+
+          .has-error.select2-drop-active {
+              border-color: #843534;
+          }
+
+          .has-error.select2-drop-active.select2-drop.select2-drop-above {
+              border-top-color: #843534;
+          }
+
+          .has-success .select2-dropdown,
+          .has-success .select2-selection {
+              border-color: #3c763d;
+          }
+
+          .has-success .select2-container--focus .select2-selection,
+          .has-success .select2-container--open .select2-selection {
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+              border-color: #2b542c;
+          }
+
+          .has-success.select2-drop-active {
+              border-color: #2b542c;
+          }
+
+          .has-success.select2-drop-active.select2-drop.select2-drop-above {
+              border-top-color: #2b542c;
+          }
+
+          /**
+           * Select2 widgets in Bootstrap Input Groups
+           *
+           * @see http://getbootstrap.com/components/#input-groups
+           * @see https://github.com/twbs/bootstrap/blob/master/less/input-groups.less
+           */
+          /**
+           * Reset rounded corners
+           */
+          .input-group > .select2-hidden-accessible:first-child + .select2-container--bootstrap > .selection > .select2-selection,
+          .input-group > .select2-hidden-accessible:first-child + .select2-container--bootstrap > .selection > .select2-selection.form-control {
+              border-bottom-right-radius: 0;
+              border-top-right-radius: 0;
+          }
+
+          .input-group > .select2-hidden-accessible:not(:first-child) + .select2-container--bootstrap:not(:last-child) > .selection > .select2-selection,
+          .input-group > .select2-hidden-accessible:not(:first-child) + .select2-container--bootstrap:not(:last-child) > .selection > .select2-selection.form-control {
+              border-radius: 0;
+          }
+
+          .input-group > .select2-hidden-accessible:not(:first-child):not(:last-child) + .select2-container--bootstrap:last-child > .selection > .select2-selection,
+          .input-group > .select2-hidden-accessible:not(:first-child):not(:last-child) + .select2-container--bootstrap:last-child > .selection > .select2-selection.form-control {
+              border-bottom-left-radius: 0;
+              border-top-left-radius: 0;
+          }
+
+          .input-group > .select2-container--bootstrap {
+              display: table;
+              table-layout: fixed;
+              position: relative;
+              z-index: 2;
+              width: 100%;
+              margin-bottom: 0;
+              /**
+               * Adjust z-index like Bootstrap does to show the focus-box-shadow
+               * above appended buttons in .input-group and .form-group.
+               */
+              /**
+               * Adjust alignment of Bootstrap buttons in Bootstrap Input Groups to address
+               * Multi Select2's height which - depending on how many elements have been selected -
+               * may grow taller than its initial size.
+               *
+               * @see http://getbootstrap.com/components/#input-groups
+               */
+          }
+
+          .input-group > .select2-container--bootstrap > .selection > .select2-selection.form-control {
+              float: none;
+          }
+
+          .input-group > .select2-container--bootstrap.select2-container--open, .input-group > .select2-container--bootstrap.select2-container--focus {
+              z-index: 3;
+          }
+
+          .input-group > .select2-container--bootstrap,
+          .input-group > .select2-container--bootstrap .input-group-btn,
+          .input-group > .select2-container--bootstrap .input-group-btn .btn {
+              vertical-align: top;
+          }
+
+          .form-control.select2-hidden-accessible {
+              position: absolute !important;
+              width: 1px !important;
+          }
+
+          .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+              background-color: rgba(82, 167, 224, 0.18);
+              background-image: none;
+              color: #009ddc;
+              font-weight: 600;
+              border-radius: 20px;
+          }
+
+          .select2-search--inline {
+              width: 100%;
+              margin: 0;
+          }
+
+          input.select2-search__field {
+              width: 100% !important;
+          }
+          
+          .select2-selection__choice {
+              font-size: 11px;
+              margin: 2px !important;
+              font-weight: 500 !important;
+              border-radius: 5px !important;
+              color: #00709d !important;
+          }
+          .main-con{
+              margin: -10px -20px 0 -20px;
+          }
+          .select2-results__options{
+              max-height: 30px;
+          }
+          .select2-results__option{
+              padding: 2px 0 0 0 !important;
+          }
+          .select2-selection__choice { cursor: pointer!important; }
+          .data-set-selected {
+            color: white!important;
+            border: 2px solid green!important;
+            background: green!important;
+          }
+      </style>
+
+      <div class="full-width top-margin">
+          <span class="bold-text">Case Labels:</span>
+<form id="j_id0:j_id5" name="j_id0:j_id5" method="post" action="https://poshmark--c.vf.force.com/apex/iframe_integration?id=500Ug00000gtTvjIAE&amp;isdtp=p1&amp;sfdcIFrameOrigin=https://poshmark.lightning.force.com&amp;clc=1" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id0:j_id5" value="j_id0:j_id5">
+
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {adp[i].parentNode.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var ps = pvp.split(',');for (var i = 0,ii = 0;i < ps.length;i++,ii++) {var p = document.createElement("input");p.type = "hidden";p.name = ps[i];p.value = ps[i + 1];f.appendChild(p);adp[ii] = p;i += 1;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<script> function j_id6_onchange(){if(typeof jsfcljs == 'function'){jsfcljs(document.forms['j_id0:j_id5'],'j_id0:j_id5:j_id6,j_id0:j_id5:j_id6','');}return false }</script><select id="j_id0:j_id5:addLabelSelector" name="j_id0:j_id5:addLabelSelector" multiple="" size="1" onchange="j_id6_onchange();" style="width: 100%" data-select2-id="j_id0:j_id5:addLabelSelector" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">	<option value="Accounting of Earnings and Purchases">Accounting of Earnings and Purchases</option>
+	<option value="Address Not Accepted by the System">Address Not Accepted by the System</option>
+	<option value="Advertisement/Promo Listing">Advertisement/Promo Listing</option>
+	<option value="Ambassador">Ambassador</option>
+	<option value="Apple ID">Apple ID</option>
+	<option value="Block User">Block User</option>
+	<option value="Buyer Protection">Buyer Protection</option>
+	<option value="Cannot enter return address">Cannot enter return address</option>
+	<option value="CCPA">CCPA</option>
+	<option value="Change Email">Change Email</option>
+	<option value="Closet Hold - Courtesy">Closet Hold - Courtesy</option>
+	<option value="Closet Stats">Closet Stats</option>
+	<option value="Community Guidelines">Community Guidelines</option>
+	<option value="Creeper">Creeper</option>
+	<option value="Data Removal Request">Data Removal Request</option>
+	<option value="Delete Account">Delete Account</option>
+	<option value="Delete Account - 10 Days">Delete Account - 10 Days</option>
+	<option value="Delete Account Escalation">Delete Account Escalation</option>
+	<option value="Delete Profile/Header Photos">Delete Profile/Header Photos</option>
+	<option value="Delete Queue Outreach">Delete Queue Outreach</option>
+	<option value="Donations">Donations</option>
+	<option value="Email Already In Use">Email Already In Use</option>
+	<option value="Email Glitch">Email Glitch</option>
+	<option value="Email Notifications">Email Notifications</option>
+	<option value="Enterprise Seller">Enterprise Seller</option>
+	<option value="Excessive Accidental Purchases">Excessive Accidental Purchases</option>
+	<option value="Featured Boutique">Featured Boutique</option>
+	<option value="Final Lost Package Comp Notification">Final Lost Package Comp Notification</option>
+	<option value="GC Order - Condition confusion">GC Order - Condition confusion</option>
+	<option value="GC - Registration Problem">GC - Registration Problem</option>
+	<option value="Guest Checkout">Guest Checkout</option>
+	<option value="Hosting a Posh Party">Hosting a Posh Party</option>
+	<option value="Inactive Seller">Inactive Seller</option>
+	<option value="Influencer">Influencer</option>
+	<option value="Influencer Job APPROVED">Influencer Job APPROVED</option>
+	<option value="Influencer Job DENIED">Influencer Job DENIED</option>
+	<option value="Influencer Job SUBMITTED">Influencer Job SUBMITTED</option>
+	<option value="Influencer POTENTIAL">Influencer POTENTIAL</option>
+	<option value="Invalid User Email Address">Invalid User Email Address</option>
+	<option value="Multiple Accounts">Multiple Accounts</option>
+	<option value="Official Brand Closet">Official Brand Closet</option>
+	<option value="Party Spam">Party Spam</option>
+	<option value="PA Verified Seller">PA Verified Seller</option>
+	<option value="PayComp Escalation">PayComp Escalation</option>
+	<option value="Phone Verification Issue">Phone Verification Issue</option>
+	<option value="Photo Privacy Settings">Photo Privacy Settings</option>
+	<option value="pm_editor picks">pm_editor picks</option>
+	<option value="Posh Ambassador">Posh Ambassador</option>
+	<option value="Posh Ambassador II">Posh Ambassador II</option>
+	<option value="Power User" selected="selected" data-select2-id="2">Power User</option>
+	<option value="Profile Photo">Profile Photo</option>
+	<option value="Promoted Closet">Promoted Closet</option>
+	<option value="Referral Credit">Referral Credit</option>
+	<option value="Remove Credit Card Information">Remove Credit Card Information</option>
+	<option value="Replica Certification">Replica Certification</option>
+	<option value="Reply to Email or Password Change">Reply to Email or Password Change</option>
+	<option value="Reset Password">Reset Password</option>
+	<option value="Reset User Balance">Reset User Balance</option>
+	<option value="Retail">Retail</option>
+	<option value="SC - Account">SC - Account</option>
+	<option value="Search Visibility Settings">Search Visibility Settings</option>
+	<option value="SSN/TIN Bypassed">SSN/TIN Bypassed</option>
+	<option value="SSN/TIN Increase">SSN/TIN Increase</option>
+	<option value="SU/PA Alias">SU/PA Alias</option>
+	<option value="Support - ID Verification Requested">Support - ID Verification Requested</option>
+	<option value="Throttle Email">Throttle Email</option>
+	<option value="Turn Off Notifications">Turn Off Notifications</option>
+	<option value="Unauthorized">Unauthorized</option>
+	<option value="User Deceased">User Deceased</option>
+	<option value="User Domain Relocation">User Domain Relocation</option>
+	<option value="Username Change">Username Change</option>
+	<option value="Vacation Hold">Vacation Hold</option>
+	<option value="Wholesale/Retail Brand">Wholesale/Retail Brand</option>
+	<option value="Wholesale New Brand - Completed MoU">Wholesale New Brand - Completed MoU</option>
+	<option value="Wholesale Portal">Wholesale Portal</option>
+	<option value="Wholesale Potential New Brand">Wholesale Potential New Brand</option>
+	<option value="Wrong Signup Domain">Wrong Signup Domain</option>
+	<option value="24 Hr Follow Up - IND">24 Hr Follow Up - IND</option>
+	<option value="Accept Return">Accept Return</option>
+	<option value="Aging TTR">Aging TTR</option>
+	<option value="Aging TTR Admin">Aging TTR Admin</option>
+	<option value="Aging TTR Misassigned">Aging TTR Misassigned</option>
+	<option value="Agree Manual Queue Moderation">Agree Manual Queue Moderation</option>
+	<option value="Allergy">Allergy</option>
+	<option value="Authenticity Question">Authenticity Question</option>
+	<option value="Brand Removal - False Positive">Brand Removal - False Positive</option>
+	<option value="Buyer IND Denied Dispute">Buyer IND Denied Dispute</option>
+	<option value="Buyer Keeping Return">Buyer Keeping Return</option>
+	<option value="Buyer Needs More Time To Return IND">Buyer Needs More Time To Return IND</option>
+	<option value="CA Aging TTR">CA Aging TTR</option>
+	<option value="CA PB Phase 1">CA PB Phase 1</option>
+	<option value="CA PB Phase 2">CA PB Phase 2</option>
+	<option value="Condition - IND">Condition - IND</option>
+	<option value="Confirm Return w/Seller">Confirm Return w/Seller</option>
+	<option value="Courtesy closet hold - new seller">Courtesy closet hold - new seller</option>
+	<option value="Damaged Package">Damaged Package</option>
+	<option value="Duplicate Labels">Duplicate Labels</option>
+	<option value="Escalated Package Issues">Escalated Package Issues</option>
+	<option value="Exchange">Exchange</option>
+	<option value="GTM Escalations">GTM Escalations</option>
+	<option value="High Value IND">High Value IND</option>
+	<option value="ID Verification Issue">ID Verification Issue</option>
+	<option value="Incoming IND">Incoming IND</option>
+	<option value="IND">IND</option>
+	<option value="IND Counterfeit Policy">IND Counterfeit Policy</option>
+	<option value="IND CSAT">IND CSAT</option>
+	<option value="IND Exchange">IND Exchange</option>
+	<option value="IND Flex">IND Flex</option>
+	<option value="IND GTM">IND GTM</option>
+	<option value="IND Host Giveaway">IND Host Giveaway</option>
+	<option value="IND Liquid/Perfume Double Comp">IND Liquid/Perfume Double Comp</option>
+	<option value="IND Posh Shows">IND Posh Shows</option>
+	<option value="IND Self-Service">IND Self-Service</option>
+	<option value="IND TaskUs">IND TaskUs</option>
+	<option value="IND Tier 1B">IND Tier 1B</option>
+	<option value="IND Tier 2A">IND Tier 2A</option>
+	<option value="IND Tier 2B">IND Tier 2B</option>
+	<option value="IND Tier 2B Pending">IND Tier 2B Pending</option>
+	<option value="IND Tier 3B">IND Tier 3B</option>
+	<option value="Invite Agent">Invite Agent</option>
+	<option value="Item Damaged After Wearing">Item Damaged After Wearing</option>
+	<option value="Item Damaged Before Shipment">Item Damaged Before Shipment</option>
+	<option value="Item Missing from Order">Item Missing from Order</option>
+	<option value="Items Swapped">Items Swapped</option>
+	<option value="Mistagged brand">Mistagged brand</option>
+	<option value="Not Authentic - IND">Not Authentic - IND</option>
+	<option value="Not Working - IND">Not Working - IND</option>
+	<option value="Odor related case">Odor related case</option>
+	<option value="Other - IND">Other - IND</option>
+	<option value="Partial Refunds - IND">Partial Refunds - IND</option>
+	<option value="Photo Proof - IND">Photo Proof - IND</option>
+	<option value="Posh Credit - IND Offer">Posh Credit - IND Offer</option>
+	<option value="Posh Shows Discord">Posh Shows Discord</option>
+	<option value="Prohibited Listing Removed - unsupported">Prohibited Listing Removed - unsupported</option>
+	<option value="Received but Still Not Happy">Received but Still Not Happy</option>
+	<option value="Regain CBS">Regain CBS</option>
+	<option value="Removal Appeal APPROVED">Removal Appeal APPROVED</option>
+	<option value="Removal Appeal DENIED">Removal Appeal DENIED</option>
+	<option value="Reopen Continued">Reopen Continued</option>
+	<option value="Reopen New Issue">Reopen New Issue</option>
+	<option value="Reopen Thank you">Reopen Thank you</option>
+	<option value="Replica Item - False Positive">Replica Item - False Positive</option>
+	<option value="Replica Return">Replica Return</option>
+	<option value="Report Chat">Report Chat</option>
+	<option value="Response to Listing Brand Removal">Response to Listing Brand Removal</option>
+	<option value="Return - DCL">Return - DCL</option>
+	<option value="Return Incomplete/Damaged">Return Incomplete/Damaged</option>
+	<option value="Return Notice">Return Notice</option>
+	<option value="Return outside PM process">Return outside PM process</option>
+	<option value="Return Policy">Return Policy</option>
+	<option value="Return - Shipped back to buyer">Return - Shipped back to buyer</option>
+	<option value="Return - SNT">Return - SNT</option>
+	<option value="Return Status Update">Return Status Update</option>
+	<option value="Return to Sender">Return to Sender</option>
+	<option value="Return Window Issue Buyer">Return Window Issue Buyer</option>
+	<option value="Return Window Issue Seller">Return Window Issue Seller</option>
+	<option value="RNH Host Giveaway">RNH Host Giveaway</option>
+	<option value="SC - Return">SC - Return</option>
+	<option value="SC - Returns">SC - Returns</option>
+	<option value="Seller IND Return Dispute">Seller IND Return Dispute</option>
+	<option value="Seller IND - Still unhappy">Seller IND - Still unhappy</option>
+	<option value="Sent to Poshmark HQ">Sent to Poshmark HQ</option>
+	<option value="Shipped to Wrong Person">Shipped to Wrong Person</option>
+	<option value="Shipped Wrong Item">Shipped Wrong Item</option>
+	<option value="Swap Gone Wrong">Swap Gone Wrong</option>
+	<option value="TaskUs">TaskUs</option>
+	<option value="TEMP - Swap">TEMP - Swap</option>
+	<option value="Unsupported Item">Unsupported Item</option>
+	<option value="Video Request - IND">Video Request - IND</option>
+	<option value="Wrong Item - IND">Wrong Item - IND</option>
+	<option value="Wrong Size - IND">Wrong Size - IND</option>
+	<option value="2FA/MFA Issues">2FA/MFA Issues</option>
+	<option value="2FA-ID-Verification-Processing">2FA-ID-Verification-Processing</option>
+	<option value="Account Change Notification">Account Change Notification</option>
+	<option value="Account Change Verifier">Account Change Verifier</option>
+	<option value="Account Security">Account Security</option>
+	<option value="Account Takeover">Account Takeover</option>
+	<option value="ATO Claim - Item Returned">ATO Claim - Item Returned</option>
+	<option value="Auto Cancel High Risk Order">Auto Cancel High Risk Order</option>
+	<option value="Auto Cancelled Verification Request">Auto Cancelled Verification Request</option>
+	<option value="Buyer Fraud">Buyer Fraud</option>
+	<option value="Captcha">Captcha</option>
+	<option value="CCF- Confirmed Fraud">CCF- Confirmed Fraud</option>
+	<option value="CCF- Disabled Buy">CCF- Disabled Buy</option>
+	<option value="CCF- FTHV">CCF- FTHV</option>
+	<option value="CCF- High Risky Label Auto-Generated">CCF- High Risky Label Auto-Generated</option>
+	<option value="CCF- High Risky Void Shipping Label">CCF- High Risky Void Shipping Label</option>
+	<option value="CCF-High Sift">CCF-High Sift</option>
+	<option value="CCF- HVB">CCF- HVB</option>
+	<option value="CCF-ID-Verification">CCF-ID-Verification</option>
+	<option value="CCF-ID-Verification-Processing">CCF-ID-Verification-Processing</option>
+	<option value="CCF- Ignored Not Fraud">CCF- Ignored Not Fraud</option>
+	<option value="CCF-Low Sift">CCF-Low Sift</option>
+	<option value="CCF - Phone Request">CCF - Phone Request</option>
+	<option value="CCF - Risky Payment Method">CCF - Risky Payment Method</option>
+	<option value="CCF- Sift">CCF- Sift</option>
+	<option value="CCF-Sift- Auto-cancelled">CCF-Sift- Auto-cancelled</option>
+	<option value="CCF-Update-Address">CCF-Update-Address</option>
+	<option value="Chargeback">Chargeback</option>
+	<option value="Chargebacks">Chargebacks</option>
+	<option value="Collusion">Collusion</option>
+	<option value="Compliance">Compliance</option>
+	<option value="Credit Card Fraud">Credit Card Fraud</option>
+	<option value="Credit Card Security">Credit Card Security</option>
+	<option value="Do not ship - buyer fraud suspected">Do not ship - buyer fraud suspected</option>
+	<option value="Empty Box">Empty Box</option>
+	<option value="Error 1012 - Blocked Address">Error 1012 - Blocked Address</option>
+	<option value="Error 2002">Error 2002</option>
+	<option value="Extended Auto Release Window">Extended Auto Release Window</option>
+	<option value="False Positive Fraud">False Positive Fraud</option>
+	<option value="First Time High Value">First Time High Value</option>
+	<option value="Flagged order - DCL/seller fraud">Flagged order - DCL/seller fraud</option>
+	<option value="Fraud Auto-Restricted">Fraud Auto-Restricted</option>
+	<option value="Fraud- Collusion">Fraud- Collusion</option>
+	<option value="Fraud- Credit Card">Fraud- Credit Card</option>
+	<option value="Fraud Detection">Fraud Detection</option>
+	<option value="Fraud- SDC">Fraud- SDC</option>
+	<option value="Fraud- Sift">Fraud- Sift</option>
+	<option value="Identity Verification">Identity Verification</option>
+	<option value="ID Submitted">ID Submitted</option>
+	<option value="ID Verification Error">ID Verification Error</option>
+	<option value="In Office - Fraud Holds">In Office - Fraud Holds</option>
+	<option value="Law enforcement">Law enforcement</option>
+	<option value="Legal Issue">Legal Issue</option>
+	<option value="Login/Sign-ups">Login/Sign-ups</option>
+	<option value="Marketplace Safety SPAM">Marketplace Safety SPAM</option>
+	<option value="MFA/2FA Issues">MFA/2FA Issues</option>
+	<option value="MFA-Apple ID">MFA-Apple ID</option>
+	<option value="MFA-ID-Verification-Processing">MFA-ID-Verification-Processing</option>
+	<option value="MFA Phone Number-ID-Verification-Processing">MFA Phone Number-ID-Verification-Processing</option>
+	<option value="Other Fraud">Other Fraud</option>
+	<option value="Paypal">Paypal</option>
+	<option value="Phishing">Phishing</option>
+	<option value="PM Risk ATO - Confirmed ATO">PM Risk ATO - Confirmed ATO</option>
+	<option value="PM Risk ATO - Manual Review">PM Risk ATO - Manual Review</option>
+	<option value="PM Risk ATO - Not ATO">PM Risk ATO - Not ATO</option>
+	<option value="RCS Credit Card Block">RCS Credit Card Block</option>
+	<option value="RCS- Sift">RCS- Sift</option>
+	<option value="Redemption IDV Issues">Redemption IDV Issues</option>
+	<option value="Referral Credit Scammer">Referral Credit Scammer</option>
+	<option value="Retrieval">Retrieval</option>
+	<option value="Seller Shipping Fraud">Seller Shipping Fraud</option>
+	<option value="Selling Stolen Merchandise">Selling Stolen Merchandise</option>
+	<option value="Shipping Label Scam - Auto-Cancelled">Shipping Label Scam - Auto-Cancelled</option>
+	<option value="Shipping Label Scammer">Shipping Label Scammer</option>
+	<option value="Siftbot">Siftbot</option>
+	<option value="Sketchball">Sketchball</option>
+	<option value="SLS Approved">SLS Approved</option>
+	<option value="SLS Auto-Approved">SLS Auto-Approved</option>
+	<option value="SLS Auto Cancelled - Not SLS">SLS Auto Cancelled - Not SLS</option>
+	<option value="SLS Confirmed">SLS Confirmed</option>
+	<option value="SLS Resolved">SLS Resolved</option>
+	<option value="SLS Review">SLS Review</option>
+	<option value="SPAM">SPAM</option>
+	<option value="Spam Account">Spam Account</option>
+	<option value="Spam Report">Spam Report</option>
+	<option value="stolen package">stolen package</option>
+	<option value="Stolen Phone">Stolen Phone</option>
+	<option value="User-ID-Verification-Completed">User-ID-Verification-Completed</option>
+	<option value="User-ID-Verification-Error">User-ID-Verification-Error</option>
+	<option value="User-ID-Verification-In-Progress">User-ID-Verification-In-Progress</option>
+	<option value="Verification Code Issue">Verification Code Issue</option>
+	<option value="Verification Request">Verification Request</option>
+	<option value="Accidental Moderation Report">Accidental Moderation Report</option>
+	<option value="Agree Manual Queue Moderation">Agree Manual Queue Moderation</option>
+	<option value="Ambassador Harassment">Ambassador Harassment</option>
+	<option value="Bad Content Reporting">Bad Content Reporting</option>
+	<option value="Bad Seller - Unshipped orders">Bad Seller - Unshipped orders</option>
+	<option value="Bot Usage">Bot Usage</option>
+	<option value="Brand Removal - False Positive">Brand Removal - False Positive</option>
+	<option value="Canada Outreach">Canada Outreach</option>
+	<option value="Copyright Alias">Copyright Alias</option>
+	<option value="Copyright or Trademark Violation">Copyright or Trademark Violation</option>
+	<option value="dangerous_misinformation">dangerous_misinformation</option>
+	<option value="deceptive">deceptive</option>
+	<option value="Disable Buying">Disable Buying</option>
+	<option value="Disabled Account">Disabled Account</option>
+	<option value="Disabled Device">Disabled Device</option>
+	<option value="Disable Redemption">Disable Redemption</option>
+	<option value="Disagree Manual Queue Moderation">Disagree Manual Queue Moderation</option>
+	<option value="Dispute Listing Removal">Dispute Listing Removal</option>
+	<option value="DMCA Takedown Response">DMCA Takedown Response</option>
+	<option value="Excessive Listing Removals">Excessive Listing Removals</option>
+	<option value="gambling">gambling</option>
+	<option value="gambling_or_donation">gambling_or_donation</option>
+	<option value="graphic_nudity">graphic_nudity</option>
+	<option value="Harassment">Harassment</option>
+	<option value="harassment_towards_me">harassment_towards_me</option>
+	<option value="harassment_towards_someone_else">harassment_towards_someone_else</option>
+	<option value="harassment undeterminable">harassment undeterminable</option>
+	<option value="hate_speech_symbols">hate_speech_symbols</option>
+	<option value="Listing Certification queue">Listing Certification queue</option>
+	<option value="Manual Queue Moderation">Manual Queue Moderation</option>
+	<option value="MAPP Violation">MAPP Violation</option>
+	<option value="Mistaken Identity Claim">Mistaken Identity Claim</option>
+	<option value="ML Listing Model - Manual Review">ML Listing Model - Manual Review</option>
+	<option value="Moderation bypass - Manual Review">Moderation bypass - Manual Review</option>
+	<option value="not_allowed">not_allowed</option>
+	<option value="nudity">nudity</option>
+	<option value="offline_transaction">offline_transaction</option>
+	<option value="Offline Appeal">Offline Appeal</option>
+	<option value="Offline Removal - False Positive">Offline Removal - False Positive</option>
+	<option value="Offline Transactions">Offline Transactions</option>
+	<option value="Older Listing">Older Listing</option>
+	<option value="other_deceptive_misleading">other_deceptive_misleading</option>
+	<option value="other_unsafe_activities">other_unsafe_activities</option>
+	<option value="PATROL High Risk Listing Delay - Manual Review">PATROL High Risk Listing Delay - Manual Review</option>
+	<option value="Patroller Gray Area">Patroller Gray Area</option>
+	<option value="PATROL Low Risk Listing Delay - Manual Review">PATROL Low Risk Listing Delay - Manual Review</option>
+	<option value="Permanent Suspension">Permanent Suspension</option>
+	<option value="Photo Removal Request">Photo Removal Request</option>
+	<option value="PM Risk Spam - Manual Review">PM Risk Spam - Manual Review</option>
+	<option value="Post Publish Review Queue for Fraud - Community Report">Post Publish Review Queue for Fraud - Community Report</option>
+	<option value="Post Publish Review Queue for Fraud - Duplicate Image">Post Publish Review Queue for Fraud - Duplicate Image</option>
+	<option value="Pre-publish Listing - D0 Lister Review">Pre-publish Listing - D0 Lister Review</option>
+	<option value="Pre-publish Listing - High Priority Review">Pre-publish Listing - High Priority Review</option>
+	<option value="Pre-publish Listing - Low Priority Review">Pre-publish Listing - Low Priority Review</option>
+	<option value="Pre-publish Listing - Medium Priority Review">Pre-publish Listing - Medium Priority Review</option>
+	<option value="Price Gouging">Price Gouging</option>
+	<option value="Prohibited Appeal">Prohibited Appeal</option>
+	<option value="Prohibited Listing Removed - Prohibited">Prohibited Listing Removed - Prohibited</option>
+	<option value="Prohibited Posh Show">Prohibited Posh Show</option>
+	<option value="psplaybackissue">psplaybackissue</option>
+	<option value="Racist Remarks">Racist Remarks</option>
+	<option value="Removed Listing Appeal">Removed Listing Appeal</option>
+	<option value="Replica Appeal">Replica Appeal</option>
+	<option value="Replica Item">Replica Item</option>
+	<option value="Replica Report">Replica Report</option>
+	<option value="Response to Listing Brand Removal">Response to Listing Brand Removal</option>
+	<option value="Response to System Warning">Response to System Warning</option>
+	<option value="Restricted User Confused">Restricted User Confused</option>
+	<option value="Risky Listings">Risky Listings</option>
+	<option value="Scammer Listing">Scammer Listing</option>
+	<option value="scams_frauds">scams_frauds</option>
+	<option value="SC - Safety and Reporting">SC - Safety and Reporting</option>
+	<option value="self_harm">self_harm</option>
+	<option value="sexual_activity">sexual_activity</option>
+	<option value="sexual_exploitation">sexual_exploitation</option>
+	<option value="sexually_suggestive">sexually_suggestive</option>
+	<option value="Show Comment Moderation">Show Comment Moderation</option>
+	<option value="Show Moderation">Show Moderation</option>
+	<option value="Shows Moderation Webinar">Shows Moderation Webinar</option>
+	<option value="Sift Delivery Fraud Listing Delay - Manual Review">Sift Delivery Fraud Listing Delay - Manual Review</option>
+	<option value="silent_show">silent_show</option>
+	<option value="something_else">something_else</option>
+	<option value="Story Moderation In-Review">Story Moderation In-Review</option>
+	<option value="substance_abuse">substance_abuse</option>
+	<option value="Suspension - poor shipper">Suspension - poor shipper</option>
+	<option value="TEMP - Comment Tracking">TEMP - Comment Tracking</option>
+	<option value="terrorism">terrorism</option>
+	<option value="Unauthorized Use of Photos">Unauthorized Use of Photos</option>
+	<option value="Underage User">Underage User</option>
+	<option value="unsafe_activities">unsafe_activities</option>
+	<option value="User Safety Assignment">User Safety Assignment</option>
+	<option value="User Safety bypass - Manual Review">User Safety bypass - Manual Review</option>
+	<option value="Violation Report">Violation Report</option>
+	<option value="violent_act">violent_act</option>
+	<option value="violent_imagery_gore">violent_imagery_gore</option>
+	<option value="violent_threat_towards_me">violent_threat_towards_me</option>
+	<option value="violent_threat_towards_someone_else">violent_threat_towards_someone_else</option>
+	<option value="Warning">Warning</option>
+	<option value="Why was my listing brand removed">Why was my listing brand removed</option>
+	<option value="Why Was My Listing Deleted">Why Was My Listing Deleted</option>
+	<option value="IP Copyright auto-response sent">IP Copyright auto-response sent</option>
+	<option value="Moderation- Harassment">Moderation- Harassment</option>
+	<option value="Accidentally Marked Received">Accidentally Marked Received</option>
+	<option value="Accidentally Marked Unshipped Order Received">Accidentally Marked Unshipped Order Received</option>
+	<option value="Accidental Purchase">Accidental Purchase</option>
+	<option value="Accidental Purchase - Auctions">Accidental Purchase - Auctions</option>
+	<option value="Auto Order Cancellation at 14 days">Auto Order Cancellation at 14 days</option>
+	<option value="Basic Issues">Basic Issues</option>
+	<option value="Bundled Two Orders">Bundled Two Orders</option>
+	<option value="Bundles">Bundles</option>
+	<option value="Buyer Cancel Request">Buyer Cancel Request</option>
+	<option value="Buyer OOT - Request Payment Hold">Buyer OOT - Request Payment Hold</option>
+	<option value="Change Address for Order">Change Address for Order</option>
+	<option value="Closet Spotlight Promo">Closet Spotlight Promo</option>
+	<option value="Confirm Delivery of Item">Confirm Delivery of Item</option>
+	<option value="Customer Confusion">Customer Confusion</option>
+	<option value="Delivered Can&#39;t Locate">Delivered Can't Locate</option>
+	<option value="Didnt Get a Shipping Label">Didnt Get a Shipping Label</option>
+	<option value="Edit Rating">Edit Rating</option>
+	<option value="Escalations General">Escalations General</option>
+	<option value="First Purchase">First Purchase</option>
+	<option value="First Sale">First Sale</option>
+	<option value="Ignite Promo Inquiry">Ignite Promo Inquiry</option>
+	<option value="Inbound to Orders">Inbound to Orders</option>
+	<option value="Inbound to Support">Inbound to Support</option>
+	<option value="Increase in Shipping Fees">Increase in Shipping Fees</option>
+	<option value="Make A Cancelled Item Available">Make A Cancelled Item Available</option>
+	<option value="Make An Offer">Make An Offer</option>
+	<option value="MUSO seller">MUSO seller</option>
+	<option value="Natural Disaster">Natural Disaster</option>
+	<option value="Offer on Bundle">Offer on Bundle</option>
+	<option value="Order Status Update">Order Status Update</option>
+	<option value="Posh Pass">Posh Pass</option>
+	<option value="power outage">power outage</option>
+	<option value="Price Drop">Price Drop</option>
+	<option value="Price Drop Shipping Promo">Price Drop Shipping Promo</option>
+	<option value="Rate Your Purchase">Rate Your Purchase</option>
+	<option value="Release Payment for Item">Release Payment for Item</option>
+	<option value="Repurchase">Repurchase</option>
+	<option value="Reschedule Pickup">Reschedule Pickup</option>
+	<option value="Reverse Cancelled Order">Reverse Cancelled Order</option>
+	<option value="SC - Problem with Existing Order">SC - Problem with Existing Order</option>
+	<option value="Seller Cancel Request">Seller Cancel Request</option>
+	<option value="Shipped Not Tracked">Shipped Not Tracked</option>
+	<option value="Shipping Label Problem">Shipping Label Problem</option>
+	<option value="Stale Order">Stale Order</option>
+	<option value="Trading Related">Trading Related</option>
+	<option value="Unsupported Sale">Unsupported Sale</option>
+	<option value="What Box Can I Use">What Box Can I Use</option>
+	<option value="Wholesale Order Inquiry">Wholesale Order Inquiry</option>
+	<option value="Why Was My Order Cancelled">Why Was My Order Cancelled</option>
+	<option value="SC - Order Status Update">SC - Order Status Update</option>
+	<option value="$3 Shipping Label">$3 Shipping Label</option>
+	<option value="2024 Change">2024 Change</option>
+	<option value="3P Ads">3P Ads</option>
+	<option value="Ambassador-PTO">Ambassador-PTO</option>
+	<option value="ARK State Law">ARK State Law</option>
+	<option value="AUSTRALIA">AUSTRALIA</option>
+	<option value="Auto Resolve In-App Case">Auto Resolve In-App Case</option>
+	<option value="Auto Resolve In-App - Order Related">Auto Resolve In-App - Order Related</option>
+	<option value="BBB">BBB</option>
+	<option value="Bevy CHE">Bevy CHE</option>
+	<option value="Buyer">Buyer</option>
+	<option value="CA Events Alias">CA Events Alias</option>
+	<option value="CA In-App Support">CA In-App Support</option>
+	<option value="CA IND-PTO">CA IND-PTO</option>
+	<option value="Campaign Related">Campaign Related</option>
+	<option value="CANADA" selected="selected" data-select2-id="3">CANADA</option>
+	<option value="Canada Outreach">Canada Outreach</option>
+	<option value="Canada Post Strike - 2025">Canada Post Strike - 2025</option>
+	<option value="CAN Social Support">CAN Social Support</option>
+	<option value="Caroline 2025">Caroline 2025</option>
+	<option value="CA Service Recovery">CA Service Recovery</option>
+	<option value="Category">Category</option>
+	<option value="CEO Escalations">CEO Escalations</option>
+	<option value="CEO Letter 2025">CEO Letter 2025</option>
+	<option value="Comm Ops Resourcing">Comm Ops Resourcing</option>
+	<option value="Donations">Donations</option>
+	<option value="Dropship">Dropship</option>
+	<option value="DropShip Seller">DropShip Seller</option>
+	<option value="Einstein">Einstein</option>
+	<option value="Einstein - Accidental Purchase">Einstein - Accidental Purchase</option>
+	<option value="Einstein - Agent Responded">Einstein - Agent Responded</option>
+	<option value="Einstein - Auto Responded">Einstein - Auto Responded</option>
+	<option value="Einstein - Return Policy">Einstein - Return Policy</option>
+	<option value="Einstein - Seller Cancel Request - AB Test Skipped">Einstein - Seller Cancel Request - AB Test Skipped</option>
+	<option value="Enterprise">Enterprise</option>
+	<option value="Escalated">Escalated</option>
+	<option value="Escalations - Buyers">Escalations - Buyers</option>
+	<option value="Escalations - Seller">Escalations - Seller</option>
+	<option value="Events Alias">Events Alias</option>
+	<option value="Excessive">Excessive</option>
+	<option value="Facebook QandA">Facebook QandA</option>
+	<option value="Fireside Chat">Fireside Chat</option>
+	<option value="Flex Disputes Escalations">Flex Disputes Escalations</option>
+	<option value="Flex Einstein Subject Check">Flex Einstein Subject Check</option>
+	<option value="Flex Phase 3 Subject Check">Flex Phase 3 Subject Check</option>
+	<option value="Frappe-PTO">Frappe-PTO</option>
+	<option value="Fraud-PTO">Fraud-PTO</option>
+	<option value="General User">General User</option>
+	<option value="Giveaway Cancellation">Giveaway Cancellation</option>
+	<option value="Goodwill Partnership">Goodwill Partnership</option>
+	<option value="Government Inquiry">Government Inquiry</option>
+	<option value="H&amp;H NON-ELIGIBLE">H&amp;H NON-ELIGIBLE</option>
+	<option value="H&amp;H Video Flag">H&amp;H Video Flag</option>
+	<option value="Heart and Hustle">Heart and Hustle</option>
+	<option value="Hello Alias">Hello Alias</option>
+	<option value="High Score User">High Score User</option>
+	<option value="High Selling Host">High Selling Host</option>
+	<option value="Hosting Alias">Hosting Alias</option>
+	<option value="Host Picks">Host Picks</option>
+	<option value="In-App Authenticate">In-App Authenticate</option>
+	<option value="In-App Escalations">In-App Escalations</option>
+	<option value="In-App IND">In-App IND</option>
+	<option value="In-App Issue Resolved">In-App Issue Resolved</option>
+	<option value="In-App Support">In-App Support</option>
+	<option value="INDIA">INDIA</option>
+	<option value="IND-PTO">IND-PTO</option>
+	<option value="IND T2B (new/open)">IND T2B (new/open)</option>
+	<option value="Influencer Job SUBMITTED">Influencer Job SUBMITTED</option>
+	<option value="Influencer POTENTIAL">Influencer POTENTIAL</option>
+	<option value="Influencer-PTO">Influencer-PTO</option>
+	<option value="INPK">INPK</option>
+	<option value="Integrity-PTO">Integrity-PTO</option>
+	<option value="Integrity - Removed Listing">Integrity - Removed Listing</option>
+	<option value="Integrity - Restricted User">Integrity - Restricted User</option>
+	<option value="Intellectual Property Case">Intellectual Property Case</option>
+	<option value="International Assignment">International Assignment</option>
+	<option value="IP Intake Form">IP Intake Form</option>
+	<option value="Job Inquiry">Job Inquiry</option>
+	<option value="Legal Issue">Legal Issue</option>
+	<option value="Listing Image Issue">Listing Image Issue</option>
+	<option value="Listing Outage">Listing Outage</option>
+	<option value="Love Letter">Love Letter</option>
+	<option value="Marketing Campaign">Marketing Campaign</option>
+	<option value="Marketing Promo">Marketing Promo</option>
+	<option value="Marketplace Operations-PTO">Marketplace Operations-PTO</option>
+	<option value="Marketplace Trust">Marketplace Trust</option>
+	<option value="Migration Case">Migration Case</option>
+	<option value="More Info">More Info</option>
+	<option value="Offline Transaction Queue">Offline Transaction Queue</option>
+	<option value="Others">Others</option>
+	<option value="PA Seller Analysis">PA Seller Analysis</option>
+	<option value="PASS">PASS</option>
+	<option value="Patroller FP">Patroller FP</option>
+	<option value="Payments Compliance">Payments Compliance</option>
+	<option value="PK Assistance">PK Assistance</option>
+	<option value="PME Promotion">PME Promotion</option>
+	<option value="Posh Affiliate">Posh Affiliate</option>
+	<option value="Posh Authenticate-PTO">Posh Authenticate-PTO</option>
+	<option value="Poshfest">Poshfest</option>
+	<option value="Posh N Coffee">Posh N Coffee</option>
+	<option value="Posh N Sip">Posh N Sip</option>
+	<option value="PoshOnCampus">PoshOnCampus</option>
+	<option value="PoshOnCampus Alias">PoshOnCampus Alias</option>
+	<option value="Posh Party Confirmation">Posh Party Confirmation</option>
+	<option value="Posh Party Follow-up">Posh Party Follow-up</option>
+	<option value="Posh Party Hosting Schedule">Posh Party Hosting Schedule</option>
+	<option value="Posh Party Reschedule">Posh Party Reschedule</option>
+	<option value="Posh Shows Giveaway">Posh Shows Giveaway</option>
+	<option value="Posh Shows Mystery">Posh Shows Mystery</option>
+	<option value="Posh Shows - Seller Shipping Discount">Posh Shows - Seller Shipping Discount</option>
+	<option value="PPH - Unresponsive">PPH - Unresponsive</option>
+	<option value="PPL">PPL</option>
+	<option value="Privacy">Privacy</option>
+	<option value="Privacy Alias">Privacy Alias</option>
+	<option value="Process Escalation">Process Escalation</option>
+	<option value="Prohibited Blocked Keyphrases In Image">Prohibited Blocked Keyphrases In Image</option>
+	<option value="Prohibited ES">Prohibited ES</option>
+	<option value="Prohibited Listing Review">Prohibited Listing Review</option>
+	<option value="Project Penny-Wise">Project Penny-Wise</option>
+	<option value="PTO">PTO</option>
+	<option value="Raffle Warning">Raffle Warning</option>
+	<option value="Reassignment 2025">Reassignment 2025</option>
+	<option value="Reschedule Requested">Reschedule Requested</option>
+	<option value="Resold at Higher Price">Resold at Higher Price</option>
+	<option value="Restricted Spam">Restricted Spam</option>
+	<option value="SC-Account Change Request">SC-Account Change Request</option>
+	<option value="Scaled Abuse">Scaled Abuse</option>
+	<option value="SC-Order Address Change Request">SC-Order Address Change Request</option>
+	<option value="SC-Party Related">SC-Party Related</option>
+	<option value="SC-Purchase Rating Related">SC-Purchase Rating Related</option>
+	<option value="SC-Referral Credit">SC-Referral Credit</option>
+	<option value="SC-Shipping Promotion Question">SC-Shipping Promotion Question</option>
+	<option value="SDN Screening - Partner">SDN Screening - Partner</option>
+	<option value="Security Incident 19">Security Incident 19</option>
+	<option value="Seller">Seller</option>
+	<option value="Seller Employment Verification">Seller Employment Verification</option>
+	<option value="Seller Protection">Seller Protection</option>
+	<option value="Seller Services">Seller Services</option>
+	<option value="Service Escalation">Service Escalation</option>
+	<option value="Service Recovery">Service Recovery</option>
+	<option value="Service Recovery - IND">Service Recovery - IND</option>
+	<option value="Service Recovery - Moderation">Service Recovery - Moderation</option>
+	<option value="Shelved Host">Shelved Host</option>
+	<option value="Shipping Label Delay - Alerted">Shipping Label Delay - Alerted</option>
+	<option value="Shipping Label Delay - Resolved - Alerted">Shipping Label Delay - Resolved - Alerted</option>
+	<option value="Slow Sales">Slow Sales</option>
+	<option value="Snail Mail">Snail Mail</option>
+	<option value="Social Media Case">Social Media Case</option>
+	<option value="SS - Facebook">SS - Facebook</option>
+	<option value="SS - Instagram">SS - Instagram</option>
+	<option value="SSN/TIN Validation">SSN/TIN Validation</option>
+	<option value="SS - Twitter">SS - Twitter</option>
+	<option value="SS - Twitter Support">SS - Twitter Support</option>
+	<option value="SU Newsletter">SU Newsletter</option>
+	<option value="Support Center V2">Support Center V2</option>
+	<option value="Support Manager Escalations">Support Manager Escalations</option>
+	<option value="Support-PTO">Support-PTO</option>
+	<option value="Survey Sent" selected="selected" data-select2-id="4">Survey Sent</option>
+	<option value="System Generated Case">System Generated Case</option>
+	<option value="T1">T1</option>
+	<option value="T2">T2</option>
+	<option value="Ticketsocket">Ticketsocket</option>
+	<option value="Tied to AnOther Case">Tied to AnOther Case</option>
+	<option value="Tier Change">Tier Change</option>
+	<option value="Top Seller">Top Seller</option>
+	<option value="Top Selling Host">Top Selling Host</option>
+	<option value="United Kingdom">United Kingdom</option>
+	<option value="User Safety">User Safety</option>
+	<option value="Moderation-PTO">User Safety-PTO</option>
+	<option value="US Social Support">US Social Support</option>
+	<option value="Venmo Phone Number">Venmo Phone Number</option>
+	<option value="Voicemail">Voicemail</option>
+	<option value="Why Can’t I Host a Giveaway">Why Can’t I Host a Giveaway</option>
+	<option value="APV Violation">APV Violation</option>
+	<option value="Phone Removal Request">Phone Removal Request</option>
+	<option value="Affirm">Affirm</option>
+	<option value="AMEX">AMEX</option>
+	<option value="CA Direct Deposit">CA Direct Deposit</option>
+	<option value="CA Direct Deposit - Successful">CA Direct Deposit - Successful</option>
+	<option value="CA Direct Deposit Timing">CA Direct Deposit Timing</option>
+	<option value="CA Hyperwallet">CA Hyperwallet</option>
+	<option value="CA Hyperwallet Error">CA Hyperwallet Error</option>
+	<option value="Canada Tax Related">Canada Tax Related</option>
+	<option value="Cancel Check">Cancel Check</option>
+	<option value="Cancel Direct Deposit Request">Cancel Direct Deposit Request</option>
+	<option value="CA Redemption Options">CA Redemption Options</option>
+	<option value="Change Bank Account Information">Change Bank Account Information</option>
+	<option value="Change Credit Card">Change Credit Card</option>
+	<option value="Change Credit Card Info">Change Credit Card Info</option>
+	<option value="Chargebacks">Chargebacks</option>
+	<option value="Chargeback Threat">Chargeback Threat</option>
+	<option value="Charge Confusion">Charge Confusion</option>
+	<option value="Check Timing">Check Timing</option>
+	<option value="Delayed Check Redemptions">Delayed Check Redemptions</option>
+	<option value="Delayed Redemptions">Delayed Redemptions</option>
+	<option value="direct deposit">direct deposit</option>
+	<option value="Direct Deposit - Successful">Direct Deposit - Successful</option>
+	<option value="Direct Deposit Timing">Direct Deposit Timing</option>
+	<option value="Error Code 1504">Error Code 1504</option>
+	<option value="Expired Check">Expired Check</option>
+	<option value="Failed Refund">Failed Refund</option>
+	<option value="Failed Refund - 21 Days Autocancel">Failed Refund - 21 Days Autocancel</option>
+	<option value="Failed Refund - Delayed Order Buyer Request">Failed Refund - Delayed Order Buyer Request</option>
+	<option value="Form 1099-K">Form 1099-K</option>
+	<option value="General Payment Question">General Payment Question</option>
+	<option value="Gift Card Error">Gift Card Error</option>
+	<option value="Gift Cards">Gift Cards</option>
+	<option value="Have Credits So Why Card is Needed">Have Credits So Why Card is Needed</option>
+	<option value="How do I redeem my earnings">How do I redeem my earnings</option>
+	<option value="Hyperwallet">Hyperwallet</option>
+	<option value="Hyperwallet Error">Hyperwallet Error</option>
+	<option value="Incorrect Bank Account Info">Incorrect Bank Account Info</option>
+	<option value="Instant Transfer - Expired Card">Instant Transfer - Expired Card</option>
+	<option value="International Credit Card">International Credit Card</option>
+	<option value="Invalid Billing Zip Code">Invalid Billing Zip Code</option>
+	<option value="Make An Offer - Payment Issue">Make An Offer - Payment Issue</option>
+	<option value="Make An Offer- Payment Issue">Make An Offer- Payment Issue</option>
+	<option value="manual redemption">manual redemption</option>
+	<option value="Manual Refund">Manual Refund</option>
+	<option value="MAO Error">MAO Error</option>
+	<option value="Marketplace Commission Tax">Marketplace Commission Tax</option>
+	<option value="Misc. Payments">Misc. Payments</option>
+	<option value="Multiple Charges on Card">Multiple Charges on Card</option>
+	<option value="Overdraft Fees">Overdraft Fees</option>
+	<option value="Partial Refund">Partial Refund</option>
+	<option value="PayComp - Account Owner Name Change">PayComp - Account Owner Name Change</option>
+	<option value="PayComp - AML">PayComp - AML</option>
+	<option value="PayComp - Business Address Change">PayComp - Business Address Change</option>
+	<option value="PayComp - Business Name Change">PayComp - Business Name Change</option>
+	<option value="PayComp - Business Type Change">PayComp - Business Type Change</option>
+	<option value="PayComp - DOB Change">PayComp - DOB Change</option>
+	<option value="PayComp Escalation">PayComp Escalation</option>
+	<option value="PayComp - Guardian Address Change">PayComp - Guardian Address Change</option>
+	<option value="PayComp - Guardian DOB Change">PayComp - Guardian DOB Change</option>
+	<option value="PayComp - Guardian Name Change">PayComp - Guardian Name Change</option>
+	<option value="PayComp-ID-Verification-Processing">PayComp-ID-Verification-Processing</option>
+	<option value="PayComp - KYC Change">PayComp - KYC Change</option>
+	<option value="PayComp - KYC High Risk">PayComp - KYC High Risk</option>
+	<option value="PayComp - KYC Medium Risk">PayComp - KYC Medium Risk</option>
+	<option value="PayComp - KYC Name Change">PayComp - KYC Name Change</option>
+	<option value="PayComp- Non-Compliance">PayComp- Non-Compliance</option>
+	<option value="PayComp - OFAC">PayComp - OFAC</option>
+	<option value="PayComp - Permanent Address Change">PayComp - Permanent Address Change</option>
+	<option value="PayComp - Watchlist">PayComp - Watchlist</option>
+	<option value="Pay-In">Pay-In</option>
+	<option value="Payment choices">Payment choices</option>
+	<option value="Payment compliance restriction override - Manual review">Payment compliance restriction override - Manual review</option>
+	<option value="Payment partner requests">Payment partner requests</option>
+	<option value="Paypal">Paypal</option>
+	<option value="PayPal Alias">PayPal Alias</option>
+	<option value="PayPal Credit">PayPal Credit</option>
+	<option value="PayPal Funding Source">PayPal Funding Source</option>
+	<option value="Posh Credit Expiration">Posh Credit Expiration</option>
+	<option value="Prepaid Card">Prepaid Card</option>
+	<option value="Processing Fee">Processing Fee</option>
+	<option value="Purchase Problems">Purchase Problems</option>
+	<option value="Recharge">Recharge</option>
+	<option value="Redemption - ACH status not updating">Redemption - ACH status not updating</option>
+	<option value="Redemption - Change Direct Deposit Info">Redemption - Change Direct Deposit Info</option>
+	<option value="Redemption - Check Lost">Redemption - Check Lost</option>
+	<option value="Redemption - Check Request">Redemption - Check Request</option>
+	<option value="Redemption - General Redemption Issue">Redemption - General Redemption Issue</option>
+	<option value="Redemption - Name Mismatch">Redemption - Name Mismatch</option>
+	<option value="Redemption Options">Redemption Options</option>
+	<option value="Redemption - Paypal Redemption">Redemption - Paypal Redemption</option>
+	<option value="Redemption Self Cancel - Req">Redemption Self Cancel - Req</option>
+	<option value="Refund">Refund</option>
+	<option value="Refund - Original Credit Card Unavailable">Refund - Original Credit Card Unavailable</option>
+	<option value="Refunds Posting As Charges">Refunds Posting As Charges</option>
+	<option value="Retrieval">Retrieval</option>
+	<option value="Sales Tax">Sales Tax</option>
+	<option value="SC - Payment Issue">SC - Payment Issue</option>
+	<option value="SC - Payments And Earnings">SC - Payments And Earnings</option>
+	<option value="SC - Seller Earnings">SC - Seller Earnings</option>
+	<option value="Seller Requests Buyer Refund">Seller Requests Buyer Refund</option>
+	<option value="Tax Error">Tax Error</option>
+	<option value="Tax Exemptions">Tax Exemptions</option>
+	<option value="Texas Seller Fee Tax">Texas Seller Fee Tax</option>
+	<option value="Unauthorized Credit Card Charge">Unauthorized Credit Card Charge</option>
+	<option value="Unclaimed Property">Unclaimed Property</option>
+	<option value="Unverified Payment">Unverified Payment</option>
+	<option value="Venmo Phone Number Redemption">Venmo Phone Number Redemption</option>
+	<option value="Venmo Username Redemption">Venmo Username Redemption</option>
+	<option value="Void Check">Void Check</option>
+	<option value="Where is My Refund">Where is My Refund</option>
+	<option value="Where is my refund - voided charge">Where is my refund - voided charge</option>
+	<option value="Wrong Info on Check">Wrong Info on Check</option>
+	<option value="PayComp - KYB outreach">PayComp - KYB outreach</option>
+	<option value="Bypass Posh Authenticate">Bypass Posh Authenticate</option>
+	<option value="PA Disputes">PA Disputes</option>
+	<option value="PA IND">PA IND</option>
+	<option value="PA IND Escalations">PA IND Escalations</option>
+	<option value="PA Inspection">PA Inspection</option>
+	<option value="PA RNH Re-Posh Authenticity">PA RNH Re-Posh Authenticity</option>
+	<option value="PA RTS">PA RTS</option>
+	<option value="PA Seller IND Dispute">PA Seller IND Dispute</option>
+	<option value="PA Verified Seller Program">PA Verified Seller Program</option>
+	<option value="Posh Authenticate">Posh Authenticate</option>
+	<option value="Posh Authenticate - Condition Issue">Posh Authenticate - Condition Issue</option>
+	<option value="Rush Orders">Rush Orders</option>
+	<option value="Accessibility Alias">Accessibility Alias</option>
+	<option value="ADA">ADA</option>
+	<option value="Android Bug">Android Bug</option>
+	<option value="App/Web Down">App/Web Down</option>
+	<option value="App Redesign">App Redesign</option>
+	<option value="Brand Page">Brand Page</option>
+	<option value="Brand Suggestion">Brand Suggestion</option>
+	<option value="Bug Related">Bug Related</option>
+	<option value="Bundle Comment Limit">Bundle Comment Limit</option>
+	<option value="Can Not See Shared Item in Party">Can Not See Shared Item in Party</option>
+	<option value="Can Not Share to a Party">Can Not Share to a Party</option>
+	<option value="CA Posh Shows">CA Posh Shows</option>
+	<option value="Consignment">Consignment</option>
+	<option value="Consignment - AWOL PCP">Consignment - AWOL PCP</option>
+	<option value="Consignment - Consignor / PCP Dispute">Consignment - Consignor / PCP Dispute</option>
+	<option value="Consignment -  Consignor / Quality">Consignment -  Consignor / Quality</option>
+	<option value="Consignment - Escalations">Consignment - Escalations</option>
+	<option value="Consignment - Incentives / Payments">Consignment - Incentives / Payments</option>
+	<option value="Consignment - Logistics">Consignment - Logistics</option>
+	<option value="Consignment - Uber Issues">Consignment - Uber Issues</option>
+	<option value="Delete Comment">Delete Comment</option>
+	<option value="Edit Listing">Edit Listing</option>
+	<option value="Euro Size Discrepancy">Euro Size Discrepancy</option>
+	<option value="External Marketplace Sharing">External Marketplace Sharing</option>
+	<option value="Fee Change">Fee Change</option>
+	<option value="Feedback and Suggestions">Feedback and Suggestions</option>
+	<option value="Fee Policy">Fee Policy</option>
+	<option value="Fee Rebate">Fee Rebate</option>
+	<option value="General Questions">General Questions</option>
+	<option value="Gift Card Request">Gift Card Request</option>
+	<option value="Home">Home</option>
+	<option value="How do I share to a Party">How do I share to a Party</option>
+	<option value="How to Bundle">How to Bundle</option>
+	<option value="How to Buy">How to Buy</option>
+	<option value="How to Create a Posh Party">How to Create a Posh Party</option>
+	<option value="How to Delete a Listing">How to Delete a Listing</option>
+	<option value="How to Follow Brands">How to Follow Brands</option>
+	<option value="How to List">How to List</option>
+	<option value="How to Reserve">How to Reserve</option>
+	<option value="How to Ship">How to Ship</option>
+	<option value="How to Trade">How to Trade</option>
+	<option value="International Guest Signup Error">International Guest Signup Error</option>
+	<option value="Inventory Report">Inventory Report</option>
+	<option value="iOS Bug">iOS Bug</option>
+	<option value="iOS Camera Permission">iOS Camera Permission</option>
+	<option value="Issues with Notifications">Issues with Notifications</option>
+	<option value="Label Service Down">Label Service Down</option>
+	<option value="Likes">Likes</option>
+	<option value="Listing Certification">Listing Certification</option>
+	<option value="Listing on Web">Listing on Web</option>
+	<option value="Listing Streak">Listing Streak</option>
+	<option value="Login Issues">Login Issues</option>
+	<option value="Love Notes - How to Remove">Love Notes - How to Remove</option>
+	<option value="Love Notes- How to Remove">Love Notes- How to Remove</option>
+	<option value="Meet the Posher Listing">Meet the Posher Listing</option>
+	<option value="Missing Comment Data">Missing Comment Data</option>
+	<option value="Mulled Search">Mulled Search</option>
+	<option value="Multi SKU">Multi SKU</option>
+	<option value="Offer to Likers">Offer to Likers</option>
+	<option value="Official Brand Button">Official Brand Button</option>
+	<option value="Organize Closet">Organize Closet</option>
+	<option value="Party Notifications">Party Notifications</option>
+	<option value="PCP Training">PCP Training</option>
+	<option value="Pinterest Sharing">Pinterest Sharing</option>
+	<option value="PK Bug Ticket">PK Bug Ticket</option>
+	<option value="PK Common Issues">PK Common Issues</option>
+	<option value="PK Review">PK Review</option>
+	<option value="PMI PK">PMI PK</option>
+	<option value="Policy Change">Policy Change</option>
+	<option value="Posh Party Theme Suggestions">Posh Party Theme Suggestions</option>
+	<option value="Posh Shows">Posh Shows</option>
+	<option value="Price Drop- How to">Price Drop- How to</option>
+	<option value="Promoted Closet Cancellation">Promoted Closet Cancellation</option>
+	<option value="Promoted Closet Escalations">Promoted Closet Escalations</option>
+	<option value="Promoted Closet Force Stop">Promoted Closet Force Stop</option>
+	<option value="Promoted Closet Refund">Promoted Closet Refund</option>
+	<option value="Promoted Closets - Add Me">Promoted Closets - Add Me</option>
+	<option value="Promoted Closets - Beta">Promoted Closets - Beta</option>
+	<option value="Promoted Closets - General">Promoted Closets - General</option>
+	<option value="Red Sold Label">Red Sold Label</option>
+	<option value="Relist Policy">Relist Policy</option>
+	<option value="Remove a Like">Remove a Like</option>
+	<option value="Revert Fee">Revert Fee</option>
+	<option value="SC - General Question">SC - General Question</option>
+	<option value="SC - General Questions">SC - General Questions</option>
+	<option value="Search Relevance">Search Relevance</option>
+	<option value="Search Result Quality">Search Result Quality</option>
+	<option value="Search Testing">Search Testing</option>
+	<option value="Selling Guidelines">Selling Guidelines</option>
+	<option value="Selling on Web">Selling on Web</option>
+	<option value="Shipping Fee Very High">Shipping Fee Very High</option>
+	<option value="Similar Listings">Similar Listings</option>
+	<option value="Size Sets">Size Sets</option>
+	<option value="Smart List AI">Smart List AI</option>
+	<option value="Stories">Stories</option>
+	<option value="Stylist Matching">Stylist Matching</option>
+	<option value="System Update Feedback">System Update Feedback</option>
+	<option value="Tag Users">Tag Users</option>
+	<option value="Thank you Note">Thank you Note</option>
+	<option value="Trouble Sharing to Instagram">Trouble Sharing to Instagram</option>
+	<option value="Unable to Create Account">Unable to Create Account</option>
+	<option value="Vacation Hold Bug">Vacation Hold Bug</option>
+	<option value="What to Do With Sold Listings">What to Do With Sold Listings</option>
+	<option value="Yellow Reserve Flag">Yellow Reserve Flag</option>
+	<option value="Additional Label Confusion">Additional Label Confusion</option>
+	<option value="Additional Postage Required">Additional Postage Required</option>
+	<option value="APO/FPO Return to Sender">APO/FPO Return to Sender</option>
+	<option value="APO Military Address">APO Military Address</option>
+	<option value="Auto-Detected Shipping/Routing Issue">Auto-Detected Shipping/Routing Issue</option>
+	<option value="Buyer keeping return">Buyer keeping return</option>
+	<option value="CA: USPS Shipping/Routing Issues">CA: USPS Shipping/Routing Issues</option>
+	<option value="CA Label Weight Rejected">CA Label Weight Rejected</option>
+	<option value="Canada Post Planned Label Outage 2025">Canada Post Planned Label Outage 2025</option>
+	<option value="Canada Post Shipping/Routing Issues">Canada Post Shipping/Routing Issues</option>
+	<option value="Canada Post Strike - 2024">Canada Post Strike - 2024</option>
+	<option value="Cancelled But Shipped">Cancelled But Shipped</option>
+	<option value="Can Not Print Shipping Labels">Can Not Print Shipping Labels</option>
+	<option value="CA Shipping Label Failure">CA Shipping Label Failure</option>
+	<option value="Change Label Type">Change Label Type</option>
+	<option value="Consignment">Consignment</option>
+	<option value="Consignment - Scheduling / Rescheduling">Consignment - Scheduling / Rescheduling</option>
+	<option value="Consignment - Shipping Escalations">Consignment - Shipping Escalations</option>
+	<option value="Cross Border Shipping">Cross Border Shipping</option>
+	<option value="Delayed Shipment">Delayed Shipment</option>
+	<option value="Delivery Status Not Updated">Delivery Status Not Updated</option>
+	<option value="Dropship - manual tracking">Dropship - manual tracking</option>
+	<option value="Expedited Shipping">Expedited Shipping</option>
+	<option value="General Shipping Question">General Shipping Question</option>
+	<option value="Ground Advantage">Ground Advantage</option>
+	<option value="Hazardous Material">Hazardous Material</option>
+	<option value="High Value Item">High Value Item</option>
+	<option value="Issue New Shipping Label">Issue New Shipping Label</option>
+	<option value="Item Already Shipped">Item Already Shipped</option>
+	<option value="Item Shipped/Tracking Request">Item Shipped/Tracking Request</option>
+	<option value="Label Service Down">Label Service Down</option>
+	<option value="Local Delivery- Feedback">Local Delivery- Feedback</option>
+	<option value="Missing Package Found">Missing Package Found</option>
+	<option value="Multiple Labels">Multiple Labels</option>
+	<option value="Non-Poshmark Shipping Label">Non-Poshmark Shipping Label</option>
+	<option value="Notice Left">Notice Left</option>
+	<option value="Offshore Location">Offshore Location</option>
+	<option value="Order Cancelled but Shipped">Order Cancelled but Shipped</option>
+	<option value="Overweight Label Restriction">Overweight Label Restriction</option>
+	<option value="Overweight Shipping">Overweight Shipping</option>
+	<option value="Overweight Shipping Label">Overweight Shipping Label</option>
+	<option value="Package Delivered to Old Address">Package Delivered to Old Address</option>
+	<option value="Package Interception">Package Interception</option>
+	<option value="Parcel Select">Parcel Select</option>
+	<option value="PO Box Issue">PO Box Issue</option>
+	<option value="Postage Label">Postage Label</option>
+	<option value="Purolator">Purolator</option>
+	<option value="Purolator - Buyer Delivery Concern">Purolator - Buyer Delivery Concern</option>
+	<option value="Purolator - Buyer Request">Purolator - Buyer Request</option>
+	<option value="Purolator - Can’t Generate Label">Purolator - Can’t Generate Label</option>
+	<option value="Purolator - Complaint">Purolator - Complaint</option>
+	<option value="Purolator - How to Ship">Purolator - How to Ship</option>
+	<option value="Purolator - Pickup Request">Purolator - Pickup Request</option>
+	<option value="Purolator - QR Code Request">Purolator - QR Code Request</option>
+	<option value="Recycled tracking numbers">Recycled tracking numbers</option>
+	<option value="Refused">Refused</option>
+	<option value="Reply to Shipping Reminder">Reply to Shipping Reminder</option>
+	<option value="Repurchase - Shipping Carrier Issues">Repurchase - Shipping Carrier Issues</option>
+	<option value="Returned to Sender">Returned to Sender</option>
+	<option value="SC - Tracking and Delivery">SC - Tracking and Delivery</option>
+	<option value="SC - Tracking or Delivery Problem">SC - Tracking or Delivery Problem</option>
+	<option value="Seel Returns">Seel Returns</option>
+	<option value="Seller Shipped but Not Tracked">Seller Shipped but Not Tracked</option>
+	<option value="Seller Used Wrong Label">Seller Used Wrong Label</option>
+	<option value="Shipment Timing">Shipment Timing</option>
+	<option value="Shipping/Routing Issues - With Order Id">Shipping/Routing Issues - With Order Id</option>
+	<option value="Shipping/Routing Issues - Without Order Id">Shipping/Routing Issues - Without Order Id</option>
+	<option value="Shipping Address Failure">Shipping Address Failure</option>
+	<option value="Shipping Fee Change">Shipping Fee Change</option>
+	<option value="Shipping - International User">Shipping - International User</option>
+	<option value="Shipping - Lost Package">Shipping - Lost Package</option>
+	<option value="SSK">SSK</option>
+	<option value="Status is Delivered but Recipient Cannot Locate" selected="selected" data-select2-id="5">Status is Delivered but Recipient Cannot Locate</option>
+	<option value="Tracked Delivered in Sellers City">Tracked Delivered in Sellers City</option>
+	<option value="Undeliverable">Undeliverable</option>
+	<option value="Undeliverable- Return">Undeliverable- Return</option>
+	<option value="US: USPS Shipping/Routing Issues">US: USPS Shipping/Routing Issues</option>
+	<option value="USPS &amp; Package Issues">USPS &amp; Package Issues</option>
+	<option value="USPS False Scan 2025">USPS False Scan 2025</option>
+	<option value="USPS Issues Jan 2022">USPS Issues Jan 2022</option>
+	<option value="USPS Shipping/Routing Issues">USPS Shipping/Routing Issues</option>
+	<option value="USPS Support">USPS Support</option>
+	<option value="US Shipping Label Failure">US Shipping Label Failure</option>
+	<option value="Verify Shipping Address">Verify Shipping Address</option>
+	<option value="What Box Can I Use">What Box Can I Use</option>
+</select><span class="select2 select2-container select2-container--bootstrap" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Power User" data-select2-id="6"><span class="select2-selection__choice__remove" role="presentation">×</span>Power User</li><li class="select2-selection__choice" title="CANADA" data-select2-id="7"><span class="select2-selection__choice__remove" role="presentation">×</span>CANADA</li><li class="select2-selection__choice" title="Survey Sent" data-select2-id="8"><span class="select2-selection__choice__remove" role="presentation">×</span>Survey Sent</li><li class="select2-selection__choice" title="Status is Delivered but Recipient Cannot Locate" data-select2-id="9"><span class="select2-selection__choice__remove" role="presentation">×</span>Status is Delivered but Recipient Cannot Locate</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><div id="j_id0:j_id5:j_id11"></div>
+</form><span id="ajax-view-state-page-container" style="display: none"><span id="ajax-view-state" style="display: none"><input type="hidden" id="com.salesforce.visualforce.ViewState" name="com.salesforce.visualforce.ViewState" value="i:AAAAWXsidCI6IjAwRDFJMDAwMDAyTUYxUyIsInYiOiIwMkcxSTAwMDAwMFJBQ0oiLCJhIjoidmZlbmNyeXB0aW9ua2V5IiwidSI6IjAwNVVnMDAwMDBLVVpHQSJ9rSP6mZJ7lQUh/Z9SSo8MG8XMH21aLOcXcpfmDQAAAZ0qQ8663DCW6DvcNITJcOYn0yORooAKp1HfsBNcIiv9SNWv5bLehyHG6EqNNgFhJm/fyOTzBqF+pXmU6oL/GDyQKM77JkNSPuRLQCTQl24AUCtam4OU+5EaCwsvZxTfXkPP2rDImLau9E0o5odEDWoghd4beU8b2UktX5PHHHWJTB0Nt1wpkYHa4BiqylD8A23jBoNpH1Zy6g86wQPlO6LEJexcunWaD4iCxXhd4ilPI+ObTC5uuyMQphlqyRgZo7WW31N+3CdhtH9aUvrooLHiE5crZAbgapzLKwiBcSChJP36u1GRJjYkGKnKNiBUgZM6tpzENbDozdDK6tkAH5UBccGLdx1wxf0l2FnE4zWe4kkt6pDegRKb5hxBMYH9av4bvtvQkuND7tkj7ueP7wiXDbv1/C752ZwxQ3mPTOXRPOBQkp21SyXOj/3ewWeeSNPjzhmCeGYAUzgFT1gbmMTBFMZVSg9osF8NnYtRPCGCK5365xF3DRLyvbaFWeXb56fK1I1XmZC6WpZXDD2eWnq20230WYd8L0oABvBp/zGMh6tNNJq8EN8cMDzcnykPiMGCDAzBPslzKCLtHweYi4h2i/PZhrGlc/dnxJ5mgOmhdrWkOxCSFltiuipNNf1b+5T/XQbOb2M+MyGUS+LQuo6U0UpqdihnKIKMOHUga2LpLN2goMHxud/gOQD6QfSBRnqrKtUfKF7SvsSG0+IOGxte3HXju8NLSx1+BuSz1K59cFoxLiOW8x+Pz1LHcXdhC53zb7DlXScHK7Ofk3kDFuybaXIZIjrtpmijZBuYFOmySBi4dUU4mcmvePg23+qG0TeyFTUOkHz0S5VX7BvDYzH0COSqbdQ46rbY4MNe8C11sUrtzgJOsjJ2beUNtWgQmVPDe/yn0AtKfS/3BP17Mc8y3IWSg/5TLut0OKBL7v5ARNlHxfKr3FAduM7eMwafVV/IBTDxRehTy1K2naLNxNniBZIk7ulxSlV7Qs/j4DFicmgy2ce47N5AtS2IKaIC8yMzI++5/KOmKv2EW1R+PEkU264+6JzUTyl5LPjExs7XOUmheqqTjQxgXY1o520P9UlPrahCu7g0YrWuyu5c3IaDxu+q23DkmB69MFruLhBz2i404Xo0tYtwqte37gw1Hquh7fefAyxZ+CF9/+pYLkM7CRijGgIpRmzW70hy53jkJca7fK0MJopfUDEMKcU1Fu78Ox+hs+cnkevWqaWgakv4AlzA3D28QXIIqY1/kpBceIBAUewbshexONdmKJVnwh9y7h6mwYyUjpoPqwfviwCIMuFk01FfGWshaUEh04mQyooXIIWvb9IciwA8LTJau6JCrv/pP3kbXVkK7iJCvAotMxwyvgYkmULppSMUwPlacJ5eKknEA5ao+yrnIlQTSTfDS8kisFk2TJI9ssDN8LgD/fC9CNlTVcRTxyA6HaFt622IKzJFo0e+dmqIhS39xYoYFcls2dTKJQmqDYb7Qydhx/sOHCsIhH1+2kHESjL/LvbXcZ7VX5ZHcfkNR+XgX/tJm5oexGsg4MdGdhAi9AS9NS/eyLYEpfZMkDLpzAw4Dnz7tdj2ZaibzbT1AYpKjUWbN08Uonx1THdNDd+HOghmPewZROVx0AaFTdYR2oVE7Z+aCwUNpIIHh7xKM0fgiuKsIY7o/+d+yPgBEwDenbHDLD8tqNkg55CZ9buQrGPQD5NyCYS1H1jonB5cjJBPeaVcwJzGakQn2YUUnzj8E1EPTHcIl04ZmHnFEhgMMLJpZRyoyY8ctX7nlnTTO8PWsJvmw3kAvytNEKm/f/DJB/+NouaE/uOe9KGvNf8uW0l6wNtAtAbrG71kmONV9/H9jclyfeCD4IJbg/dlYYAq3Pwm25PcF/KxoGionvgr21U34rVDXnAVbfiMpSv79MEswrrVWmauBmZlV7FxlniTAk/uen9vhI0pQZauqzKSJ9r0IKzXD+aPRYlaf8Cjc+lcyd7L1beU1F2mNKoSALUKxVgjvDTdzKT/7vJV2JfAQeTAD3Tq/aZE5XHDKkO2v8ymirZXDCuAVbBL8pHWuSZ9DcvYnEVkMV6jfFJS7UrWKMszLq6UqkjmQ9Z8EJ6QgGBYiq7i02S1f7qpubcrVfUp6xb4K9DjehhxTTV8Nts4EiE0PkumwK8p0IjNBTIyvmWQ4NRD11Q7FxDsQnI8cB6o3RBk5GJ7qk70DNRyta2dNxl8iFZ3nYuGnwy2GvLlhObO048JXVfIkkw91pVk6aDOa/dLNkytE1gBnGfpkNgvCZ7kEANj4fkDr4kqSB8pPZNcuJ0YjV28jt54mEKhPDoHu168n1OD0odSy8ZnrufEL7kQwsH/aOmvIDfbl5CPdKjV54Ww8Qou1MFYAtrYoxxP8Eh/VWARMrTXFRdORsJ999M09DIVbYeJ/MP7c3vc8G21wol+NJxwO+mzVgI75e+5CNnc8dIaKMZ9QVPtM3EHHJWityhBVKBWHJY4j2wLCczAJhtLj7JNJ8vyOg/K7IsyUptlSU3QQ8NA2tiiY9RJQahqzTDGKQonP9mCFiwwKZhcKMO/Cr2EAz1U9tfDiepmlPwjbqp6QEGeE9Jo+fMsD/X/SBleggnWP5hCZ4GbT/L79ooLiWuhN9e6gNa/flpa6y8RoV1qset/oPbCp5sTuY+gLU7CKv3zWY66QvcHgMqTHtyreLKUhgR1jolhSSGYobvy5TMYnq+Tu5n0IPpLYuEvGGp+8wZd4U3DFTyVGxgNKCph3eLPy4+oHdaBvpyCYvCJ5bIymA8iF4BIS098sqLaryMXnK1X++g33suP1cACPslRTPLoNE1QG9psK2WK7O7N79/4Rer9Ca0CwYtXiIiEB0ClnElX09Rwy3TAvoCBhuvbNA3kdi+OPHM+ddFbCL+weVRf8ia0PLBmdItfWnmF/oB0wTklA+fPzoBgfvHesroPNgowUY0Y70/wC35ingRpD8IP0sNEhA+dcS6SzOBnnyhUlVI35NxaR0E8PldG/pfTMR92UsSI1xga+XiRvH5h+fNMMlSxCOG70GeIQYOYo15g2uLhJHPcw1Swcet25QN3i7uUKbCBuiOIJ/C4onorxRJT7smkrVAG1TmQpIXEwco6PHxfzE56gaY6Xb6JgNDbxEhIJCwFJAwpQX0/BV35O93yucNbPV58PzPkgIN/bCDoKiaFOinPyhLtkKycJWsgqQrikgQAmbaKHjCpju0PCsjHHMvxe4bXtecSOexWtOuBvTEPsuEuEpv6rY0SPFqkmY8OUvzRjoskgrhEMdEIVAqWbm5dBBQSwzO9nIUvSvNY2jDqEHljbXz9Eu2qFZpummECydrJBcn6MAEt8HB4agOEdtIx0Kz/bx0UWn31tv+lK19gW2Sx5b+3ITpNeZykyxfiZ1GMPBFIQ+2Cl0RklfrG1bnv0Dwsu7aUy8F4mWKoLbgH+WbC0n+3iDY+dciKAtRC2vrVW1sOvlsr3A5Ew2/NiOtZoG9xehwPPwapgXWCrEqZmWANSzI7+M+7R8yrcvbhsXhwnJ1HyY/Vr+1QqnKINzuP06uejiY2AALerdHAgnl2V73SfGWOBJyLR16YqTA/MTpTrwKEbvybTjJBmUtlEsv5x0eYFNUpZ5912hFqUpZX0h9Dv+FYB7boIszoYt8zxaro3E9Jx49zg61xwYFbT+imZQ4yeBPn+eznQu9n1XQODeMIv/efW4ieAn27QafcmRZXssYNfXvT3Z6Y6uzrHMfhTSbPLp37AIUkGyl3HTvsbwUjL9diEpzHbcdoN+JxpHXeGQn9vTCu3sC5HCArSHqf/uJA9t2rynkNXF/tL1EL0Ke+1igDCB12xCi5ho9zCU1NoEkm4hGa3EF2Ql9N7ZM2iDet3CL9VhauVkD+5dpiNpEypp18gZgd7mB4TXGBkv8rzG/nTRVWYxwEXhUw6rFQuWx5muOFJ8/9jsCzZHySbBVrBu8PHiCsWYwt+hBA7koAiAdw49C4JYtADp8MOWX3TyLbceUiWYlXCGHhQ2e3BwCYoirdDUevkyc="><input type="hidden" id="com.salesforce.visualforce.ViewStateVersion" name="com.salesforce.visualforce.ViewStateVersion" value="202603232000360000"><input type="hidden" id="com.salesforce.visualforce.ViewStateMAC" name="com.salesforce.visualforce.ViewStateMAC" value="AGV5SnViMjVqWlNJNkluQktPVmhZYURSS01HNDFUM1p6YmxsV00zTTBjREZFYmpaMFoyaFBPRzVZYTBkdFpFVkRSRXhIVEZsY2RUQXdNMlFpTENKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUlzSW10cFpDSTZJbnRjSW5SY0lqcGNJakF3UkRGSk1EQXdNREF5VFVZeFUxd2lMRndpZGx3aU9sd2lNREpITVVrd01EQXdNREJTUVVOS1hDSXNYQ0poWENJNlhDSjJabk5wWjI1cGJtZHJaWGxjSWl4Y0luVmNJanBjSWpBd05WVm5NREF3TURCTFZWcEhRVndpZlNJc0ltTnlhWFFpT2xzaWFXRjBJbDBzSW1saGRDSTZNVGMzTkRVek1EVTRNREUxTlN3aVpYaHdJam93ZlE9PS4uRzA0M1ltUVh2cVpEU0R5NUx4aHFNMXQzMUFLOVNyU2NkVWJxdFpZdHg4WT0="><input type="hidden" id="com.salesforce.visualforce.ViewStateCSRF" name="com.salesforce.visualforce.ViewStateCSRF" value="VmpFPSxNakF5Tmkwd015MHlPVlF4TXpvd09UbzBNQzR4TlRWYSx0aUJIVVBFamVLeXlYVGlmRll6TzFUSHUwSGN5MFlCWGU3b2FFamNwbXAwPSxZbVJsTTJJeQ=="></span></span><span id="j_id0:out"></span>
+       </div>
+
+      <script>
+          $(document).ready(function () {
+              $('select').select2({
+                  theme: "bootstrap "
+              });
+          });
+          $(document).on('click', '.select2-selection__choice', function(e) { 
+              
+              e.stopPropagation();
+              e.preventDefault();
+              
+              var content = $(e.currentTarget).html();
+              var ind = content.indexOf('</span>');
+              content = content.substring(ind+7);
+              
+              console.log('1');
+              
+              Visualforce.remoting.Manager.invokeAction( 'labelController.AddDatasetLabelToCase',
+              content,
+              '500Ug00000gtTvjIAE',
+              function(result, event){ 
+                console.log('2'); 
+                if (event.status)
+                {   
+                   console.log('3'); 
+                   if(result == 'Success')
+                       $(e.currentTarget).addClass('data-set-selected');
+                }
+                else
+                {
+                    console.log('4'); 
+                    console.log(event.message);
+                    console.log(event.status);
+                }
+            });
+          });
+     </script><span id="j_id0:j_id12"></span><script type="text/javascript">Sfdc.onReady(function(){
+	SfdcApp && SfdcApp.Visualforce && SfdcApp.Visualforce.VSManager && SfdcApp.Visualforce.VSManager.vfPrepareForms(["j_id0:j_id5"]);
+
+});</script>
+
+
+<!-- Body events -->
+<script type="text/javascript">function bodyOnLoad(){setFocusOnLoad();if ((window.sfdcPage) && (sfdcPage.executeOnloadQueue)){sfdcPage.executeOnloadQueue();};if(window.PreferenceBits){window.PreferenceBits.prototype.csrfToken="VmpFPSxNakF5Tmkwd015MHlPVlF4TXpvd09UbzBNQzR4TlROYSxEQ0tCZ0k5MDVoZFZJQm5mM1k0MHZXYW9UakJVUzUyWEg2UWZ4a0JOWFpFPSxNR1V3WmpRdw==";};}function bodyOnBeforeUnload(){if ((window.sfdcPage) && (sfdcPage.executeOnBeforeUnloadQueue)){sfdcPage.executeOnBeforeUnloadQueue();};}function bodyOnFocus(){closePopupOnBodyFocus();}function bodyOnUnload(){}</script><script>if (this.SfdcApp && this.SfdcApp.projectOneNavigator) { SfdcApp.projectOneNavigator.sendTitleToParent('Case'); } </script></body></html>
