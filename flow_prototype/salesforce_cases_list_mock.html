@@ -565,9 +565,175 @@
       align-items: stretch;
       border: 1px solid var(--sf-border);
       border-radius: 0.25rem;
-      overflow: hidden;
+      overflow: visible;
       background: #fff;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .bulk-actions-wrap {
+      position: relative;
+      display: inline-flex;
+      align-self: stretch;
+      border-right: 1px solid var(--sf-border);
+    }
+    .bulk-actions-wrap > button[data-mock="bulk"] {
+      border-right: none;
+    }
+    .bulk-actions-panel {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 220px;
+      background: #fff;
+      border: 1px solid var(--sf-border);
+      border-radius: 4px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      z-index: 400;
+      padding: 4px 0;
+    }
+    .bulk-actions-panel[hidden] {
+      display: none !important;
+    }
+    .bulk-actions-item {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 8px 14px;
+      border: none;
+      background: none;
+      font-size: 13px;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      color: var(--sf-text);
+    }
+    .bulk-actions-item:hover {
+      background: var(--sf-header-shade);
+    }
+
+    /* Macros dock (LEX-style utility panel) */
+    .macro-dock {
+      position: fixed;
+      z-index: 220;
+      left: 12px;
+      bottom: calc(var(--console-footer-h) + 6px);
+      width: min(560px, calc(100vw - 24px));
+      display: none;
+    }
+    .macro-dock.is-open {
+      display: block;
+    }
+    .macro-dock-panel {
+      background: #fff;
+      border: 1px solid var(--sf-border);
+      border-radius: 6px 6px 0 0;
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+    .macro-dock-search {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 12px;
+      border: none;
+      border-bottom: 1px solid var(--sf-border);
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .macro-dock-search:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 1px var(--sf-focus);
+    }
+    .macro-dock-split {
+      display: grid;
+      grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+      min-height: 200px;
+      max-height: 52vh;
+    }
+    .macro-dock-list {
+      list-style: none;
+      margin: 0;
+      padding: 6px 0;
+      overflow-y: auto;
+      border-right: 1px solid var(--sf-border);
+      background: #fafaf9;
+    }
+    .macro-dock-item {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      color: var(--sf-text);
+      line-height: 1.3;
+    }
+    .macro-dock-item:hover {
+      background: #ecebea;
+    }
+    .macro-dock-item.is-selected {
+      background: #e8f4fb;
+      font-weight: 600;
+      box-shadow: inset 3px 0 0 var(--sf-focus);
+    }
+    .macro-dock-detail {
+      padding: 12px 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .macro-dock-detail-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .macro-dock-detail-hint {
+      margin: 0;
+      font-size: 12px;
+      color: var(--sf-muted);
+      line-height: 1.4;
+    }
+    .macro-dock-detail-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .macro-dock-link {
+      font-size: 12px;
+      color: var(--posh-accent);
+      text-decoration: none;
+    }
+    .macro-dock-link:hover {
+      text-decoration: underline;
+    }
+    .macro-dock-run {
+      margin-top: auto;
+      align-self: flex-end;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 600;
+      color: #fff;
+      background: var(--posh-accent);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .macro-dock-run:hover {
+      background: var(--posh-accent-dark);
+    }
+    .macro-dock-breadcrumb {
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--sf-muted);
+      background: #f3f3f2;
+      border-top: 1px solid var(--sf-border);
+    }
+    .console-footer button.is-active {
+      background: #e8f4fb;
+      box-shadow: inset 0 -2px 0 var(--sf-focus);
     }
     .list-actions button,
     .list-actions .action-seg {
@@ -843,7 +1009,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s, transform 0.2s;
-      z-index: 100;
+      z-index: 350;
       max-width: 90vw;
     }
     .toast.visible {
@@ -974,7 +1140,12 @@
             <button type="button" data-mock="new">New</button>
             <button type="button" data-mock="change-owner">Change Owner</button>
             <button type="button" data-mock="merge">Merge Cases</button>
-            <button type="button" data-mock="bulk">Bulk Actions</button>
+            <div class="bulk-actions-wrap">
+              <button type="button" data-mock="bulk" id="bulkActionsBtn" aria-expanded="false" aria-haspopup="true" aria-controls="bulkActionsPanel">Bulk Actions</button>
+              <div class="bulk-actions-panel" id="bulkActionsPanel" role="menu" hidden>
+                <button type="button" class="bulk-actions-item" role="menuitem" data-bulk-action="resolve-macro">Resolve with Macro</button>
+              </div>
+            </div>
             <button type="button" data-mock="agent">Update Agent</button>
             <span class="action-seg dropdown" title="More actions" aria-hidden="true">▾</span>
           </div>
@@ -1037,10 +1208,34 @@
       History
     </button>
     <span class="footer-sep" aria-hidden="true">»</span>
-    <button type="button">
+    <button type="button" id="footerMacrosBtn" aria-controls="macroDockPanel">
       Macros
     </button>
   </footer>
+
+  <div id="macroDock" class="macro-dock" aria-hidden="true">
+    <div class="macro-dock-panel" id="macroDockPanel" role="dialog" aria-modal="true" aria-labelledby="macroDockTitle">
+      <input type="search" class="macro-dock-search" placeholder="Search macros..." aria-label="Search macros" />
+      <div class="macro-dock-split">
+        <ul class="macro-dock-list" role="listbox" aria-label="Macros">
+          <li><button type="button" class="macro-dock-item is-selected" data-macro-name="DCL">DCL</button></li>
+          <li><button type="button" class="macro-dock-item" data-macro-name="Order Cancellation">Order Cancellation — Seller Concerned…</button></li>
+          <li><button type="button" class="macro-dock-item" data-macro-name="IND Tier 1B">IND Tier 1B Assignment</button></li>
+          <li><button type="button" class="macro-dock-item" data-macro-name="Buyer Delivered">Buyer Concern — Delivered Can’t Locate…</button></li>
+        </ul>
+        <div class="macro-dock-detail">
+          <h2 id="macroDockTitle" class="macro-dock-detail-title">DCL</h2>
+          <p class="macro-dock-detail-hint">Mock: running this macro applies a resolution response template and updates the selected cases.</p>
+          <div class="macro-dock-detail-actions">
+            <a href="#" class="macro-dock-link" onclick="return false;">View Details</a>
+            <a href="#" class="macro-dock-link" onclick="return false;">Edit</a>
+          </div>
+          <button type="button" class="macro-dock-run" id="macroRunBtn">Run Macro</button>
+        </div>
+      </div>
+      <div class="macro-dock-breadcrumb" id="macroDockCrumb">RECENT &gt; DCL</div>
+    </div>
+  </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
@@ -1066,7 +1261,6 @@
         new: 'Mock: New — standard case create.',
         'change-owner': 'Mock: Change Owner.',
         merge: 'Mock: Merge Cases.',
-        bulk: 'Mock: Bulk Actions.',
         agent: 'Mock: Update Agent.',
         'pin-list': 'Mock: Pin this list to the org’s pinned list views.'
       };
@@ -1368,9 +1562,10 @@
 
       function rowTr(r, index) {
         var aria = index === 0 ? ' aria-label="Select row"' : '';
+        var cn = escapeHtml(r.caseNum);
         return (
-          '<tr>' +
-          '<td class="checkbox-col"><input type="checkbox"' + aria + ' /></td>' +
+          '<tr data-case-num="' + cn + '">' +
+          '<td class="checkbox-col"><input type="checkbox" data-case-num="' + cn + '"' + aria + ' /></td>' +
           '<td><a class="case-num" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.caseNum) + '</a></td>' +
           '<td><a class="contact-link" href="#">' + escapeHtml(r.contact) + '</a></td>' +
           '<td><a class="link-line" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.subject) + '</a></td>' +
@@ -1388,10 +1583,11 @@
       function rowTrParentContact(r, index) {
         var aria = index === 0 ? ' aria-label="Select row"' : '';
         var idx = index + 1;
+        var cn = escapeHtml(r.caseNum);
         return (
-          '<tr>' +
+          '<tr data-case-num="' + cn + '">' +
           '<td class="idx-col">' + idx + '</td>' +
-          '<td class="checkbox-col"><input type="checkbox"' + aria + ' /></td>' +
+          '<td class="checkbox-col"><input type="checkbox" data-case-num="' + cn + '"' + aria + ' /></td>' +
           '<td><a class="link-line" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.caseNum) + '</a></td>' +
           '<td><a class="link-line" href="salesforce_case_detail_mock.html" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.subject) + '</a></td>' +
           '<td>' + escapeHtml(r.status) + '</td>' +
@@ -1549,7 +1745,93 @@
         if (open) searchInput.focus();
       }
 
+      var bulkActionsBtn = document.getElementById('bulkActionsBtn');
+      var bulkActionsPanel = document.getElementById('bulkActionsPanel');
+      var macroDock = document.getElementById('macroDock');
+      var footerMacrosBtn = document.getElementById('footerMacrosBtn');
+      var macroRunBtn = document.getElementById('macroRunBtn');
+      var macroDockTitle = document.getElementById('macroDockTitle');
+      var macroDockCrumb = document.getElementById('macroDockCrumb');
+      var macroBulkTargets = [];
+
+      function setBulkPanel(open) {
+        if (!bulkActionsPanel || !bulkActionsBtn) return;
+        bulkActionsPanel.hidden = !open;
+        bulkActionsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+
+      function getSelectedCaseNums() {
+        var out = [];
+        if (!tbody) return out;
+        tbody.querySelectorAll('.checkbox-col input[type="checkbox"]:checked').forEach(function (cb) {
+          var n = cb.getAttribute('data-case-num');
+          if (n) out.push(n);
+        });
+        return out;
+      }
+
+      function updateRowsStatusResolved(caseNums) {
+        var set = {};
+        caseNums.forEach(function (n) { set[n] = true; });
+        function apply(rows) {
+          if (!rows || !rows.length) return;
+          rows.forEach(function (r) {
+            if (set[r.caseNum]) r.status = 'Resolved';
+          });
+        }
+        if (listState.currentList === 'My Cases') {
+          apply(listState.myCasesRows);
+        } else if (listState.mode === 'parentContact') {
+          apply(PARENT_CONTACT_ROWS_RELATED);
+          apply(PARENT_CONTACT_ROWS_OPEN);
+          apply(PARENT_CONTACT_ROWS_ALL);
+        } else {
+          apply(RECENT_ROWS);
+        }
+      }
+
+      function clearHeaderRowCheckbox() {
+        var headCb = document.querySelector('#casesTheadRow .checkbox-col input[type="checkbox"]');
+        if (headCb) headCb.checked = false;
+      }
+
+      function openMacroDock(fromBulk, caseNums) {
+        if (fromBulk && caseNums && caseNums.length) macroBulkTargets = caseNums.slice();
+        else macroBulkTargets = [];
+        if (macroDock) {
+          macroDock.classList.add('is-open');
+          macroDock.setAttribute('aria-hidden', 'false');
+        }
+        if (footerMacrosBtn) footerMacrosBtn.classList.add('is-active');
+      }
+
+      function closeMacroDock() {
+        macroBulkTargets = [];
+        if (macroDock) {
+          macroDock.classList.remove('is-open');
+          macroDock.setAttribute('aria-hidden', 'true');
+        }
+        if (footerMacrosBtn) footerMacrosBtn.classList.remove('is-active');
+      }
+
+      function toggleMacroDock() {
+        if (macroDock && macroDock.classList.contains('is-open')) closeMacroDock();
+        else openMacroDock(false, []);
+      }
+
       document.querySelector('.list-actions').addEventListener('click', function (e) {
+        var bulkItem = e.target.closest('[data-bulk-action="resolve-macro"]');
+        if (bulkItem) {
+          e.stopPropagation();
+          setBulkPanel(false);
+          var sel = getSelectedCaseNums();
+          if (!sel.length) {
+            showToast('Select one or more cases first.');
+            return;
+          }
+          openMacroDock(true, sel);
+          return;
+        }
         var btnI = e.target.closest('button[data-mock]');
         if (!btnI) return;
         var key = btnI.getAttribute('data-mock');
@@ -1563,6 +1845,11 @@
           setListDropdown(false);
           return;
         }
+        if (key === 'bulk') {
+          e.stopPropagation();
+          if (bulkActionsPanel) setBulkPanel(bulkActionsPanel.hidden);
+          return;
+        }
         showToast(messages[key] || 'Mock action');
       });
 
@@ -1571,8 +1858,9 @@
         setListDropdown(!panel.classList.contains('open'));
       });
 
-      document.addEventListener('click', function () {
+      document.addEventListener('click', function (ev) {
         setListDropdown(false);
+        if (!ev.target.closest('.bulk-actions-wrap')) setBulkPanel(false);
       });
 
       anchor.addEventListener('click', function (ev) {
@@ -1637,6 +1925,63 @@
           if (myTab && !e.target.closest('.tab-sub-close')) {
             clearAssignStagger();
             applyListView('My Cases', findOption('My Cases'), {});
+          }
+        });
+      }
+
+      var macroDockList = document.querySelector('.macro-dock-list');
+      if (macroDockList) {
+        macroDockList.addEventListener('click', function (e) {
+          var b = e.target.closest('.macro-dock-item');
+          if (!b) return;
+          macroDockList.querySelectorAll('.macro-dock-item').forEach(function (x) {
+            x.classList.remove('is-selected');
+          });
+          b.classList.add('is-selected');
+          var name = b.getAttribute('data-macro-name') || (b.textContent || '').trim();
+          if (macroDockTitle) macroDockTitle.textContent = name;
+          if (macroDockCrumb) macroDockCrumb.textContent = 'RECENT > ' + name;
+        });
+      }
+
+      if (footerMacrosBtn) {
+        footerMacrosBtn.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          toggleMacroDock();
+        });
+      }
+
+      if (macroRunBtn) {
+        macroRunBtn.addEventListener('click', function () {
+          var targets = macroBulkTargets.length ? macroBulkTargets.slice() : getSelectedCaseNums();
+          if (!targets.length) {
+            showToast('Select one or more cases, then run the macro.');
+            return;
+          }
+          var n = targets.length;
+          updateRowsStatusResolved(targets);
+          closeMacroDock();
+          renderTable();
+          clearHeaderRowCheckbox();
+          showToast(
+            n === 1
+              ? '1 case has been bulk resolved with a Macro Response and marked status as Resolved.'
+              : n + ' cases have been bulk resolved with a Macro Response and marked status as Resolved.'
+          );
+        });
+      }
+
+      var tableWrapEl = document.querySelector('.table-wrap');
+      if (tableWrapEl) {
+        tableWrapEl.addEventListener('change', function (e) {
+          var inp = e.target;
+          if (!inp || inp.type !== 'checkbox') return;
+          if (inp.closest('#casesTheadRow')) {
+            var on = inp.checked;
+            if (!tbody) return;
+            tbody.querySelectorAll('.checkbox-col input[type="checkbox"]').forEach(function (cb) {
+              cb.checked = on;
+            });
           }
         });
       }
