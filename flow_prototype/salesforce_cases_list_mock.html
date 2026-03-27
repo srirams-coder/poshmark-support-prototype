@@ -1336,25 +1336,47 @@
       var SUBJ_ORDER_DELAY = 'Order 692b86652714fcfa46da7eb | Order Status Update | Delayed order cancelled — buyer notification';
       var SUBJ_CARRIER = 'Order 696eb9647a89c80ea3d94875 | Carrier scan exception — warehouse follow-up | Label reprint requested';
       var SUBJ_WALLET = 'Wallet payout pending identity verification | Additional documents requested — account security review ongoing';
+      /** Same order as the current case — both related rows share this. */
+      var PARENT_CONTACT_ORDER_ID = '696eb9647a89c80ea3d94875';
 
       var PARENT_CONTACT_ROWS_RELATED = [
-        { caseNum: '114050678', subject: 'Order Not Delivered', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
-        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' }
+        { caseNum: '114050678', subject: 'Order Not Delivered', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: PARENT_CONTACT_ORDER_ID, dispute: '—', casePriority: 'P0' },
+        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: PARENT_CONTACT_ORDER_ID, dispute: '—', casePriority: 'P0' }
       ];
-      var PARENT_CONTACT_ROWS_OPEN = [
-        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
+      /** Non–order-related open cases for this contact (shown after related opens). */
+      var PARENT_CONTACT_OTHER_OPENS = [
         { caseNum: '115210902', subject: SUBJ_WALLET, status: 'Open', caseOwner: 'Support', agent: 'Mia Rodriguez', orderId: '69d210902681234fcfa46da7eb', dispute: '—', casePriority: '' }
+      ];
+      var PARENT_CONTACT_OTHER_HISTORY = [
+        { caseNum: '113053486', subject: SUBJ_ORDER_DELAY, status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '69c05348681234fcfa46da7eb', dispute: '—', casePriority: '' }
       ];
       var PARENT_CONTACT_ROWS_ALL = [
-        { caseNum: '114050678', subject: 'Order Not Delivered', status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
-        { caseNum: '113053486', subject: SUBJ_ORDER_DELAY, status: 'Resolved', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '69c05348681234fcfa46da7eb', dispute: '—', casePriority: '' },
-        { caseNum: '115210901', subject: SUBJ_CARRIER, status: 'Open', caseOwner: 'CA Support', agent: 'Amber Henderson', orderId: '696eb9647a89c80ea3d94875', dispute: '—', casePriority: 'P0' },
-        { caseNum: '115210902', subject: SUBJ_WALLET, status: 'Open', caseOwner: 'Support', agent: 'Mia Rodriguez', orderId: '69d210902681234fcfa46da7eb', dispute: '—', casePriority: '' }
+        PARENT_CONTACT_ROWS_RELATED[0],
+        PARENT_CONTACT_OTHER_HISTORY[0],
+        PARENT_CONTACT_ROWS_RELATED[1],
+        PARENT_CONTACT_OTHER_OPENS[0]
       ];
+
+      function parentContactOpenRows() {
+        var seen = {};
+        var out = [];
+        PARENT_CONTACT_ROWS_RELATED.forEach(function (r) {
+          if (r.status !== 'Open') return;
+          if (seen[r.caseNum]) return;
+          seen[r.caseNum] = true;
+          out.push(r);
+        });
+        PARENT_CONTACT_OTHER_OPENS.forEach(function (r) {
+          if (seen[r.caseNum]) return;
+          seen[r.caseNum] = true;
+          out.push(r);
+        });
+        return out;
+      }
 
       function getParentContactRows() {
         if (listState.contactBucket === 'related') return PARENT_CONTACT_ROWS_RELATED;
-        if (listState.contactBucket === 'open') return PARENT_CONTACT_ROWS_OPEN;
+        if (listState.contactBucket === 'open') return parentContactOpenRows();
         return PARENT_CONTACT_ROWS_ALL;
       }
 
@@ -1782,8 +1804,6 @@
         if (listState.currentList === 'My Cases') {
           apply(listState.myCasesRows);
         } else if (listState.mode === 'parentContact') {
-          apply(PARENT_CONTACT_ROWS_RELATED);
-          apply(PARENT_CONTACT_ROWS_OPEN);
           apply(PARENT_CONTACT_ROWS_ALL);
         } else {
           apply(RECENT_ROWS);
