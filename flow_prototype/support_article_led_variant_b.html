@@ -873,284 +873,12 @@
       padding-left: max(10px, var(--safe-left));
       padding-right: max(10px, var(--safe-right));
     }
-    .cases-tabs-bar {
-      display: flex;
-      align-items: stretch;
-      border-bottom: 1px solid var(--border);
-      background: var(--card);
-      padding-left: 4px;
-      min-height: 48px;
-    }
-    .cases-tab-nav {
-      display: flex;
-      flex: 1;
-      min-width: 0;
-      align-items: stretch;
-    }
-    .cases-tab-btn {
-      flex: 1;
-      min-width: 0;
-      padding: 12px 6px;
-      border: none;
-      background: none;
-      font-size: 0.875rem;
-      font-weight: 600;
-      font-family: inherit;
-      color: var(--text-muted);
-      border-bottom: 3px solid transparent;
-      margin-bottom: -1px;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-tab-btn.active {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }
-    .cases-toolbar-btn {
-      flex-shrink: 0;
-      width: 48px;
-      min-height: 48px;
-      border: none;
-      border-left: 1px solid var(--border);
-      background: var(--card);
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-toolbar-btn:active { background: var(--bg-alt); }
-    .cases-sort-popover {
-      display: none;
-      position: absolute;
-      top: 49px;
-      right: 56px;
-      left: auto;
-      width: min(200px, calc(100% - 24px));
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      z-index: 81;
-      padding: 10px 12px;
-    }
-    .cases-sort-popover.open { display: block; }
-    .cases-sort-popover .cases-sort-option {
-      display: block;
-      width: 100%;
-      padding: 10px 14px;
-      border: none;
-      background: none;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      font-family: inherit;
-      color: var(--text);
-      cursor: pointer;
-      text-align: left;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-sort-popover .cases-sort-option:active { background: var(--bg-alt); }
-    .cases-sort-popover .cases-sort-option.active { background: rgba(127, 3, 83, 0.1); color: var(--primary); font-weight: 600; }
-    .cases-duration-popover {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 49px;
-      right: 8px;
-      left: auto;
-      width: min(320px, calc(100vw - 24px));
-      max-height: 75vh;
-      overflow: hidden;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      z-index: 80;
-      padding: 0;
-    }
-    .cases-duration-popover.open { display: flex; }
-    .cases-filter-popover-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 18px 14px;
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .cases-filter-popover-title {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .cases-filter-close-btn {
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 50%;
-      background: var(--bg-alt);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-filter-close-btn:hover { background: var(--border); }
-    .cases-filter-close-btn:active { opacity: 0.8; }
-    .cases-filter-popover-body { overflow-y: auto; flex: 1 1 auto; min-height: 0; }
-    .cases-filter-dd { border-bottom: 1px solid var(--border); }
-    .cases-filter-dd:last-child { border-bottom: none; }
-    .cases-filter-dd-head {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      padding: 14px 18px;
-      border: none;
-      background: var(--card);
-      font-family: inherit;
-      cursor: pointer;
-      text-align: left;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-filter-dd-head:active { background: var(--bg-alt); }
-    .cases-filter-dd-label {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .cases-filter-dd-head[aria-expanded="true"] .cases-filter-dd-label { color: var(--primary); }
-    .cases-filter-dd-label-wrap {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-    }
-    .cases-filter-dd-value-sub {
-      font-size: 0.8125rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-    .cases-filter-dd-head[aria-expanded="false"] .cases-filter-dd-value-sub { color: var(--text); font-weight: 500; }
-    .cases-filter-dd-chev {
-      flex-shrink: 0;
-      width: 10px;
-      height: 10px;
-      border-right: 2px solid var(--text-muted);
-      border-bottom: 2px solid var(--text-muted);
-      transform: rotate(45deg);
-      margin-bottom: 4px;
-      transition: transform 0.15s ease;
-    }
-    .cases-filter-dd-head[aria-expanded="true"] .cases-filter-dd-chev {
-      transform: rotate(-135deg);
-      margin-top: 4px;
-      margin-bottom: 0;
-    }
-    .cases-filter-dd-body {
-      padding: 4px 0 14px 0;
-      background: var(--card);
-    }
-    .cases-filter-dd-body.is-collapsed {
-      display: none;
-    }
-    .cases-filter-option-row {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      padding: 10px 18px 10px 42px;
-      border: none;
-      background: none;
-      font-size: 0.9rem;
-      font-family: inherit;
-      color: var(--text);
-      cursor: pointer;
-      text-align: left;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-filter-option-row:active { background: var(--bg-alt); }
-    .cases-filter-option-row.selected { font-weight: 600; color: var(--text); }
-    .cases-filter-radio {
-      position: absolute;
-      left: 18px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid var(--text-muted);
-      background: var(--card);
-      pointer-events: none;
-    }
-    .cases-filter-option-row.selected .cases-filter-radio {
-      border-color: var(--text);
-      background: var(--text);
-      box-shadow: inset 0 0 0 3px var(--card);
-    }
-    .cases-filter-popover-footer {
-      display: flex;
-      gap: 12px;
-      padding: 14px 18px 18px;
-      border-top: 1px solid var(--border);
-      flex-shrink: 0;
-      background: var(--card);
-    }
-    .cases-filter-reset {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 12px 18px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      font-family: inherit;
-      color: var(--text);
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-filter-reset:active { background: var(--bg-alt); }
-    .cases-filter-apply {
-      flex: 1;
-      padding: 12px 20px;
-      border: none;
-      background: var(--text);
-      color: var(--card);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cases-filter-apply:active { opacity: 0.9; }
-    .cases-duration-popover-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 75;
-      background: transparent;
-    }
-    .cases-duration-popover-backdrop.open { display: block; }
     .case-card .case-order-name {
       font-size: 0.8125rem;
       color: var(--text);
       margin-bottom: 4px;
     }
     .case-card .case-order-name strong { font-weight: 600; color: var(--primary); }
-    .cases-tab-empty {
-      padding: 28px 20px;
-      margin: 0 16px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
 
     .case-detail-header { margin-bottom: 20px; }
     .case-detail-header .subject { font-size: 1.125rem; font-weight: 700; color: var(--text); margin: 0 0 12px; }
@@ -2576,72 +2304,7 @@
 
     <!-- My cases -->
     <div id="segmentCases" class="screen">
-      <div class="cases-duration-popover-backdrop" id="casesDurationBackdrop" aria-hidden="true"></div>
-      <div class="cases-tabs-bar">
-        <div class="cases-tab-nav" id="casesTabNav" role="tablist">
-          <button type="button" class="cases-tab-btn active" role="tab" aria-selected="true" data-tab="open">Open</button>
-          <button type="button" class="cases-tab-btn" role="tab" aria-selected="false" data-tab="pending">Pending</button>
-          <button type="button" class="cases-tab-btn" role="tab" aria-selected="false" data-tab="closed">Closed</button>
-        </div>
-        <button type="button" class="cases-toolbar-btn" id="casesSortBtn" aria-label="Sort" aria-expanded="false" aria-haspopup="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
-        </button>
-        <button type="button" class="cases-toolbar-btn" id="casesFilterBtn" aria-label="Filter cases" aria-expanded="false" aria-haspopup="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
-        </button>
-      </div>
-      <div id="casesSortPopover" class="cases-sort-popover" role="menu" aria-label="Sort cases" aria-hidden="true">
-        <button type="button" class="cases-sort-option active" data-sort="recent">Recent</button>
-        <button type="button" class="cases-sort-option" data-sort="oldest">Older</button>
-      </div>
-      <div id="casesDurationPopover" class="cases-duration-popover" role="dialog" aria-label="Filter cases" aria-hidden="true">
-        <div class="cases-filter-popover-header">
-          <h3 class="cases-filter-popover-title">Filter</h3>
-          <button type="button" class="cases-filter-close-btn" id="casesFilterCloseBtn" aria-label="Close filter">&#215;</button>
-        </div>
-        <div class="cases-filter-popover-body">
-          <div class="cases-filter-dd" data-dd-section="time">
-            <button type="button" class="cases-filter-dd-head" id="casesFilterDdTime" aria-expanded="true" aria-controls="casesFilterPanelTime">
-              <span class="cases-filter-dd-label-wrap">
-                <span class="cases-filter-dd-label">Time period</span>
-                <span class="cases-filter-dd-value-sub" id="casesFilterTimeSummary">Last 30 days</span>
-              </span>
-              <span class="cases-filter-dd-chev" aria-hidden="true"></span>
-            </button>
-            <div class="cases-filter-dd-body" id="casesFilterPanelTime">
-              <button type="button" class="cases-filter-option-row cases-dur-option selected" data-dur="30d"><span class="cases-filter-radio" aria-hidden="true"></span>Last 30 days</button>
-              <button type="button" class="cases-filter-option-row cases-dur-option" data-dur="3m"><span class="cases-filter-radio" aria-hidden="true"></span>Last 3 months</button>
-              <button type="button" class="cases-filter-option-row cases-dur-option" data-dur="6m"><span class="cases-filter-radio" aria-hidden="true"></span>Last 6 months</button>
-              <button type="button" class="cases-filter-option-row cases-dur-option" data-dur="12m"><span class="cases-filter-radio" aria-hidden="true"></span>Last 12 months</button>
-              <button type="button" class="cases-filter-option-row cases-dur-option" data-dur="2025"><span class="cases-filter-radio" aria-hidden="true"></span>2025</button>
-              <button type="button" class="cases-filter-option-row cases-dur-option" data-dur="2024"><span class="cases-filter-radio" aria-hidden="true"></span>2024</button>
-              <button type="button" class="cases-filter-option-row cases-dur-option" data-dur="2023"><span class="cases-filter-radio" aria-hidden="true"></span>2023</button>
-            </div>
-          </div>
-          <div class="cases-filter-dd" data-dd-section="type">
-            <button type="button" class="cases-filter-dd-head" id="casesFilterDdType" aria-expanded="false" aria-controls="casesFilterPanelType">
-              <span class="cases-filter-dd-label-wrap">
-                <span class="cases-filter-dd-label">Type</span>
-                <span class="cases-filter-dd-value-sub" id="casesFilterTypeSummary">All types</span>
-              </span>
-              <span class="cases-filter-dd-chev" aria-hidden="true"></span>
-            </button>
-            <div class="cases-filter-dd-body is-collapsed" id="casesFilterPanelType">
-              <button type="button" class="cases-filter-option-row cases-type-option selected" data-case-type="all"><span class="cases-filter-radio" aria-hidden="true"></span>All types</button>
-              <button type="button" class="cases-filter-option-row cases-type-option" data-case-type="purchase"><span class="cases-filter-radio" aria-hidden="true"></span>Purchase</button>
-              <button type="button" class="cases-filter-option-row cases-type-option" data-case-type="sale"><span class="cases-filter-radio" aria-hidden="true"></span>Sale</button>
-              <button type="button" class="cases-filter-option-row cases-type-option" data-case-type="general"><span class="cases-filter-radio" aria-hidden="true"></span>General questions</button>
-            </div>
-          </div>
-        </div>
-        <div class="cases-filter-popover-footer">
-          <button type="button" class="cases-filter-reset" id="casesFilterResetBtn"><span aria-hidden="true">&#8634;</span> Reset</button>
-          <button type="button" class="cases-filter-apply" id="casesFilterApplyBtn">Show Results</button>
-        </div>
-      </div>
-      <div id="casesOpenList" class="cases-list"></div>
-      <div id="casesClosedList" class="cases-list" style="display:none;"></div>
-      <div id="casesPendingList" class="cases-list" style="display:none;"></div>
+      <div id="casesUnifiedList" class="cases-list"></div>
       <div id="emptyCases" class="empty-cases" style="display:none;">No cases yet. Use Help to find articles or contact support.</div>
     </div>
 
@@ -2656,7 +2319,7 @@
           </div>
           <div class="case-detail-info-row">
             <span class="case-detail-info-label">Status</span>
-            <span class="status-badge open" id="detailStatus">Open</span>
+            <span class="status-badge open" id="detailStatus">Case Submitted</span>
           </div>
           <div class="case-detail-info-row" id="detailEtaRow">
             <span class="case-detail-info-label">Estimated closure</span>
@@ -2748,9 +2411,6 @@
     articleFromSearch: false,
     homeEnteredFromSupportHub: false,
     casesFromSupportHub: false,
-    casesDurationKey: '30d',
-    casesTypeKey: 'all',
-    casesSortKey: 'recent',
     currentCase: null,
     caseDetailFrom: 'cases',
     selectedOrder: null,
@@ -2760,7 +2420,7 @@
     existingCaseModalReturnTo: null,
     myPurchasesBackTarget: 'home',
     cases: [
-      { id: 'PM-2026-001', linkedTxnId: 'txn2', orderName: 'Leather Crossbody Bag', openedTime: new Date('2026-03-02T10:00:00').getTime(), subject: 'Item not received', category: 'Orders', article: 'Item not received – what to do', status: 'open', openDate: 'Mar 2, 2026', estimatedClosure: 'Mar 9, 2026', messages: [
+      { id: 'PM-2026-001', linkedTxnId: 'txn2', orderName: 'Leather Crossbody Bag', openedTime: new Date('2026-03-02T10:00:00').getTime(), subject: 'Item not received', category: 'Orders', article: 'Item not received – what to do', status: 'in_progress', openDate: 'Mar 2, 2026', estimatedClosure: 'Mar 9, 2026', messages: [
         { who: 'You', body: 'I read the article but my order still didn’t arrive. Order #12345.', time: 'Mar 2, 2:30 PM' },
         { who: 'Support', body: 'Thanks — we’ve received your case and will look into it.', time: 'Mar 3, 10:15 AM' }
       ]},
@@ -2812,7 +2472,7 @@
       { id: 'PM-2023-301', orderName: '', caseType: 'general', openedTime: new Date('2023-05-05T12:00:00').getTime(), subject: 'Charge dispute — billing question', category: 'Payment and Earnings', issueCategory: 'Payment and Earnings', article: 'When will I get my refund?', status: 'closed', openDate: 'May 5, 2023', lastUpdated: 'May 12, 2023', statusLine: 'Refund processed; case closed.', expectedResolution: '—', estimatedClosure: 'May 12, 2023', messages: [
         { who: 'You', body: 'Refund still pending.', time: 'May 5, 12:00 PM' }
       ]},
-      { id: 'PM-2026-100', orderName: '', caseType: 'general', openedTime: new Date('2026-03-05T08:00:00').getTime(), subject: 'Update phone number on file', category: 'Account', issueCategory: 'Account', article: 'Account settings', status: 'open', openDate: 'Mar 5, 2026', lastUpdated: 'Mar 5, 9:12 AM', statusLine: 'We\'re verifying your identity before updating your number.', expectedResolution: '48 hours', estimatedClosure: 'Mar 12, 2026', messages: [
+      { id: 'PM-2026-100', orderName: '', caseType: 'general', openedTime: new Date('2026-03-05T08:00:00').getTime(), subject: 'Update phone number on file', category: 'Account', issueCategory: 'Account', article: 'Account settings', status: 'in_progress', openDate: 'Mar 5, 2026', lastUpdated: 'Mar 5, 9:12 AM', statusLine: 'We\'re verifying your identity before updating your number.', expectedResolution: '48 hours', estimatedClosure: 'Mar 12, 2026', messages: [
         { who: 'You', body: 'Need to change my phone number.', time: 'Mar 5, 8:00 AM' },
         { who: 'Support', body: 'Thanks — please confirm the last 4 digits of your card on file.', time: 'Mar 5, 9:12 AM' }
       ]}
@@ -3319,7 +2979,7 @@
   }
 
   function getOpenCasesForOrder(order) {
-    var openStatuses = { open: 1, pending: 1, reopened: 1 };
+    var openStatuses = { open: 1, in_progress: 1, pending: 1, reopened: 1 };
     return state.cases.filter(function (c) {
       return openStatuses[c.status] && caseIsForOrder(c, order);
     }).sort(function (a, b) {
@@ -4109,40 +3769,19 @@
     return Date.now();
   }
 
-  function caseMatchesDuration(c, key) {
-    var t = caseOpenedMs(c);
-    var now = Date.now();
-    var day = 86400000;
-    if (key === '30d') return t >= now - 30 * day;
-    if (key === '3m') return t >= now - 90 * day;
-    if (key === '6m') return t >= now - 180 * day;
-    if (key === '12m') return t >= now - 365 * day;
-    if (key === '2025') return new Date(t).getFullYear() === 2025;
-    if (key === '2024') return new Date(t).getFullYear() === 2024;
-    if (key === '2023') return new Date(t).getFullYear() === 2023;
-    return true;
-  }
-
-  function caseMatchesType(c, typeKey) {
-    var k = typeKey || 'all';
-    if (k === 'all') return true;
-    var t = c.caseType || 'purchase';
-    return t === k;
-  }
-
   function caseStatusLine(c) {
     if (c.statusLine) return c.statusLine;
     if (c.status === 'closed') return 'This case is closed. Reopen if you need more help.';
-    if (c.status === 'pending') return 'We\'re waiting on details or the other party before the next step.';
-    if (c.status === 'reopened') return 'Your case was reopened — a specialist will respond soon.';
-    return 'We\'re actively working on your request.';
+    if (c.status === 'pending') return 'We need something from you before we can move forward.';
+    if (c.status === 'in_progress' || c.status === 'reopened') return 'A specialist is actively investigating your case.';
+    return 'Your case has been submitted and will be reviewed soon.';
   }
 
   function caseExpectedResolution(c) {
     if (c.expectedResolution != null && c.expectedResolution !== '') return c.expectedResolution;
     if (c.status === 'closed') return '—';
     if (c.status === 'pending') return '72 hours';
-    if (c.status === 'reopened') return '24 hours';
+    if (c.status === 'reopened' || c.status === 'in_progress') return '24 hours';
     return '48 hours';
   }
 
@@ -4172,22 +3811,12 @@
   }
 
   var CASE_STATUS_DISPLAY = {
-    open: 'In Review',
-    pending: 'Awaiting Additional Info',
-    closed: 'Closed',
-    reopened: 'Case Reopened'
+    open: 'Case Submitted',
+    in_progress: 'Agent Investigating',
+    pending: 'Awaiting your Response',
+    closed: 'Case Resolved',
+    reopened: 'Agent Investigating'
   };
-
-  function sortCasesByKey(arr, key) {
-    var list = arr.slice();
-    list.sort(function (a, b) {
-      var ta = caseOpenedMs(a);
-      var tb = caseOpenedMs(b);
-      if (key === 'oldest') return ta - tb;
-      return tb - ta;
-    });
-    return list;
-  }
 
   function caseEtaHoverTitle(resVal) {
     if (!resVal || resVal === '—') return '';
@@ -4247,7 +3876,7 @@
     if (st === 'closed') {
       return 'Your request has been resolved. Tap to view details or reopen if needed.';
     }
-    if (st === 'pending' || st === 'reopened') {
+    if (st === 'pending' || st === 'reopened' || st === 'in_progress') {
       return 'Good news! Your request is under review and moving forward for <strong>' + issue + '</strong>. We\'ll keep you posted on the next update. You can expect an update within <strong>' + eta + '</strong>.';
     }
     return 'We\'ve received your request for <strong>' + issue + '</strong>. Our team will start reviewing it shortly, You can expect an update within <strong>' + eta + '</strong>.';
@@ -4302,7 +3931,7 @@
 
   /** Same compact card row as Track My Cases (also used on Order Details → Open cases). */
   function caseListCardHtml(c) {
-    var statusClass = c.status === 'closed' ? 'closed' : (c.status === 'reopened' ? 'reopened' : (c.status === 'pending' ? 'pending' : 'open'));
+    var statusClass = c.status === 'closed' ? 'closed' : (c.status === 'reopened' || c.status === 'in_progress' ? 'reopened' : (c.status === 'pending' ? 'pending' : 'open'));
     var ctype = c.caseType || 'purchase';
     var showItemImage = ctype === 'purchase' || ctype === 'sale';
     var thumb = showItemImage
@@ -4332,42 +3961,20 @@
   }
 
   function renderCases() {
-    var durationKey = state.casesDurationKey || '30d';
-    var typeKey = state.casesTypeKey || 'all';
-    var filtered = state.cases.filter(function (c) {
-      return caseMatchesDuration(c, durationKey) && caseMatchesType(c, typeKey);
+    var unified = state.cases.slice().sort(function (a, b) {
+      return caseOpenedMs(b) - caseOpenedMs(a);
     });
-    var sortKey = state.casesSortKey || 'recent';
-    var open = sortCasesByKey(filtered.filter(function (c) { return c.status === 'open' || c.status === 'reopened'; }), sortKey);
-    var closed = sortCasesByKey(filtered.filter(function (c) { return c.status === 'closed'; }), sortKey);
-    var pending = sortCasesByKey(filtered.filter(function (c) { return c.status === 'pending'; }), sortKey);
-    var openList = document.getElementById('casesOpenList');
-    var closedList = document.getElementById('casesClosedList');
-    var pendingList = document.getElementById('casesPendingList');
+    var listEl = document.getElementById('casesUnifiedList');
     var empty = document.getElementById('emptyCases');
-    var hasAnyCases = state.cases.length > 0;
-    if (filtered.length === 0) {
-      openList.innerHTML = '';
-      closedList.innerHTML = '';
-      if (pendingList) pendingList.innerHTML = '';
-      empty.textContent = hasAnyCases
-        ? 'No cases match these filters. Tap the filter icon to change time period or type.'
-        : 'No cases yet. Use Help to find articles or contact support.';
+    if (!listEl) return;
+    if (state.cases.length === 0) {
+      listEl.innerHTML = '';
+      empty.textContent = 'No cases yet. Use Help to find articles or contact support.';
       empty.style.display = 'block';
       return;
     }
     empty.style.display = 'none';
-    openList.innerHTML = open.length
-      ? open.map(caseListCardHtml).join('')
-      : '<p class="cases-tab-empty">No open cases for this period.</p>';
-    closedList.innerHTML = closed.length
-      ? closed.map(caseListCardHtml).join('')
-      : '<p class="cases-tab-empty">No closed cases for this period.</p>';
-    if (pendingList) {
-      pendingList.innerHTML = pending.length
-        ? pending.map(caseListCardHtml).join('')
-        : '<p class="cases-tab-empty">No pending cases for this period.</p>';
-    }
+    listEl.innerHTML = unified.map(caseListCardHtml).join('');
   }
 
   function openCaseDetail(c) {
@@ -4378,7 +3985,7 @@
     var statusLabel = CASE_STATUS_DISPLAY[c.status] || c.status.charAt(0).toUpperCase() + c.status.slice(1);
     var statusEl = document.getElementById('detailStatus');
     statusEl.textContent = statusLabel;
-    statusEl.className = 'status-badge ' + (c.status === 'closed' ? 'closed' : (c.status === 'reopened' ? 'reopened' : (c.status === 'pending' ? 'pending' : 'open')));
+    statusEl.className = 'status-badge ' + (c.status === 'closed' ? 'closed' : (c.status === 'reopened' || c.status === 'in_progress' ? 'reopened' : (c.status === 'pending' ? 'pending' : 'open')));
     var etaLabel = caseEtaDateLabel(c);
     var etaRow = document.getElementById('detailEtaRow');
     var etaEl = document.getElementById('detailEta');
@@ -4449,7 +4056,7 @@
     if (text) c.messages.push({ who: 'You', body: text, time: 'Just now' });
     input.value = '';
     var statusEl = document.getElementById('detailStatus');
-    statusEl.textContent = CASE_STATUS_DISPLAY.reopened || 'Reopened';
+    statusEl.textContent = CASE_STATUS_DISPLAY.reopened || 'Agent Investigating';
     statusEl.className = 'status-badge reopened';
     var etaR = caseEtaDateLabel(c);
     var etaRowR = document.getElementById('detailEtaRow');
@@ -4573,193 +4180,6 @@
     var id = card.getAttribute('data-case-id');
     var c = state.cases.find(function (x) { return x.id === id; });
     if (c) { openCaseDetail(c); showScreen('segmentCaseDetail'); }
-  });
-
-  var CASES_FILTER_DUR_LABELS = {
-    '30d': 'Last 30 days', '3m': 'Last 3 months', '6m': 'Last 6 months', '12m': 'Last 12 months',
-    '2025': '2025', '2024': '2024', '2023': '2023'
-  };
-  var CASES_FILTER_TYPE_LABELS = {
-    all: 'All types', purchase: 'Purchase', sale: 'Sale', general: 'General questions'
-  };
-
-  function syncCasesFilterSummaries() {
-    var t = document.getElementById('casesFilterTimeSummary');
-    var y = document.getElementById('casesFilterTypeSummary');
-    if (t) t.textContent = CASES_FILTER_DUR_LABELS[state.casesDurationKey || '30d'] || (state.casesDurationKey || '30d');
-    if (y) y.textContent = CASES_FILTER_TYPE_LABELS[state.casesTypeKey || 'all'] || (state.casesTypeKey || 'all');
-  }
-
-  function setCasesFilterSectionOpen(section) {
-    var timeBody = document.getElementById('casesFilterPanelTime');
-    var typeBody = document.getElementById('casesFilterPanelType');
-    var timeHead = document.getElementById('casesFilterDdTime');
-    var typeHead = document.getElementById('casesFilterDdType');
-    if (!timeBody || !typeBody || !timeHead || !typeHead) return;
-    if (section === 'type') {
-      timeBody.classList.add('is-collapsed');
-      typeBody.classList.remove('is-collapsed');
-      timeHead.setAttribute('aria-expanded', 'false');
-      typeHead.setAttribute('aria-expanded', 'true');
-    } else {
-      timeBody.classList.remove('is-collapsed');
-      typeBody.classList.add('is-collapsed');
-      timeHead.setAttribute('aria-expanded', 'true');
-      typeHead.setAttribute('aria-expanded', 'false');
-    }
-  }
-  function toggleCasesFilterSection(section) {
-    var timeBody = document.getElementById('casesFilterPanelTime');
-    var typeBody = document.getElementById('casesFilterPanelType');
-    var timeHead = document.getElementById('casesFilterDdTime');
-    var typeHead = document.getElementById('casesFilterDdType');
-    if (!timeBody || !typeBody || !timeHead || !typeHead) return;
-    if (section === 'time') {
-      var collapsed = timeBody.classList.toggle('is-collapsed');
-      timeHead.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-    } else if (section === 'type') {
-      var collapsedType = typeBody.classList.toggle('is-collapsed');
-      typeHead.setAttribute('aria-expanded', collapsedType ? 'false' : 'true');
-    }
-  }
-
-  function closeCasesDurationPopover() {
-    var pop = document.getElementById('casesDurationPopover');
-    var bd = document.getElementById('casesDurationBackdrop');
-    var btn = document.getElementById('casesFilterBtn');
-    var sortOpen = document.getElementById('casesSortPopover') && document.getElementById('casesSortPopover').classList.contains('open');
-    if (pop) { pop.classList.remove('open'); pop.setAttribute('aria-hidden', 'true'); }
-    if (bd && !sortOpen) bd.classList.remove('open');
-    if (btn) { btn.setAttribute('aria-expanded', 'false'); }
-  }
-  function openCasesDurationPopover() {
-    closeCasesSortPopover();
-    var pop = document.getElementById('casesDurationPopover');
-    var bd = document.getElementById('casesDurationBackdrop');
-    var btn = document.getElementById('casesFilterBtn');
-    if (pop) { pop.classList.add('open'); pop.setAttribute('aria-hidden', 'false'); }
-    if (bd) bd.classList.add('open');
-    if (btn) btn.setAttribute('aria-expanded', 'true');
-    syncCasesFilterSummaries();
-    document.querySelectorAll('.cases-dur-option').forEach(function (b) {
-      b.classList.toggle('selected', b.getAttribute('data-dur') === (state.casesDurationKey || '30d'));
-    });
-    document.querySelectorAll('.cases-type-option').forEach(function (b) {
-      b.classList.toggle('selected', b.getAttribute('data-case-type') === (state.casesTypeKey || 'all'));
-    });
-    setCasesFilterSectionOpen('time');
-  }
-  function closeCasesSortPopover() {
-    var pop = document.getElementById('casesSortPopover');
-    var btn = document.getElementById('casesSortBtn');
-    var bd = document.getElementById('casesDurationBackdrop');
-    var filterOpen = document.getElementById('casesDurationPopover') && document.getElementById('casesDurationPopover').classList.contains('open');
-    if (pop) { pop.classList.remove('open'); pop.setAttribute('aria-hidden', 'true'); }
-    if (btn) btn.setAttribute('aria-expanded', 'false');
-    if (bd && !filterOpen) bd.classList.remove('open');
-  }
-  function openCasesSortPopover() {
-    var pop = document.getElementById('casesSortPopover');
-    var btn = document.getElementById('casesSortBtn');
-    var bd = document.getElementById('casesDurationBackdrop');
-    if (pop) { pop.classList.add('open'); pop.setAttribute('aria-hidden', 'false'); }
-    if (btn) btn.setAttribute('aria-expanded', 'true');
-    if (bd) bd.classList.add('open');
-    document.querySelectorAll('#casesSortPopover .cases-sort-option').forEach(function (b) {
-      b.classList.toggle('active', b.getAttribute('data-sort') === (state.casesSortKey || 'recent'));
-    });
-  }
-  document.getElementById('casesSortBtn').addEventListener('click', function (e) {
-    e.stopPropagation();
-    var pop = document.getElementById('casesSortPopover');
-    if (pop && pop.classList.contains('open')) { closeCasesSortPopover(); return; }
-    closeCasesDurationPopover();
-    openCasesSortPopover();
-  });
-  document.getElementById('casesSortPopover').addEventListener('click', function (e) {
-    e.stopPropagation();
-    var btn = e.target.closest('.cases-sort-option');
-    if (!btn || !btn.getAttribute('data-sort')) return;
-    state.casesSortKey = btn.getAttribute('data-sort');
-    document.querySelectorAll('#casesSortPopover .cases-sort-option').forEach(function (b) {
-      b.classList.toggle('active', b.getAttribute('data-sort') === state.casesSortKey);
-    });
-    closeCasesSortPopover();
-    renderCases();
-  });
-  document.getElementById('casesTabNav').addEventListener('click', function (e) {
-    var t = e.target.closest('.cases-tab-btn');
-    if (!t || !t.getAttribute('data-tab')) return;
-    e.preventDefault();
-    document.querySelectorAll('#casesTabNav .cases-tab-btn').forEach(function (x) {
-      x.classList.remove('active');
-      x.setAttribute('aria-selected', 'false');
-    });
-    t.classList.add('active');
-    t.setAttribute('aria-selected', 'true');
-    var tab = t.getAttribute('data-tab');
-    document.getElementById('casesOpenList').style.display = tab === 'open' ? 'block' : 'none';
-    document.getElementById('casesClosedList').style.display = tab === 'closed' ? 'block' : 'none';
-    var pl = document.getElementById('casesPendingList');
-    if (pl) pl.style.display = tab === 'pending' ? 'block' : 'none';
-  });
-  document.getElementById('casesFilterBtn').addEventListener('click', function (e) {
-    e.stopPropagation();
-    var pop = document.getElementById('casesDurationPopover');
-    if (pop && pop.classList.contains('open')) closeCasesDurationPopover();
-    else openCasesDurationPopover();
-  });
-  document.getElementById('casesFilterCloseBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    closeCasesDurationPopover();
-  });
-  document.getElementById('casesFilterResetBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    state.casesDurationKey = '30d';
-    state.casesTypeKey = 'all';
-    document.querySelectorAll('.cases-dur-option').forEach(function (b) {
-      b.classList.toggle('selected', b.getAttribute('data-dur') === '30d');
-    });
-    document.querySelectorAll('.cases-type-option').forEach(function (b) {
-      b.classList.toggle('selected', b.getAttribute('data-case-type') === 'all');
-    });
-    syncCasesFilterSummaries();
-  });
-  document.getElementById('casesFilterApplyBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    closeCasesDurationPopover();
-    renderCases();
-  });
-  document.getElementById('casesDurationBackdrop').addEventListener('click', function () {
-    closeCasesDurationPopover();
-    closeCasesSortPopover();
-  });
-  document.getElementById('casesDurationPopover').addEventListener('click', function (e) {
-    e.stopPropagation();
-    var head = e.target.closest('.cases-filter-dd-head');
-    if (head) {
-      var dd = head.closest('.cases-filter-dd');
-      var section = dd ? dd.getAttribute('data-dd-section') : null;
-      if (section === 'time' || section === 'type') toggleCasesFilterSection(section);
-      return;
-    }
-    var durOpt = e.target.closest('.cases-dur-option');
-    if (durOpt) {
-      state.casesDurationKey = durOpt.getAttribute('data-dur') || '30d';
-      document.querySelectorAll('.cases-dur-option').forEach(function (b) {
-        b.classList.toggle('selected', b.getAttribute('data-dur') === state.casesDurationKey);
-      });
-      syncCasesFilterSummaries();
-      return;
-    }
-    var typeOpt = e.target.closest('.cases-type-option');
-    if (typeOpt) {
-      state.casesTypeKey = typeOpt.getAttribute('data-case-type') || 'all';
-      document.querySelectorAll('.cases-type-option').forEach(function (b) {
-        b.classList.toggle('selected', b.getAttribute('data-case-type') === state.casesTypeKey);
-      });
-      syncCasesFilterSummaries();
-    }
   });
 
   renderCases();

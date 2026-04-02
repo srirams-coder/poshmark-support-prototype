@@ -7,7 +7,8 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <title>Poshmark Support – Poshmark</title>
+  <title>Article-led (Variant C) – Poshmark Support prototype</title>
+  <!-- Variant C: goal-first support entry (tile landing). Baseline: support_article_led_mobile.html · Variant B: support_article_led_variant_b.html -->
   <style>
     /* Mobile-first: responsive on any mobile */
     html {
@@ -106,8 +107,27 @@
     }
     .app-wrapper.entry-view { background: #fff; }
     .app-wrapper.entry-view .app-header { display: none; }
+    /* My cases list + case detail: same top chrome as help flows (header only — hide extra status row) */
+    .app-wrapper.entry-view.cases-list-view .status-bar,
+    .app-wrapper.entry-view.case-detail-shell .status-bar {
+      display: none;
+    }
+    .app-wrapper.entry-view.cases-list-view .app-header,
+    .app-wrapper.entry-view.case-detail-shell .app-header {
+      display: flex;
+    }
+    /* Match non–Account support screens: shell + header bar, not Me-menu white shell */
+    .app-wrapper.entry-view.cases-list-view,
+    .app-wrapper.entry-view.case-detail-shell {
+      background: var(--bg-alt);
+    }
+    .app-wrapper.entry-view.cases-list-view .main-content,
+    .app-wrapper.entry-view.case-detail-shell .main-content {
+      background: transparent;
+      padding-top: 20px;
+    }
     .app-wrapper.entry-view .main-content { padding-top: 0; }
-    /* News: show header + themed shell (no “My cases” on News) */
+    /* News: show header + themed shell (entry-view normally hides header) */
     .app-wrapper.entry-view.news-view { background: #f8f5f2; }
     .app-wrapper.entry-view.news-view .app-header {
       display: flex;
@@ -136,9 +156,6 @@
       letter-spacing: -0.02em;
       color: #000;
     }
-    .app-wrapper.entry-view.news-view .app-header .my-cases-tag {
-      display: none !important;
-    }
 
     .app-header {
       position: sticky;
@@ -165,6 +182,9 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      min-height: var(--touch-min);
+      min-width: var(--touch-min);
     }
     .app-header .title {
       flex: 1;
@@ -172,27 +192,6 @@
       font-weight: 700;
       color: var(--text);
     }
-    .app-header .my-cases-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      background: rgba(127, 3, 83, 0.1);
-      color: var(--primary);
-      font-size: 0.8125rem;
-      font-weight: 600;
-      text-decoration: none;
-      margin-left: auto;
-      margin-right: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .app-header .my-cases-tag:active { opacity: 0.85; }
-    .app-header .my-cases-tag { min-height: var(--touch-min); min-width: var(--touch-min); align-items: center; justify-content: center; flex-shrink: 0; }
-    .app-header .back { min-height: var(--touch-min); min-width: var(--touch-min); align-items: center; justify-content: center; }
-    /* Order Details = app order page, not support: hide My cases */
-    .app-wrapper.order-details-view .app-header .my-cases-tag { display: none !important; }
-    .app-wrapper.cases-list-view .app-header .my-cases-tag { display: none !important; }
 
     .main-content {
       flex: 1;
@@ -229,6 +228,104 @@
       color: var(--text);
       margin: 0 0 20px;
     }
+
+    /* Variant B: search-first help home */
+    .variant-b-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: rgba(127, 3, 83, 0.08);
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .help-search-wrap {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .help-search-wrap input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      background: var(--card);
+    }
+    .help-search-wrap input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(127, 3, 83, 0.12);
+    }
+    .help-search-btn {
+      flex-shrink: 0;
+      padding: 0 16px;
+      min-width: 44px;
+      min-height: 44px;
+      border: none;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .search-results-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .search-results-list li { border-bottom: 1px solid var(--border); }
+    .search-results-list li:last-child { border-bottom: none; }
+    .search-results-list a {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .search-results-list a:active { background: var(--bg-alt); }
+    .search-results-list .sr-topic {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .search-results-list .sr-title { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .search-empty {
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    .search-empty .btn-link-chat {
+      margin-top: 16px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
     .category-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -313,19 +410,6 @@
       flex-shrink: 0;
       pointer-events: none;
     }
-    .recent-transactions-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 12px;
-      max-width: 100%;
-    }
-    .recent-transactions-card .transactions-list { padding: 12px 16px 8px; }
-    .recent-transactions-card .btn-show-all {
-      margin: 0 16px 16px;
-      width: calc(100% - 32px);
-    }
     .btn-show-all {
       width: 100%;
       padding: 12px 16px;
@@ -342,6 +426,72 @@
       -webkit-tap-highlight-color: transparent;
     }
     .btn-show-all:active { background: var(--bg); }
+    .recent-transactions-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 12px;
+      max-width: 100%;
+    }
+    .recent-transactions-card .transactions-list { padding: 12px 16px 8px; }
+    .recent-transactions-card .btn-show-all {
+      margin: 0 16px 16px;
+      width: calc(100% - 32px);
+    }
+
+    .support-entry-tiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .support-entry-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      padding: 16px 14px;
+      min-height: 108px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      cursor: pointer;
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .support-entry-tile:active {
+      border-color: var(--primary);
+      box-shadow: 0 2px 10px rgba(127, 3, 83, 0.12);
+    }
+    .support-entry-tile-icon {
+      font-size: 1.75rem;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .support-entry-tile-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .support-entry-tile-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+    .support-other-lead {
+      font-size: 0.875rem;
+      color: var(--text-muted-2);
+      line-height: 1.4;
+      margin: 0 0 0;
+    }
+    .purchase-app-badge-pill--sale {
+      background: rgba(45, 138, 78, 0.15);
+      color: var(--status-open);
+    }
 
     /* Topic list (single column, with emoji like Myntra) */
     .topic-list { list-style: none; padding: 0; margin: 0; }
@@ -536,9 +686,6 @@
     .chatbot-msg.user { background: var(--primary); color: #fff; }
     .chatbot-msg .chatbot-msg-link { color: var(--primary); text-decoration: underline; cursor: pointer; font-weight: 600; }
     .chatbot-msg.user .chatbot-msg-link { color: rgba(255,255,255,0.95); }
-    .chatbot-my-cases-card { padding: 0; background: transparent; border: none; }
-    .chatbot-my-cases-btn { display: block; width: 100%; min-width: 160px; padding: 14px 20px; margin-top: 8px; border-radius: 12px; border: 2px solid var(--primary); background: var(--card); color: var(--primary); font-size: 1rem; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
-    .chatbot-my-cases-btn:hover { background: rgba(198, 47, 43, 0.08); }
     .chatbot-input-row { flex-shrink: 0; display: flex; gap: 10px; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--card); align-items: flex-end; }
     .chatbot-input-row textarea { flex: 1; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; font-family: inherit; resize: none; min-height: 44px; max-height: 100px; }
     .chatbot-send-btn { padding: 12px 18px; border: none; border-radius: 10px; background: var(--primary); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; flex-shrink: 0; }
@@ -631,6 +778,7 @@
       display: block;
       text-decoration: none;
     }
+    /* Case row: elevation, spacing, tappable */
     .case-card-compact {
       padding: 12px 14px;
       margin: 12px 0 16px;
@@ -702,7 +850,7 @@
       min-width: 0;
       font-size: 0.75rem;
       line-height: 1.3;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
     }
     .case-card-st-ico {
       flex-shrink: 0;
@@ -711,19 +859,16 @@
       color: var(--text-muted);
     }
     .case-card-st-pill {
-      flex-shrink: 1;
+      flex: 1 1 auto;
       min-width: 0;
-      max-width: 58%;
+      max-width: 100%;
       font-size: 0.6875rem;
       font-weight: 700;
       padding: 4px 8px;
       border-radius: 10px;
-      text-transform: capitalize;
-      line-height: 1.2;
+      text-transform: none;
+      line-height: 1.25;
       cursor: help;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
     .case-card-st-pill.open { background: rgba(45, 138, 78, 0.14); color: var(--status-open); }
     .case-card-st-pill.pending { background: rgba(193, 127, 10, 0.16); color: #a35f0a; }
@@ -779,11 +924,86 @@
     }
     .case-card .btn-view-ticket { background: var(--primary); color: #fff; }
     .case-card .btn-reopen-ticket { background: var(--card); color: var(--primary); border: 1px solid var(--primary); }
-    .empty-cases { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.95rem; }
+    .empty-cases-block {
+      text-align: center;
+      padding: 40px 16px 28px;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+    .empty-cases-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 14px;
+      opacity: 0.9;
+    }
+    .empty-cases-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+    }
+    .empty-cases-body {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin: 0 0 14px;
+    }
+    .empty-cases-demo-note {
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.35;
+    }
     #segmentCases { position: relative; }
+    .app-wrapper.cases-list-view {
+      position: relative;
+    }
     .app-wrapper.cases-list-view .main-content {
       padding-left: max(10px, var(--safe-left));
       padding-right: max(10px, var(--safe-right));
+      padding-bottom: 96px;
+    }
+    /* Variant C: floating + (FAB) bottom-right above tab bar */
+    .cases-fab-float {
+      display: none;
+      position: absolute;
+      right: max(14px, var(--safe-right));
+      bottom: calc(52px + max(8px, env(safe-area-inset-bottom, 0px)));
+      z-index: 35;
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      pointer-events: none;
+    }
+    .app-wrapper.cases-list-view .cases-fab-float {
+      display: block;
+    }
+    .cases-fab-round {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1.75rem;
+      font-weight: 300;
+      line-height: 1;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(127, 3, 83, 0.45), 0 2px 6px rgba(0, 0, 0, 0.12);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cases-fab-round:active {
+      opacity: 0.92;
+      transform: scale(0.96);
     }
     .case-card .case-order-name {
       font-size: 0.8125rem;
@@ -879,6 +1099,23 @@
     .order-help-card .order-id { font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 4px; }
     .order-help-card .order-party { font-size: 0.875rem; color: var(--text); margin-bottom: 12px; }
     .order-help-card .order-product { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .order-help-card .order-product.order-product-tappable {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin: 0;
+      padding: 12px 0 0;
+      border: none;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      background: none;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .order-help-card .order-product.order-product-tappable:active { opacity: 0.88; }
     .order-help-card .order-product-img { width: 56px; height: 56px; border-radius: 8px; background: var(--bg); flex-shrink: 0; overflow: hidden; }
     .order-help-card .order-product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .order-help-card .order-product-name { flex: 1; font-size: 0.9375rem; font-weight: 600; color: var(--text); min-width: 0; }
@@ -967,7 +1204,6 @@
       color: #000;
       text-align: left;
       cursor: pointer;
-      min-height: var(--touch-min);
       -webkit-tap-highlight-color: transparent;
     }
     .order-details-page .od-collapsible-head .od-chevron {
@@ -1078,6 +1314,7 @@
       padding: 0 0 12px;
       margin: 0;
     }
+    /* Open cases on order details — same card style as Track My Cases list */
     .order-details-page .order-open-cases-list {
       display: flex;
       flex-direction: column;
@@ -1091,107 +1328,36 @@
     .order-details-page .order-open-cases-list > .case-card-compact:last-child {
       margin-bottom: 0;
     }
-    .order-existing-case-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 5000;
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 10px 12px max(10px, env(safe-area-inset-bottom));
-      box-sizing: border-box;
-    }
-    .order-existing-case-overlay[aria-hidden="false"] { display: flex; }
-    .order-existing-case-sheet {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      background: var(--card);
-      border-radius: 16px 16px 0 0;
-      padding: 0 16px max(12px, env(safe-area-inset-bottom));
-      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
-      max-height: min(75vh, calc(100% - 20px));
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      box-sizing: border-box;
-    }
-    .order-existing-case-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 0 8px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 12px;
-      flex-shrink: 0;
-    }
-    .order-existing-case-header h3 {
-      margin: 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .order-existing-case-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      line-height: 1;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 50%;
-      min-width: var(--touch-min);
-      min-height: var(--touch-min);
-    }
-    .order-existing-case-body {
-      padding-bottom: 4px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      min-height: 0;
-      flex: 1;
-    }
-    .order-existing-case-lead {
-      font-size: 0.875rem;
-      color: var(--text);
-      line-height: 1.45;
-      margin: 0 0 12px;
-      font-weight: 500;
-    }
-    .order-existing-case-body .btn-sheet {
-      display: block;
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      margin-bottom: 10px;
-      border: none;
-      text-align: center;
-      min-height: var(--touch-min);
-      -webkit-tap-highlight-color: transparent;
-    }
-    .order-existing-case-body .btn-sheet-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-    .order-existing-case-body .btn-sheet-primary:active { opacity: 0.9; }
-    .order-existing-case-body .btn-sheet-secondary {
-      background: var(--card);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
-    .order-existing-case-note {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin: 12px 0 0;
-      padding-top: 10px;
+    /* Order details → case detail: optional path to start a separate support request */
+    .case-detail-different-issue {
+      margin-top: 20px;
+      padding-top: 16px;
       border-top: 1px solid var(--border);
     }
+    .case-detail-different-issue-lead {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .case-detail-different-issue-link {
+      display: inline;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      font: inherit;
+      font-size: inherit;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      vertical-align: baseline;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .case-detail-different-issue-link:active { opacity: 0.85; }
+    /* Me menu – profile + section headings (serif, app-style) */
     .me-profile-strip {
       background: #fff;
       border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -1227,8 +1393,10 @@
       padding-top: 22px;
       padding-bottom: 6px;
     }
-    .app-wrapper.purchases-list-view .app-header .my-cases-tag { display: none !important; }
-    .app-wrapper.purchases-list-view .app-header .back { color: var(--primary); }
+    /* Purchases list — match app (serif title, pill search, thumb + PURCHASE pill + title/price row) */
+    .app-wrapper.purchases-list-view .app-header .back {
+      color: var(--primary);
+    }
     .app-wrapper.purchases-list-view .app-header .title.title-purchases-serif {
       font-family: Georgia, 'Times New Roman', 'Noto Serif', serif;
       font-weight: 400;
@@ -1236,7 +1404,9 @@
       letter-spacing: -0.02em;
       text-align: center;
     }
-    .purchases-search { margin: 4px 0 8px; }
+    .purchases-search {
+      margin: 4px 0 8px;
+    }
     .purchases-search input {
       width: 100%;
       padding: 13px 16px 13px 44px;
@@ -1248,7 +1418,12 @@
       box-sizing: border-box;
     }
     .purchases-search input::placeholder { color: #9b9691; }
-    .purchases-app-list { list-style: none; padding: 0; margin: 0; background: #fff; }
+    .purchases-app-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: #fff;
+    }
     .purchases-app-list .purchase-app-row {
       display: flex;
       flex-direction: row;
@@ -1274,8 +1449,12 @@
       background: #ece8e4;
       pointer-events: none;
     }
-    .purchases-app-list .purchase-app-row:last-child::after { display: none; }
-    .purchases-app-list .purchase-app-row:active { background: rgba(0, 0, 0, 0.02); }
+    .purchases-app-list .purchase-app-row:last-child::after {
+      display: none;
+    }
+    .purchases-app-list .purchase-app-row:active {
+      background: rgba(0, 0, 0, 0.02);
+    }
     .purchase-app-thumb {
       width: 72px;
       height: 72px;
@@ -1284,15 +1463,23 @@
       flex-shrink: 0;
       background: #f2f2f7;
     }
-    .purchase-app-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .purchase-app-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
     .purchase-app-body {
       flex: 1;
       min-width: 0;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      gap: 0;
     }
-    .purchase-app-badge { margin-bottom: 4px; }
+    .purchase-app-badge {
+      margin-bottom: 4px;
+    }
     .purchase-app-badge-pill {
       display: inline-block;
       font-size: 0.625rem;
@@ -1307,6 +1494,7 @@
     }
     .purchase-app-title-row {
       display: flex;
+      flex-direction: row;
       align-items: baseline;
       justify-content: space-between;
       gap: 10px;
@@ -1316,11 +1504,18 @@
       font-size: 1rem;
       font-weight: 700;
       color: #000;
+      line-height: 1.25;
       flex: 1;
       min-width: 0;
       word-wrap: break-word;
+      overflow-wrap: break-word;
     }
-    .purchase-app-price { font-size: 1rem; font-weight: 700; color: #000; flex-shrink: 0; }
+    .purchase-app-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      flex-shrink: 0;
+    }
     .purchase-app-meta {
       font-size: 0.8125rem;
       color: #8e8e93;
@@ -1330,6 +1525,7 @@
     }
     .purchase-app-status {
       display: flex;
+      flex-direction: row;
       align-items: center;
       gap: 6px;
       margin-top: 8px;
@@ -1337,8 +1533,14 @@
       font-weight: 700;
       color: #000;
     }
-    .purchase-app-status.is-cancelled .purchase-app-status-text { color: #000; }
-    .purchase-app-status-ico { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+    .purchase-app-status.is-cancelled .purchase-app-status-text {
+      color: #000;
+    }
+    .purchase-app-status-ico {
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
     .purchase-app-ico-cancelled {
       position: relative;
       display: inline-flex;
@@ -1347,7 +1549,10 @@
       width: 1.15em;
       height: 1.15em;
     }
-    .purchase-app-ico-cancelled .purchase-app-ico-box { font-size: 1em; line-height: 1; }
+    .purchase-app-ico-cancelled .purchase-app-ico-box {
+      font-size: 1em;
+      line-height: 1;
+    }
     .purchase-app-ico-cancelled .purchase-app-ico-x {
       position: absolute;
       right: -4px;
@@ -1359,10 +1564,10 @@
       text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
     }
     .purchase-app-chev {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
-      min-height: 36px;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      min-height: 32px;
       border-radius: 50%;
       background: #f2f2f7;
       border: 1px solid #e8e4e0;
@@ -1371,8 +1576,10 @@
       justify-content: center;
       color: var(--primary);
       font-size: 1rem;
+      font-weight: 300;
       flex-shrink: 0;
       pointer-events: none;
+      line-height: 1;
     }
     .order-details-page .order-details-cant-locate-wrap { text-align: left; }
     .order-details-page .link-cant-locate {
@@ -1388,7 +1595,6 @@
       display: block;
       width: 100%;
       text-align: left;
-      min-height: var(--touch-min);
     }
     .order-details-page .link-cant-locate:hover { color: var(--primary-hover); }
     /* Delivered can't locate popup */
@@ -1411,14 +1617,14 @@
     .cant-locate-popup-actions .placed-delayed-btns .btn-cta { margin-top: 0; }
     .cant-locate-popup-actions .placed-delayed-btns .btn-cta + .btn-cta { margin-top: 10px; }
     .cant-locate-popup-actions .report-available-hint { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 10px; }
-    .order-details-page .od-section-actions { border-bottom: none; padding-top: 0; }
-    .order-details-page .od-section-actions .action-row:first-child { border-top: 1px solid #e5e5ea; }
     .order-details-page .timeline-details .step { display: flex; gap: 12px; margin-bottom: 16px; }
     .order-details-page .timeline-details .step .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; background: var(--border-muted); }
     .order-details-page .timeline-details .step.active .dot { background: var(--primary); }
     .order-details-page .timeline-details .step .label { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
     .order-details-page .timeline-details .step .hint { font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px; }
     .order-details-page .timeline-details .step.active .label { color: var(--primary); }
+    .order-details-page .od-section-actions { border-bottom: none; padding-top: 0; }
+    .order-details-page .od-section-actions .action-row:first-child { border-top: 1px solid #e5e5ea; }
     .order-details-page .accept-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -1511,7 +1717,7 @@
     }
     .bottom-nav-item .nav-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-    /* News (notifications) – case tracking */
+    /* News (notifications) – case tracking (match Posh News: beige bg, tab bar, Posh tile, chevron) */
     .news-screen {
       padding: 0 0 32px;
       background: transparent;
@@ -1585,6 +1791,7 @@
       height: 48px;
       flex-shrink: 0;
     }
+    /* Poshmark-style mark: white tile, burgundy “P” (brand) */
     .news-row-logo-tile {
       display: flex;
       align-items: center;
@@ -1700,6 +1907,11 @@
     }
     .settings-menu-item .menu-icon svg { width: 22px; height: 22px; }
     .settings-menu-item .menu-label { flex: 1; min-width: 0; word-wrap: break-word; overflow-wrap: break-word; }
+    .settings-menu-item .menu-label-muted {
+      font-weight: 500;
+      color: #8e8e93;
+      font-size: 0.875em;
+    }
     .settings-menu-item .menu-arrow { color: #c7c7cc; font-size: 1rem; font-weight: 300; flex-shrink: 0; }
     .entry-view .settings-menu-section:first-child { padding-top: 12px; }
     .entry-view .settings-menu-section:first-child .settings-menu { border-top: none; }
@@ -1708,6 +1920,167 @@
       background: #f8f5f2;
       padding-top: 8px;
     }
+
+    /* Variant B: Support Center hub (app screenshot style) */
+    .support-center-hub {
+      background: #fff;
+      padding: 8px 0 32px;
+      min-height: 100%;
+    }
+    .app-header .title.title-support-center {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+    .support-hub-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid #e8e8e8;
+    }
+    .support-hub-list li {
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .support-hub-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      font-size: 1rem;
+      color: #111;
+      text-decoration: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .support-hub-list a:active { background: #f7f7f7; }
+    .support-hub-list .hub-row-label { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
+    .support-hub-list .hub-item-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(127, 3, 83, 0.12);
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .support-hub-list .hub-chevron { color: #c7c7cc; font-size: 1.1rem; font-weight: 300; flex-shrink: 0; }
+    .btn-ask-question {
+      display: block;
+      width: calc(100% - 40px);
+      margin: 28px 20px 0;
+      padding: 16px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #111;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-ask-question:active { background: #fafafa; }
+
+    /* Variant C: goal-first entry (after Me → Poshmark Support Center) */
+    .support-landing-c {
+      background: #fff;
+      padding: 12px 20px 28px;
+      min-height: 100%;
+      box-sizing: border-box;
+    }
+    .support-landing-c-head {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #111;
+      margin: 8px 0 6px;
+      letter-spacing: -0.02em;
+    }
+    .support-landing-c-lead {
+      font-size: 0.9375rem;
+      color: #555;
+      line-height: 1.45;
+      margin: 0 0 20px;
+    }
+    .support-landing-c-tiles {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .support-landing-c-tile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 16px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      background: #fafafa;
+      cursor: pointer;
+      text-align: left;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .support-landing-c-tile:active {
+      background: #f0f0f0;
+      border-color: #ccc;
+    }
+    .support-landing-c-tile-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(127, 3, 83, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.25rem;
+    }
+    .support-landing-c-tile-text { min-width: 0; flex: 1; }
+    .support-landing-c-tile-title {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+    }
+    .support-landing-c-tile-desc {
+      display: block;
+      font-size: 0.8125rem;
+      color: #666;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+    .support-landing-c-tile .tile-chev {
+      color: #c7c7cc;
+      font-size: 1.15rem;
+      font-weight: 300;
+      flex-shrink: 0;
+    }
+    .support-landing-c-link {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      border: none;
+      background: none;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--primary);
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .support-landing-c-link:active { opacity: 0.75; }
   </style>
 </head>
 <body>
@@ -1726,13 +2099,12 @@
         <header class="app-header">
           <a href="#" class="back" id="headerBack" aria-label="Back">←</a>
           <span class="title" id="headerTitle">Account</span>
-          <a href="#" class="my-cases-tag" id="headerMyCases">My cases</a>
         </header>
 
         <div class="main-content">
     <!-- Article-led help flow -->
     <div id="segmentHelp" class="screen active">
-      <!-- First page: settings / Help & Resources (entry); click Poshmark Support Center -> home -->
+      <!-- First page: settings / Help & Resources (entry); Support Center hub + dev entries to cases list -->
       <div id="screenSupportEntry" class="screen active">
         <div class="me-profile-strip">
           <a href="#" class="me-profile-link" id="meProfileStrip">
@@ -1788,6 +2160,7 @@
             <li><a href="#" class="settings-menu-item" data-menu="guide"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8"/></svg></span><span class="menu-label">Your Guide to Poshmark</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="etiquette"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span><span class="menu-label">Posh Etiquette</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" id="menuPoshmarkSupportCenter"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="12" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg></span><span class="menu-label">Poshmark Support Center</span><span class="menu-arrow">›</span></a></li>
+            <li><a href="#" class="settings-menu-item" id="menuPoshmarkSupportCenterEmpty"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="12" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg></span><span class="menu-label">Poshmark Support Center <span class="menu-label-muted">(Empty state)</span></span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="faq"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span class="menu-label">Frequently Asked Questions</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="status"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="menu-label">Poshmark Status</span><span class="menu-arrow">›</span></a></li>
             <li><a href="#" class="settings-menu-item" data-menu="about"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="menu-label">About Poshmark</span><span class="menu-arrow">›</span></a></li>
@@ -1796,18 +2169,72 @@
         </div>
       </div>
 
-      <!-- Home (transactions + browse articles) -->
-      <div id="screenHome" class="screen">
-        <h1 class="section-title" style="margin-bottom:8px;">How can I help you today?</h1>
-        <p style="font-size:0.9rem;color:var(--text-muted-2);margin-bottom:24px;">Get help with orders, tracking, returns, and more.</p>
-        <div class="section-label">Your recent transactions</div>
-        <div class="recent-transactions-card">
-          <ul class="transactions-list" id="recentTransactionsList"></ul>
-          <button type="button" class="btn-show-all" id="btnShowAllTransactions">Show all transactions</button>
+      <!-- Variant C: goal-first landing (before search-first home or purchases/chat) -->
+      <div id="screenSupportCenterHub" class="screen">
+        <div class="support-landing-c">
+          <h1 class="support-landing-c-head">How can we help?</h1>
+          <p class="support-landing-c-lead">Pick what matches your situation — you can still search articles, check orders, or message us from any screen.</p>
+          <div class="support-landing-c-tiles">
+            <button type="button" class="support-landing-c-tile" id="landC-browseHelp" aria-label="Browse help articles">
+              <span class="support-landing-c-tile-icon" aria-hidden="true">📚</span>
+              <span class="support-landing-c-tile-text">
+                <span class="support-landing-c-tile-title">Browse help articles</span>
+                <span class="support-landing-c-tile-desc">Search answers and explore topics</span>
+              </span>
+              <span class="tile-chev" aria-hidden="true">›</span>
+            </button>
+            <button type="button" class="support-landing-c-tile" id="landC-ordersShipping" aria-label="Orders and shipping">
+              <span class="support-landing-c-tile-icon" aria-hidden="true">📦</span>
+              <span class="support-landing-c-tile-text">
+                <span class="support-landing-c-tile-title">Orders &amp; shipping</span>
+                <span class="support-landing-c-tile-desc">Purchases, tracking, and returns</span>
+              </span>
+              <span class="tile-chev" aria-hidden="true">›</span>
+            </button>
+            <button type="button" class="support-landing-c-tile" id="landC-chatSupport" aria-label="Chat with support">
+              <span class="support-landing-c-tile-icon" aria-hidden="true">💬</span>
+              <span class="support-landing-c-tile-text">
+                <span class="support-landing-c-tile-title">Chat with support</span>
+                <span class="support-landing-c-tile-desc">Message our team</span>
+              </span>
+              <span class="tile-chev" aria-hidden="true">›</span>
+            </button>
+          </div>
         </div>
-        <div class="section-label" style="margin-top:28px;">Browse all help topics</div>
+      </div>
+
+      <!-- Help home: Purchases / Sales tiles + Other issues (topics → articles → ticket) -->
+      <div id="screenHome" class="screen">
+        <span class="variant-b-badge">Support · Variant C</span>
+        <h1 class="section-title" style="margin-bottom:8px;">How can I help you today?</h1>
+        <p style="font-size:0.9rem;color:var(--text-muted-2);margin-bottom:20px;">Tell us if your issue is about something you bought, something you sold, or something else.</p>
+        <div class="support-entry-tiles">
+          <button type="button" class="support-entry-tile" id="homeTilePurchases" aria-label="Get help with a purchase">
+            <span class="support-entry-tile-icon" aria-hidden="true">🛒</span>
+            <span class="support-entry-tile-label">Purchases</span>
+            <span class="support-entry-tile-hint">Orders you bought</span>
+          </button>
+          <button type="button" class="support-entry-tile" id="homeTileSales" aria-label="Get help with a sale">
+            <span class="support-entry-tile-icon" aria-hidden="true">🏷️</span>
+            <span class="support-entry-tile-label">Sales</span>
+            <span class="support-entry-tile-hint">Orders you sold</span>
+          </button>
+        </div>
+        <div class="section-label" style="margin-top:8px;">Other issues</div>
+        <p class="support-other-lead">Account, payments, safety, and general topics — pick a category, then an article. Still stuck? You can open a case from the article.</p>
         <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:12px;">
           <ul class="topic-list" id="topicList"></ul>
+        </div>
+      </div>
+
+      <!-- Search results (Variant B) -->
+      <div id="screenSearchResults" class="screen">
+        <h2 class="section-title" id="searchResultsHeading">Search results</h2>
+        <p id="searchResultsQuery" style="font-size:0.875rem;color:var(--text-muted);margin:-12px 0 16px;"></p>
+        <ul class="search-results-list" id="searchResultsList"></ul>
+        <div class="search-empty" id="searchResultsEmpty" style="display:none;">
+          <p>No articles matched that search. Try different words or browse topics on the previous screen.</p>
+          <button type="button" class="btn-link-chat" id="searchEmptyChatBtn">Chat with support</button>
         </div>
       </div>
 
@@ -1884,8 +2311,8 @@
       <!-- Contact submitted -->
       <div id="screenContactDone" class="screen">
         <h2 class="section-title">Your issue has been received!</h2>
-        <p style="font-size:0.95rem;color:var(--text-muted-2);margin-bottom:20px;">Case <strong id="contactCaseId">#PM-2026-001</strong> has been created. You can track it under My cases. We’ll reply as soon as we can.</p>
-        <a href="#" class="btn btn-full" id="goToCasesBtn">View My cases</a>
+        <p style="font-size:0.95rem;color:var(--text-muted-2);margin-bottom:20px;">Case <strong id="contactCaseId">#PM-2026-001</strong> has been created. We’ll reply as soon as we can.</p>
+        <a href="#" class="btn btn-full" id="goToCasesBtn">Back to help home</a>
         <button type="button" class="link-text-below" id="browseMoreHelp">Browse more help</button>
       </div>
 
@@ -1900,6 +2327,7 @@
         <ul class="transactions-list" id="allTransactionsSales" style="display:none;"></ul>
       </div>
 
+      <!-- Purchases list (from Me → Purchases) -->
       <div id="screenMyPurchases" class="screen">
         <div class="purchases-search">
           <input type="search" id="myPurchasesSearch" placeholder="Search My Purchases" enterkeyhint="search" autocomplete="off" />
@@ -1907,7 +2335,7 @@
         <ul class="transactions-list purchases-app-list" id="myPurchasesList"></ul>
       </div>
 
-      <!-- Order Details (section dividers, collapsible payment, Order Status, Open cases) -->
+      <!-- Order Details (app-style: tracking on same page, Accept Order, Message Seller, Problems) -->
       <div id="screenOrderDetails" class="screen">
         <div class="order-details-page" id="orderDetailsPageRoot">
           <div class="od-section od-section-meta">
@@ -2044,11 +2472,11 @@
         <div class="order-help-card" id="orderHelpCard">
           <div class="order-id" id="orderHelpOrderId">Order ID —</div>
           <div class="order-party" id="orderHelpParty">—</div>
-          <div class="order-product">
+          <button type="button" class="order-product order-product-tappable" id="orderHelpProductRow" aria-label="View order details and tracking">
             <div class="order-product-img" id="orderHelpProductImg"><img id="orderHelpProductImgSrc" src="" alt="" /></div>
             <span class="order-product-name" id="orderHelpProductName">—</span>
-            <span class="order-product-arrow">›</span>
-          </div>
+            <span class="order-product-arrow" aria-hidden="true">›</span>
+          </button>
         </div>
         <div class="order-issues-title">What issue are you facing?</div>
         <ul class="order-issues-list" id="orderIssuesList"></ul>
@@ -2084,7 +2512,12 @@
     <!-- My cases -->
     <div id="segmentCases" class="screen">
       <div id="casesUnifiedList" class="cases-list"></div>
-      <div id="emptyCases" class="empty-cases" style="display:none;">No cases yet. Use Help to find articles or contact support.</div>
+      <div id="emptyCases" class="empty-cases-block" style="display:none;" role="status" aria-live="polite">
+        <div class="empty-cases-icon" aria-hidden="true">📋</div>
+        <h2 class="empty-cases-title" id="emptyCasesTitle">No cases yet</h2>
+        <p class="empty-cases-body" id="emptyCasesBody">When you reach out to Poshmark Support, your cases will show up here. Tap + to get help with an order or browse topics.</p>
+        <p class="empty-cases-demo-note" id="emptyCasesDemoNote" style="display:none;">Prototype: you opened this screen via “Poshmark Support Center (Empty state)” in the menu below.</p>
+      </div>
     </div>
 
     <!-- Case detail -->
@@ -2127,8 +2560,15 @@
         <textarea id="caseReopenInput" placeholder="Why are you reopening this case?"></textarea>
         <button type="button" class="btn-reopen" id="caseReopenBtn">Reopen ticket</button>
       </div>
+      <div class="case-detail-different-issue" id="caseDetailDifferentIssueWrap" style="display:none;">
+        <p class="case-detail-different-issue-lead">
+          Need help with something else on this order?
+          <button type="button" class="case-detail-different-issue-link" id="caseDetailDifferentIssueBtn">I have a different issue to report</button>
+        </p>
+      </div>
     </div>
 
+    <!-- News: case tracking notifications (All tab + placeholders) -->
     <div id="segmentNews" class="screen news-screen">
       <div class="news-tabs-wrap">
         <div class="news-tabs-scroll" role="tablist" aria-label="Notification categories">
@@ -2151,6 +2591,10 @@
     </div>
   </div>
 
+        <div class="cases-fab-float" id="casesFabFloat" aria-hidden="true">
+          <button type="button" class="cases-fab-round" id="casesNewCaseBtn" aria-label="Create new case">+</button>
+        </div>
+
         <nav class="bottom-nav" aria-label="Main navigation">
           <a href="#" class="bottom-nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span>Home</span></a>
           <a href="#" class="bottom-nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span>Search</span></a>
@@ -2160,20 +2604,6 @@
         </nav>
       </div>
 
-    <div class="order-existing-case-overlay" id="orderExistingCaseOverlay" aria-hidden="true">
-      <div class="order-existing-case-sheet" role="dialog" aria-modal="true" aria-labelledby="orderExistingCaseTitle">
-        <div class="order-existing-case-header">
-          <h3 id="orderExistingCaseTitle">Contact Poshmark Support</h3>
-          <button type="button" class="order-existing-case-close" id="orderExistingCaseClose" aria-label="Close">&times;</button>
-        </div>
-        <div class="order-existing-case-body">
-          <p class="order-existing-case-lead">You already have an open case for this order. Do you want to continue replying there?</p>
-          <button type="button" class="btn-sheet btn-sheet-primary" id="orderExistingCaseContinue">Continue replying in my open case</button>
-          <button type="button" class="btn-sheet btn-sheet-secondary" id="orderExistingCaseNew">No, I want to report a new problem</button>
-          <p class="order-existing-case-note">Continuing your old thread will ensure the agent will have detailed context and will lead to a faster resolution.</p>
-        </div>
-      </div>
-    </div>
     </div>
   </div>
 
@@ -2185,14 +2615,20 @@
     categoryLabel: '',
     article: null,
     articleIndex: -1,
+    articleFromSearch: false,
+    homeEnteredFromSupportHub: false,
+    homeEnteredFromSupportHome: false,
+    casesBackTarget: 'home',
+    contactFrom: null,
     currentCase: null,
     caseDetailFrom: 'cases',
     selectedOrder: null,
     cameFrom: 'home',
     cameFromOrderDetails: false,
-    contactSupportContinueCase: null,
-    existingCaseModalReturnTo: null,
     myPurchasesBackTarget: 'home',
+    supportListMode: 'purchases',
+    orderHelpLaunchedFrom: null,
+    casesDemoEmpty: false,
     cases: [
       { id: 'PM-2026-001', linkedTxnId: 'txn2', orderName: 'Leather Crossbody Bag', openedTime: new Date('2026-03-02T10:00:00').getTime(), subject: 'Item not received', category: 'Orders', article: 'Item not received – what to do', status: 'in_progress', openDate: 'Mar 2, 2026', estimatedClosure: 'Mar 9, 2026', messages: [
         { who: 'You', body: 'I read the article but my order still didn’t arrive. Order #12345.', time: 'Mar 2, 2:30 PM' },
@@ -2341,7 +2777,7 @@
     ]
   };
 
-  var helpScreenIds = ['screenSupportEntry', 'screenHome', 'screenArticleList', 'screenArticle', 'screenChatbot', 'screenContact', 'screenContactDone', 'screenAllTransactions', 'screenMyPurchases', 'screenOrderDetails', 'screenOrderHelp', 'screenOrderTracking'];
+  var helpScreenIds = ['screenSupportEntry', 'screenSupportCenterHub', 'screenHome', 'screenSearchResults', 'screenArticleList', 'screenArticle', 'screenChatbot', 'screenContact', 'screenContactDone', 'screenAllTransactions', 'screenMyPurchases', 'screenOrderDetails', 'screenOrderHelp', 'screenOrderTracking'];
 
   var TOPICS = [
     { id: 'account', label: 'Account', emoji: '👤' },
@@ -2370,6 +2806,15 @@
       { id: 's4', type: 'sale', name: 'Canvas Shoes', meta: 'Sold Feb 26, 2026', amount: '$35.00', orderId: 'SALE-2004', orderDate: 'Feb 26, 2026', soldTo: 'Jordan', price: '$35.00', size: '9', orderTotal: '$39.10', orderStatus: 'transit' }
     ]
   };
+
+  /** Seller-side issue list (after choosing a sale from Support home) */
+  var ORDER_ISSUES_SELLER = [
+    { id: 'ship_track', label: 'Shipping or tracking for this sale', screen: 'tracking' },
+    { id: 'payout', label: 'When will I get paid?', screen: 'article', topic: 'payment_earnings', articleIndex: 1 },
+    { id: 'return_buyer', label: 'Return or problem with this buyer', screen: 'article', topic: 'returns', articleIndex: 0 },
+    { id: 'cancel', label: 'Cancellation question', screen: 'article', topic: 'order_related', articleIndex: 7 },
+    { id: 'others', label: 'Others / My issue is not listed here', screen: 'chatbot' }
+  ];
 
   var ORDER_ISSUES = [
     { id: 'track_order', label: 'Where is my order? / Track my order', screen: 'tracking' },
@@ -2410,44 +2855,75 @@
       }
     }
     if (id === 'segmentCases') {
-      if (wrapper) wrapper.classList.add('cases-list-view');
+      if (wrapper) {
+        wrapper.classList.add('cases-list-view');
+        wrapper.classList.remove('case-detail-shell');
+      }
+      var fabAria = document.getElementById('casesFabFloat');
+      if (fabAria) fabAria.setAttribute('aria-hidden', 'false');
       if (titleEl) {
-        titleEl.textContent = 'Track My Cases';
+        titleEl.textContent = 'My cases';
         titleEl.classList.remove('title-support-center');
       }
     } else if (id === 'segmentCaseDetail') {
-      if (wrapper) wrapper.classList.remove('cases-list-view');
+      if (wrapper) {
+        wrapper.classList.remove('cases-list-view');
+        wrapper.classList.add('case-detail-shell');
+      }
+      var fabAria2 = document.getElementById('casesFabFloat');
+      if (fabAria2) fabAria2.setAttribute('aria-hidden', 'true');
       if (titleEl) titleEl.textContent = 'Track My Cases';
     } else if (id === 'segmentNews') {
-      if (wrapper) wrapper.classList.remove('cases-list-view');
+      if (wrapper) {
+        wrapper.classList.remove('cases-list-view');
+        wrapper.classList.remove('case-detail-shell');
+      }
+      var fabAria3 = document.getElementById('casesFabFloat');
+      if (fabAria3) fabAria3.setAttribute('aria-hidden', 'true');
       if (titleEl) {
         titleEl.textContent = 'News';
         titleEl.classList.remove('title-support-center');
       }
     } else {
-      if (wrapper) wrapper.classList.remove('cases-list-view');
+      if (wrapper) {
+        wrapper.classList.remove('cases-list-view');
+        wrapper.classList.remove('case-detail-shell');
+      }
+      var fabAria4 = document.getElementById('casesFabFloat');
+      if (fabAria4) fabAria4.setAttribute('aria-hidden', 'true');
     }
   }
 
   function showHelpScreen(name) {
-    var map = { supportEntry: 'screenSupportEntry', home: 'screenHome', articleList: 'screenArticleList', article: 'screenArticle', chatbot: 'screenChatbot', contact: 'screenContact', contactDone: 'screenContactDone', allTransactions: 'screenAllTransactions', myPurchases: 'screenMyPurchases', orderDetails: 'screenOrderDetails', orderHelp: 'screenOrderHelp', orderTracking: 'screenOrderTracking' };
+    var map = { supportEntry: 'screenSupportEntry', supportCenterHub: 'screenSupportCenterHub', home: 'screenHome', searchResults: 'screenSearchResults', articleList: 'screenArticleList', article: 'screenArticle', chatbot: 'screenChatbot', contact: 'screenContact', contactDone: 'screenContactDone', allTransactions: 'screenAllTransactions', myPurchases: 'screenMyPurchases', orderDetails: 'screenOrderDetails', orderHelp: 'screenOrderHelp', orderTracking: 'screenOrderTracking' };
     showScreen(map[name] || name);
     var titleEl = document.getElementById('headerTitle');
     if (titleEl) {
-      titleEl.classList.remove('title-purchases-serif');
+      titleEl.classList.remove('title-support-center');
       if (name === 'supportEntry') {
         titleEl.textContent = 'Account';
+        titleEl.classList.remove('title-purchases-serif');
+        titleEl.classList.remove('title-order-details-serif');
+      } else if (name === 'supportCenterHub') {
+        titleEl.textContent = 'Get help';
+        titleEl.classList.add('title-support-center');
+        titleEl.classList.remove('title-purchases-serif');
         titleEl.classList.remove('title-order-details-serif');
       } else if (name === 'orderDetails') {
         titleEl.textContent = 'Order Details';
-        titleEl.classList.add('title-order-details-serif');
         titleEl.classList.remove('title-purchases-serif');
+        titleEl.classList.add('title-order-details-serif');
       } else if (name === 'myPurchases') {
-        titleEl.textContent = 'Purchases';
+        titleEl.textContent = state.supportListMode === 'sales' ? 'Sales' : 'Purchases';
+        titleEl.classList.remove('title-support-center');
         titleEl.classList.remove('title-order-details-serif');
         titleEl.classList.add('title-purchases-serif');
+        var searchPh = document.getElementById('myPurchasesSearch');
+        if (searchPh) searchPh.placeholder = state.supportListMode === 'sales' ? 'Search my sales' : 'Search my purchases';
+        populateSupportTxnList();
       } else {
         titleEl.textContent = 'Poshmark Support';
+        titleEl.classList.remove('title-purchases-serif');
         titleEl.classList.remove('title-order-details-serif');
       }
     }
@@ -2455,6 +2931,7 @@
     if (wrapper) {
       wrapper.classList.toggle('entry-view', name === 'supportEntry');
       wrapper.classList.toggle('order-details-view', name === 'orderDetails');
+      wrapper.classList.toggle('support-hub-view', name === 'supportCenterHub');
       wrapper.classList.toggle('purchases-list-view', name === 'myPurchases');
     }
   }
@@ -2516,20 +2993,6 @@
     container.scrollTop = container.scrollHeight;
   }
 
-  function appendChatbotMyCasesButton() {
-    var container = document.getElementById('chatbotMessages');
-    if (!container) return;
-    var row = document.createElement('div');
-    row.className = 'chatbot-msg-row bot';
-    row.innerHTML = '<div class="chatbot-msg-icon bot">' + CHATBOT_ICON_BOT + '</div>';
-    var card = document.createElement('div');
-    card.className = 'chatbot-msg chatbot-my-cases-card';
-    card.innerHTML = '<button type="button" class="chatbot-msg-link chatbot-my-cases-btn" data-action="go-to-cases">My cases</button>';
-    row.appendChild(card);
-    container.appendChild(row);
-    container.scrollTop = container.scrollHeight;
-  }
-
   function getBotReply(userText, context) {
     var msg = (userText || '').toLowerCase().trim();
     if (context === 'order_related' || context === 'orders') {
@@ -2564,7 +3027,7 @@
       lastUpdated: nowTime,
       statusLine: 'We\'ve received your case and a specialist will review it.',
       expectedResolution: '48 hours',
-      imageUrl: sel && ctype !== 'general' ? ('https://picsum.photos/seed/' + String(caseId).replace(/[^a-zA-Z0-9]/g, '') + '/144/144') : undefined,
+      imageUrl: sel && ctype !== 'general' ? caseCardImageUrl({ id: caseId }) : undefined,
       estimatedClosure: (function () { var d = new Date(); d.setDate(d.getDate() + 7); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); })(),
       messages: [
         { who: 'You', body: userText, time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) },
@@ -2572,31 +3035,19 @@
       ]
     });
     return {
-      text: 'I need further help to assist you with this. I\'ve raised a case for one of our experts to help you. Your case has been created. You can track the case status below.',
+      text: 'I need further help to assist you with this. I\'ve raised a case for one of our experts to help you. Your case has been created.',
       createCase: true,
-      caseId: caseId,
-      showMyCasesButton: true
+      caseId: caseId
     };
   }
 
   function renderRecentTransactions() {
-    var combined = TRANSACTIONS.purchases.slice(0, 2).concat(TRANSACTIONS.sales.slice(0, 1));
-    var list = (combined.length ? combined : TRANSACTIONS.purchases.slice(0, 3)).map(function (t) {
-      var tagClass = t.type === 'purchase' ? 'purchase' : 'sale';
-      var tagText = t.type === 'purchase' ? 'Purchase' : 'Sale';
-      return '<li class="txn-row" data-txn-id="' + escapeHtml(t.id) + '"><div class="txn-tag-row"><span class="txn-tag ' + tagClass + '">' + tagText + '</span></div><div class="txn-info"><div class="txn-name">' + escapeHtml(t.name) + '</div><div class="txn-meta">' + escapeHtml(t.meta) + '</div></div><div class="txn-amount">' + escapeHtml(t.amount) + '</div><span class="txn-support-icon" aria-label="Get help">›</span></li>';
-    }).join('');
-    var el = document.getElementById('recentTransactionsList');
-    if (el) {
-      el.innerHTML = list;
-      el.querySelectorAll('.txn-row').forEach(function (li) {
-        li.addEventListener('click', function () {
-          var id = li.getAttribute('data-txn-id');
-          var t = findTransaction(id);
-          if (t) openOrderHelp(t);
-        });
-      });
-    }
+    /* Legacy hook — help home uses Purchases / Sales tiles instead */
+  }
+
+  function populateSupportTxnList() {
+    if (state.supportListMode === 'sales') populateMySalesList();
+    else populateMyPurchasesList();
   }
 
   function findTransaction(id) {
@@ -2754,14 +3205,6 @@
     });
   }
 
-  function hideOrderExistingCaseModal() {
-    var o = document.getElementById('orderExistingCaseOverlay');
-    if (!o) return;
-    o.setAttribute('aria-hidden', 'true');
-    state.contactSupportContinueCase = null;
-    state.existingCaseModalReturnTo = null;
-  }
-
   var PURCHASE_LIST_STATUS_LABELS = {
     placed: 'Order Placed',
     shipped: 'Shipped by Seller',
@@ -2770,6 +3213,51 @@
     complete: 'Order Complete',
     cancelled: 'Order Cancelled'
   };
+
+  /** Main menu Me → Purchases/Sales list: order details. Support flows → same list: order help (“purchase support”). */
+  function openRowFromPurchasesAppList(order) {
+    if (!order) return;
+    if (state.myPurchasesBackTarget === 'me') openOrderDetails(order, 'myPurchases');
+    else openOrderHelp(order, 'myPurchases');
+  }
+
+  function populateMySalesList() {
+    var list = document.getElementById('myPurchasesList');
+    if (!list) return;
+    list.innerHTML = TRANSACTIONS.sales.map(function (t) {
+      var price = t.price || t.amount || '—';
+      var sizePart = t.size ? 'Size: ' + t.size : '';
+      var buyerPart = t.soldTo ? 'Buyer: ' + t.soldTo : '';
+      var detailParts = [price, sizePart, buyerPart].filter(Boolean);
+      var detail = detailParts.join(' · ');
+      var st = t.orderStatus || 'placed';
+      var statusLabel = PURCHASE_LIST_STATUS_LABELS[st] || st;
+      var thumbSrc = t.imageUrl || ('https://picsum.photos/seed/' + encodeURIComponent(t.id) + '/144/144');
+      return '<li class="purchase-app-row" data-txn-id="' + escapeHtml(t.id) + '" role="button" tabindex="0">' +
+        '<div class="purchase-app-thumb"><img src="' + escapeAttr(thumbSrc) + '" alt="" width="72" height="72" loading="lazy" /></div>' +
+        '<div class="purchase-app-body">' +
+        '<div class="purchase-app-badge"><span class="purchase-app-badge-pill purchase-app-badge-pill--sale">Sale</span></div>' +
+        '<div class="purchase-app-title-row">' +
+        '<span class="purchase-app-title">' + escapeHtml(t.name || '—') + '</span>' +
+        '<span class="purchase-app-price">' + escapeHtml(price) + '</span>' +
+        '</div>' +
+        '<div class="purchase-app-meta">' + escapeHtml(detail) + '</div>' +
+        '<div class="purchase-app-status">' +
+        '<span class="purchase-app-status-ico" aria-hidden="true">📦</span>' +
+        '<span class="purchase-app-status-text">' + escapeHtml(statusLabel) + '</span></div></div>' +
+        '<span class="purchase-app-chev" aria-hidden="true">›</span></li>';
+    }).join('');
+    list.querySelectorAll('.purchase-app-row').forEach(function (li) {
+      li.addEventListener('click', function () {
+        var id = li.getAttribute('data-txn-id');
+        var t = null;
+        for (var i = 0; i < TRANSACTIONS.sales.length; i++) {
+          if (TRANSACTIONS.sales[i].id === id) { t = TRANSACTIONS.sales[i]; break; }
+        }
+        if (t) openRowFromPurchasesAppList(t);
+      });
+    });
+  }
 
   function populateMyPurchasesList() {
     var list = document.getElementById('myPurchasesList');
@@ -2803,40 +3291,27 @@
     list.querySelectorAll('.purchase-app-row').forEach(function (li) {
       li.addEventListener('click', function () {
         var t = findTransaction(li.getAttribute('data-txn-id'));
-        if (t) openOrderDetails(t, 'myPurchases');
+        if (t) openRowFromPurchasesAppList(t);
       });
     });
   }
 
   function openMyPurchasesFromMeMenu() {
+    state.supportListMode = 'purchases';
     state.myPurchasesBackTarget = 'me';
-    populateMyPurchasesList();
     showHelpScreen('myPurchases');
   }
 
   function openMyPurchasesFromHelpHome() {
+    state.supportListMode = 'purchases';
     state.myPurchasesBackTarget = 'home';
-    populateMyPurchasesList();
     showHelpScreen('myPurchases');
   }
 
-  function showOrderExistingCaseModal(mostRecentCase) {
-    state.contactSupportContinueCase = mostRecentCase || null;
-    var o = document.getElementById('orderExistingCaseOverlay');
-    if (!o) return;
-    o.setAttribute('aria-hidden', 'false');
-  }
-
-  function proceedContactPoshmarkNewProblem() {
-    hideOrderExistingCaseModal();
-    state.category = 'order_related';
-    state.categoryLabel = categoryLabels.order_related || 'Order Related';
-    state.article = { title: 'Contact Poshmark Support — order issue' };
-    var preCat = document.getElementById('prefillCategory');
-    var preArt = document.getElementById('prefillArticle');
-    if (preCat) preCat.textContent = state.categoryLabel;
-    if (preArt) preArt.textContent = state.article.title;
-    showHelpScreen('contact');
+  function openMySalesFromHelpHome() {
+    state.supportListMode = 'sales';
+    state.myPurchasesBackTarget = 'home';
+    showHelpScreen('myPurchases');
   }
 
   function renderOrderDetailsOpenCases(order) {
@@ -2866,10 +3341,13 @@
   function openOrderDetails(order, from) {
     state.selectedOrder = order;
     state.cameFrom = from || 'home';
+    var isSale = order.type === 'sale';
     var dateStr = (order.orderDate || order.meta || '—').replace(/^Paid\s+/i, '').replace(/^Sold\s+/i, '');
-    document.getElementById('orderDetailsOrderedOn').textContent = 'Ordered On ' + dateStr;
+    document.getElementById('orderDetailsOrderedOn').textContent = (isSale ? 'Sold on ' : 'Ordered On ') + dateStr;
     document.getElementById('orderDetailsOrderNumber').textContent = 'Order Number: ' + (order.orderId || order.id);
-    document.getElementById('orderDetailsSoldBy').textContent = 'Sold By: ' + (order.seller || order.supplier || '—');
+    document.getElementById('orderDetailsSoldBy').textContent = isSale
+      ? ('Buyer: ' + (order.soldTo || '—'))
+      : ('Sold By: ' + (order.seller || order.supplier || '—'));
     document.getElementById('orderDetailsProductName').textContent = order.name || '—';
     var price = order.price || order.amount || '—';
     var sizePart = order.size ? 'Size: ' + order.size : '';
@@ -2905,7 +3383,7 @@
       document.getElementById('orderDetailsTrackingStatus').textContent = trackingLabel;
     }
     var acceptCard = document.getElementById('orderDetailsAcceptCard');
-    if (acceptCard) acceptCard.style.display = (statusKey === 'complete' || statusKey === 'cancelled') ? 'none' : 'block';
+    if (acceptCard) acceptCard.style.display = (isSale || statusKey === 'complete' || statusKey === 'cancelled') ? 'none' : 'block';
     var cantLocateWrap = document.getElementById('orderDetailsCantLocateWrap');
     if (cantLocateWrap) cantLocateWrap.style.display = (statusKey === 'delivered') ? 'block' : 'none';
     var trackingNotUpdatedWrap = document.getElementById('orderDetailsTrackingNotUpdatedWrap');
@@ -2933,8 +3411,9 @@
     if (titleEl) titleEl.textContent = 'Order Details';
   }
 
-  function openOrderHelp(order) {
+  function openOrderHelp(order, launchedFrom) {
     state.selectedOrder = order;
+    state.orderHelpLaunchedFrom = typeof launchedFrom === 'string' ? launchedFrom : null;
     document.getElementById('orderHelpOrderId').textContent = 'Order ID ' + (order.orderId || order.id);
     var partyText = order.type === 'sale' ? ('Sold to ' + (order.soldTo || 'Buyer')) : ('Supplier: ' + (order.supplier || 'Seller'));
     document.getElementById('orderHelpParty').textContent = partyText;
@@ -2944,71 +3423,38 @@
       imgEl.src = order.imageUrl || ('https://picsum.photos/seed/' + encodeURIComponent(order.id) + '/112/112');
       imgEl.alt = order.name || 'Product';
     }
+    var issueSet = order.type === 'sale' ? ORDER_ISSUES_SELLER : ORDER_ISSUES;
     var list = document.getElementById('orderIssuesList');
-    list.innerHTML = ORDER_ISSUES.map(function (issue, idx) {
+    list.innerHTML = issueSet.map(function (issue, idx) {
       return '<li data-issue-index="' + idx + '"><span class="issue-text">' + escapeHtml(issue.label) + '</span><span class="issue-arrow">›</span></li>';
     }).join('');
     list.querySelectorAll('li').forEach(function (li) {
       li.addEventListener('click', function () {
         var idx = parseInt(li.getAttribute('data-issue-index'), 10);
-        var issue = ORDER_ISSUES[idx];
+        var issue = issueSet[idx];
         if (issue.screen === 'tracking') {
           openOrderDetails(state.selectedOrder, 'orderHelp');
         } else if (issue.screen === 'chatbot') {
           state.chatbotFrom = 'orderHelp';
-          state.chatbotContext = 'order_related';
+          state.chatbotContext = order.type === 'sale' ? 'selling' : 'order_related';
           openChatbot();
         } else {
-          state.category = issue.topic || 'order_related';
-          state.categoryLabel = categoryLabels[state.category] || 'Order Related';
-          state.articleIndex = issue.articleIndex;
-          var articles = articlesByCategory[state.category] || [];
-          state.article = articles[state.articleIndex];
-          if (state.article) {
-            document.getElementById('articleListCategoryLabel').textContent = state.categoryLabel;
-            document.getElementById('articleBreadcrumb').textContent = state.categoryLabel;
-            document.getElementById('articleTitle').textContent = state.article.title;
-            var bodyEl = document.getElementById('articleBody');
-            var ctaBox = document.getElementById('articleCtaBox');
-            var reportBox = document.getElementById('articleReportLostBox');
-            ctaBox.style.display = 'none';
-            reportBox.style.display = 'none';
-            if (state.article.special === 'delivered_cant_locate') {
-              var deliveredDate = DELIVERED_CANT_LOCATE_DATE;
-              var deliveredStr = deliveredDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-              var eligibleDate = new Date(deliveredDate.getTime() + 5 * 86400000);
-              var eligibleStr = eligibleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-              bodyEl.innerHTML = '<p>Your order was marked <strong>delivered on ' + escapeHtml(deliveredStr) + '</strong>.</p><p>Please search around your home and ask neighbors or your carrier. If you still cannot find it by <strong>' + escapeHtml(eligibleStr) + '</strong> (5 days after delivery), you are eligible for a refund.</p><p>You can raise a request for a lost package after 5 days using the button below.</p>';
-              reportBox.style.display = 'block';
-              var now = Date.now();
-              var daysSince = Math.floor((now - deliveredDate.getTime()) / 86400000);
-              var btn = document.getElementById('reportLostBtn');
-              var hint = document.getElementById('reportLostHint');
-              if (daysSince >= 5) {
-                btn.classList.remove('disabled');
-                btn.removeAttribute('title');
-                btn.disabled = false;
-                hint.textContent = 'You can now report this package as lost.';
-              } else {
-                btn.classList.add('disabled');
-                btn.title = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
-                btn.disabled = true;
-                hint.textContent = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
-              }
-            } else {
-              bodyEl.innerHTML = state.article.body || '';
-              if (state.article.cta === 'my_purchases') {
-                ctaBox.style.display = 'block';
-                document.getElementById('articleCtaBtn').textContent = 'Go to my Purchases';
-              }
-            }
-            showHelpScreen('article');
+          var topic = issue.topic || 'order_related';
+          var arts = articlesByCategory[topic] || [];
+          if (arts[issue.articleIndex]) {
+            showArticleScreen(topic, issue.articleIndex, false);
           } else {
             showHelpScreen('orderHelp');
           }
         }
       });
     });
+    var productRowBtn = document.getElementById('orderHelpProductRow');
+    if (productRowBtn) {
+      productRowBtn.onclick = function () {
+        openOrderDetails(state.selectedOrder, 'orderHelp');
+      };
+    }
     showHelpScreen('orderHelp');
   }
 
@@ -3054,6 +3500,120 @@
     });
   }
 
+  function showArticleScreen(category, articleIndex, fromSearch) {
+    state.articleFromSearch = !!fromSearch;
+    state.category = category;
+    state.categoryLabel = categoryLabels[state.category] || state.category;
+    var list = articlesByCategory[state.category] || [];
+    state.articleIndex = articleIndex;
+    state.article = list[articleIndex];
+    if (!state.article) return;
+    document.getElementById('articleBreadcrumb').textContent = state.categoryLabel;
+    document.getElementById('articleTitle').textContent = state.article.title;
+    var bodyEl = document.getElementById('articleBody');
+    var ctaBox = document.getElementById('articleCtaBox');
+    var reportBox = document.getElementById('articleReportLostBox');
+    ctaBox.style.display = 'none';
+    reportBox.style.display = 'none';
+    if (state.article.special === 'delivered_cant_locate') {
+      var deliveredDate = DELIVERED_CANT_LOCATE_DATE;
+      var deliveredStr = deliveredDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      var eligibleDate = new Date(deliveredDate.getTime() + 5 * 86400000);
+      var eligibleStr = eligibleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      bodyEl.innerHTML = '<p>Your order was marked <strong>delivered on ' + escapeHtml(deliveredStr) + '</strong>.</p><p>Please search around your home and ask neighbors or your carrier. If you still cannot find it by <strong>' + escapeHtml(eligibleStr) + '</strong> (5 days after delivery), you are eligible for a refund.</p><p>You can raise a request for a lost package after 5 days using the button below.</p>';
+      reportBox.style.display = 'block';
+      var now = Date.now();
+      var daysSince = Math.floor((now - deliveredDate.getTime()) / 86400000);
+      var btn = document.getElementById('reportLostBtn');
+      var hint = document.getElementById('reportLostHint');
+      if (daysSince >= 5) {
+        btn.classList.remove('disabled');
+        btn.removeAttribute('title');
+        btn.disabled = false;
+        hint.textContent = 'You can now report this package as lost.';
+      } else {
+        btn.classList.add('disabled');
+        btn.title = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
+        btn.disabled = true;
+        hint.textContent = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
+      }
+    } else {
+      bodyEl.innerHTML = state.article.body || '';
+      if (state.article.cta === 'my_purchases') {
+        ctaBox.style.display = 'block';
+        document.getElementById('articleCtaBtn').textContent = 'Go to my Purchases';
+      }
+    }
+    showHelpScreen('article');
+  }
+
+  function runHelpSearch(q) {
+    q = (q || '').trim().toLowerCase();
+    var results = [];
+    var seen = {};
+    if (!q) return results;
+    var synonyms = { track: 'tracking', shipped: 'ship', package: 'order', money: 'refund pay payment', login: 'password account' };
+    var expanded = q;
+    Object.keys(synonyms).forEach(function (k) {
+      if (q.indexOf(k) !== -1) expanded += ' ' + synonyms[k];
+    });
+    var words = expanded.split(/\s+/).filter(function (w) { return w.length > 1; });
+    TOPICS.forEach(function (t) {
+      var list = articlesByCategory[t.id] || [];
+      list.forEach(function (a, i) {
+        var title = a.title.toLowerCase();
+        var topic = (t.label + ' ' + t.id).toLowerCase();
+        var match = title.indexOf(q) !== -1 || topic.indexOf(q) !== -1 ||
+          words.some(function (w) { return title.indexOf(w) !== -1 || topic.indexOf(w) !== -1; });
+        if (match) {
+          var key = t.id + ':' + i;
+          if (!seen[key]) {
+            seen[key] = 1;
+            results.push({ category: t.id, index: i, title: a.title, topicLabel: t.label });
+          }
+        }
+      });
+    });
+    return results;
+  }
+
+  function goToSearchResults() {
+    var input = document.getElementById('helpSearchInput');
+    var q = (input && input.value) ? input.value.trim() : '';
+    state.lastSearchQuery = q;
+    var results = runHelpSearch(q);
+    var listEl = document.getElementById('searchResultsList');
+    var emptyEl = document.getElementById('searchResultsEmpty');
+    var queryEl = document.getElementById('searchResultsQuery');
+    if (queryEl) queryEl.textContent = q ? 'Results for “' + q + '”' : '';
+    if (!q) {
+      if (input) input.focus();
+      return;
+    }
+    if (results.length === 0) {
+      listEl.innerHTML = '';
+      emptyEl.style.display = 'block';
+      emptyEl.querySelector('p').textContent = 'No articles matched that search. Try different words or browse topics on the previous screen.';
+      showHelpScreen('searchResults');
+      return;
+    }
+    emptyEl.style.display = 'none';
+    listEl.innerHTML = results.map(function (r) {
+      return '<li><a href="#" class="search-result-item" data-cat="' + escapeHtml(r.category) + '" data-idx="' + r.index + '">' +
+        '<span class="sr-topic">' + escapeHtml(r.topicLabel) + '</span>' +
+        '<span class="sr-title">' + escapeHtml(r.title) + '</span></a></li>';
+    }).join('');
+    listEl.querySelectorAll('.search-result-item').forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        var cat = this.getAttribute('data-cat');
+        var idx = parseInt(this.getAttribute('data-idx'), 10);
+        showArticleScreen(cat, idx, true);
+      });
+    });
+    showHelpScreen('searchResults');
+  }
+
   function onTopicChosen(category) {
     state.category = category;
     state.categoryLabel = categoryLabels[state.category] || state.category;
@@ -3074,45 +3634,7 @@
           openChatbot();
           return;
         }
-        state.articleIndex = parseInt(this.getAttribute('data-index'), 10);
-        state.article = list[state.articleIndex];
-        document.getElementById('articleBreadcrumb').textContent = state.categoryLabel;
-        document.getElementById('articleTitle').textContent = state.article.title;
-        var bodyEl = document.getElementById('articleBody');
-        var ctaBox = document.getElementById('articleCtaBox');
-        var reportBox = document.getElementById('articleReportLostBox');
-        ctaBox.style.display = 'none';
-        reportBox.style.display = 'none';
-        if (state.article.special === 'delivered_cant_locate') {
-          var deliveredDate = DELIVERED_CANT_LOCATE_DATE;
-          var deliveredStr = deliveredDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-          var eligibleDate = new Date(deliveredDate.getTime() + 5 * 86400000);
-          var eligibleStr = eligibleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-          bodyEl.innerHTML = '<p>Your order was marked <strong>delivered on ' + escapeHtml(deliveredStr) + '</strong>.</p><p>Please search around your home and ask neighbors or your carrier. If you still cannot find it by <strong>' + escapeHtml(eligibleStr) + '</strong> (5 days after delivery), you are eligible for a refund.</p><p>You can raise a request for a lost package after 5 days using the button below.</p>';
-          reportBox.style.display = 'block';
-          var now = Date.now();
-          var daysSince = Math.floor((now - deliveredDate.getTime()) / 86400000);
-          var btn = document.getElementById('reportLostBtn');
-          var hint = document.getElementById('reportLostHint');
-          if (daysSince >= 5) {
-            btn.classList.remove('disabled');
-            btn.removeAttribute('title');
-            btn.disabled = false;
-            hint.textContent = 'You can now report this package as lost.';
-          } else {
-            btn.classList.add('disabled');
-            btn.title = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
-            btn.disabled = true;
-            hint.textContent = 'Available to report on ' + eligibleStr + ' (5th day after delivery).';
-          }
-        } else {
-          bodyEl.innerHTML = state.article.body || '';
-          if (state.article.cta === 'my_purchases') {
-            ctaBox.style.display = 'block';
-            document.getElementById('articleCtaBtn').textContent = 'Go to my Purchases';
-          }
-        }
-        showHelpScreen('article');
+        showArticleScreen(state.category, parseInt(this.getAttribute('data-index'), 10), false);
       });
     });
     showHelpScreen('articleList');
@@ -3120,7 +3642,58 @@
 
   document.getElementById('menuPoshmarkSupportCenter').addEventListener('click', function (e) {
     e.preventDefault();
+    state.casesDemoEmpty = false;
+    state.homeEnteredFromSupportHub = false;
+    state.homeEnteredFromSupportHome = false;
+    state.segment = 'cases';
+    state.caseDetailFrom = 'cases';
+    state.casesBackTarget = 'supportEntry';
+    showScreen('segmentCases');
+    renderCases();
+  });
+  document.getElementById('menuPoshmarkSupportCenterEmpty').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.casesDemoEmpty = true;
+    state.homeEnteredFromSupportHub = false;
+    state.homeEnteredFromSupportHome = false;
+    state.segment = 'cases';
+    state.caseDetailFrom = 'cases';
+    state.casesBackTarget = 'supportEntry';
+    showScreen('segmentCases');
+    renderCases();
+  });
+  document.getElementById('landC-browseHelp').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.homeEnteredFromSupportHome = false;
+    state.homeEnteredFromSupportHub = true;
     showHelpScreen('home');
+  });
+  document.getElementById('landC-ordersShipping').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.homeEnteredFromSupportHome = false;
+    state.homeEnteredFromSupportHub = true;
+    state.supportListMode = 'purchases';
+    state.myPurchasesBackTarget = 'supportHub';
+    showHelpScreen('myPurchases');
+  });
+  document.getElementById('landC-chatSupport').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.chatbotFrom = 'supportHub';
+    state.chatbotContext = 'general';
+    openChatbot();
+  });
+  var helpSearchBtn = document.getElementById('helpSearchBtn');
+  var helpSearchInput = document.getElementById('helpSearchInput');
+  if (helpSearchBtn) helpSearchBtn.addEventListener('click', function () { goToSearchResults(); });
+  if (helpSearchInput) {
+    helpSearchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); goToSearchResults(); }
+    });
+  }
+  document.getElementById('searchEmptyChatBtn').addEventListener('click', function () {
+    state.chatbotFrom = 'home';
+    state.chatbotContext = 'general';
+    openChatbot();
   });
   document.querySelectorAll('#screenSupportEntry .settings-menu-item[data-menu]').forEach(function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); });
@@ -3166,6 +3739,7 @@
       bottomNavMe.classList.add('active');
       bottomNavMe.setAttribute('aria-current', 'page');
       state.segment = 'help';
+      state.casesDemoEmpty = false;
       showHelpScreen('supportEntry');
     });
   }
@@ -3192,44 +3766,31 @@
     });
   });
 
-  document.getElementById('headerMyCases').addEventListener('click', function (e) {
-    e.preventDefault();
-    state.segment = 'cases';
-    state.caseDetailFrom = 'cases';
-    var meNav = document.getElementById('bottomNavMe');
-    var newsNav = document.getElementById('bottomNavNews');
-    if (meNav && newsNav) {
-      newsNav.classList.remove('active');
-      newsNav.removeAttribute('aria-current');
-      meNav.classList.add('active');
-      meNav.setAttribute('aria-current', 'page');
-    }
-    showScreen('segmentCases');
-    renderCases();
-  });
-
-  document.getElementById('btnShowAllTransactions').addEventListener('click', function () {
-    var salesList = document.getElementById('allTransactionsSales');
-    var purchasesList = document.getElementById('allTransactionsPurchases');
-    function txnRow(t, tagClass, tagText) {
-      return '<li class="txn-row" data-txn-id="' + escapeHtml(t.id) + '"><div class="txn-tag-row"><span class="txn-tag ' + tagClass + '">' + tagText + '</span></div><div class="txn-info"><div class="txn-name">' + escapeHtml(t.name) + '</div><div class="txn-meta">' + escapeHtml(t.meta) + '</div></div><div class="txn-amount">' + escapeHtml(t.amount) + '</div><span class="txn-support-icon">›</span></li>';
-    }
-    salesList.innerHTML = TRANSACTIONS.sales.map(function (t) { return txnRow(t, 'sale', 'Sale'); }).join('');
-    purchasesList.innerHTML = TRANSACTIONS.purchases.map(function (t) { return txnRow(t, 'purchase', 'Purchase'); }).join('');
-    salesList.querySelectorAll('.txn-row').forEach(function (li) {
-      li.addEventListener('click', function () {
-        var t = findTransaction(li.getAttribute('data-txn-id'));
-        if (t) openOrderHelp(t);
+  var btnShowAllTransactions = document.getElementById('btnShowAllTransactions');
+  if (btnShowAllTransactions) {
+    btnShowAllTransactions.addEventListener('click', function () {
+      var salesList = document.getElementById('allTransactionsSales');
+      var purchasesList = document.getElementById('allTransactionsPurchases');
+      function txnRow(t, tagClass, tagText) {
+        return '<li class="txn-row" data-txn-id="' + escapeHtml(t.id) + '"><div class="txn-tag-row"><span class="txn-tag ' + tagClass + '">' + tagText + '</span></div><div class="txn-info"><div class="txn-name">' + escapeHtml(t.name) + '</div><div class="txn-meta">' + escapeHtml(t.meta) + '</div></div><div class="txn-amount">' + escapeHtml(t.amount) + '</div><span class="txn-support-icon">›</span></li>';
+      }
+      salesList.innerHTML = TRANSACTIONS.sales.map(function (t) { return txnRow(t, 'sale', 'Sale'); }).join('');
+      purchasesList.innerHTML = TRANSACTIONS.purchases.map(function (t) { return txnRow(t, 'purchase', 'Purchase'); }).join('');
+      salesList.querySelectorAll('.txn-row').forEach(function (li) {
+        li.addEventListener('click', function () {
+          var t = findTransaction(li.getAttribute('data-txn-id'));
+          if (t) openOrderHelp(t, 'allTransactions');
+        });
       });
-    });
-    purchasesList.querySelectorAll('.txn-row').forEach(function (li) {
-      li.addEventListener('click', function () {
-        var t = findTransaction(li.getAttribute('data-txn-id'));
-        if (t) openOrderHelp(t);
+      purchasesList.querySelectorAll('.txn-row').forEach(function (li) {
+        li.addEventListener('click', function () {
+          var t = findTransaction(li.getAttribute('data-txn-id'));
+          if (t) openOrderHelp(t, 'allTransactions');
+        });
       });
+      showHelpScreen('allTransactions');
     });
-    showHelpScreen('allTransactions');
-  });
+  }
 
   var allTxnPanel = document.getElementById('screenAllTransactions');
   if (allTxnPanel) {
@@ -3273,40 +3834,27 @@
   if (orderDetailsMessageSeller) orderDetailsMessageSeller.addEventListener('click', function (e) { e.preventDefault(); });
   document.getElementById('orderDetailsProblemsInquiry').addEventListener('click', function (e) {
     e.preventDefault();
-    state.cameFromOrderDetails = true;
     var order = state.selectedOrder;
     if (!order) return;
     var openList = getOpenCasesForOrder(order);
     if (openList.length > 0) {
-      state.existingCaseModalReturnTo = 'orderDetails';
-      showOrderExistingCaseModal(openList[0]);
+      state.caseDetailFrom = 'orderDetails';
+      openCaseDetail(openList[0]);
+      showScreen('segmentCaseDetail');
     } else {
+      state.cameFromOrderDetails = true;
       openOrderHelp(order);
     }
   });
 
-  var orderExistingCaseOverlay = document.getElementById('orderExistingCaseOverlay');
-  if (orderExistingCaseOverlay) {
-    orderExistingCaseOverlay.addEventListener('click', function (e) {
-      if (e.target === orderExistingCaseOverlay) hideOrderExistingCaseModal();
+  var caseDetailDifferentIssueBtn = document.getElementById('caseDetailDifferentIssueBtn');
+  if (caseDetailDifferentIssueBtn) {
+    caseDetailDifferentIssueBtn.addEventListener('click', function () {
+      var order = state.selectedOrder;
+      if (!order) return;
+      openOrderHelp(order, 'caseDetail');
     });
   }
-  var orderExistingCaseClose = document.getElementById('orderExistingCaseClose');
-  if (orderExistingCaseClose) orderExistingCaseClose.addEventListener('click', hideOrderExistingCaseModal);
-  var orderExistingCaseContinue = document.getElementById('orderExistingCaseContinue');
-  if (orderExistingCaseContinue) {
-    orderExistingCaseContinue.addEventListener('click', function () {
-      var c = state.contactSupportContinueCase;
-      var ret = state.existingCaseModalReturnTo || 'orderHelp';
-      hideOrderExistingCaseModal();
-      if (!c) return;
-      state.caseDetailFrom = ret;
-      openCaseDetail(c);
-      showScreen('segmentCaseDetail');
-    });
-  }
-  var orderExistingCaseNew = document.getElementById('orderExistingCaseNew');
-  if (orderExistingCaseNew) orderExistingCaseNew.addEventListener('click', proceedContactPoshmarkNewProblem);
 
   var orderDetailsCantLocateLink = document.getElementById('orderDetailsCantLocateLink');
   if (orderDetailsCantLocateLink) orderDetailsCantLocateLink.addEventListener('click', function (e) { e.preventDefault(); openCantLocatePopup(); });
@@ -3370,9 +3918,27 @@
   });
 
   document.getElementById('openContactForm').addEventListener('click', function () {
+    state.contactFrom = null;
     document.getElementById('prefillCategory').textContent = state.categoryLabel;
     document.getElementById('prefillArticle').textContent = state.article ? state.article.title : 'General';
     showHelpScreen('contact');
+  });
+
+  document.getElementById('homeTilePurchases').addEventListener('click', function (e) {
+    e.preventDefault();
+    openMyPurchasesFromHelpHome();
+  });
+  document.getElementById('homeTileSales').addEventListener('click', function (e) {
+    e.preventDefault();
+    openMySalesFromHelpHome();
+  });
+
+  document.getElementById('casesNewCaseBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    state.homeEnteredFromSupportHub = false;
+    state.homeEnteredFromSupportHome = true;
+    state.segment = 'help';
+    showHelpScreen('home');
   });
 
   var chatbotInput = document.getElementById('chatbotInput');
@@ -3386,25 +3952,12 @@
       var ctx = state.chatbotContext || 'order_related';
       var reply = getBotReply(text, ctx);
       appendChatMessage(reply.text, 'bot', false);
-      if (reply.showMyCasesButton) {
-        appendChatbotMyCasesButton();
-      }
     }
     chatbotSendBtn.addEventListener('click', sendChatbotMessage);
     chatbotInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatbotMessage(); }
     });
   }
-  document.getElementById('chatbotMessages').addEventListener('click', function (e) {
-    var btn = e.target.closest('.chatbot-msg-link[data-action="go-to-cases"]');
-    if (btn) {
-      e.preventDefault();
-      state.segment = 'cases';
-      state.caseDetailFrom = 'cases';
-      showScreen('segmentCases');
-      renderCases();
-    }
-  });
 
   document.getElementById('feedbackYes').addEventListener('click', function () {
     document.querySelectorAll('.feedback-btn').forEach(function (b) { b.classList.remove('selected'); });
@@ -3443,18 +3996,18 @@
     });
     document.getElementById('contactCaseId').textContent = '#' + newId;
     if (detailsEl) detailsEl.value = '';
+    state.casesDemoEmpty = false;
     showHelpScreen('contactDone');
   });
 
   document.getElementById('goToCasesBtn').addEventListener('click', function (e) {
     e.preventDefault();
-    state.segment = 'cases';
-    state.caseDetailFrom = 'cases';
-    showScreen('segmentCases');
-    renderCases();
+    state.contactFrom = null;
+    showHelpScreen('home');
   });
 
   document.getElementById('browseMoreHelp').addEventListener('click', function () {
+    state.contactFrom = null;
     showHelpScreen('home');
   });
 
@@ -3491,27 +4044,21 @@
     if (n) return 'Expected resolution in ~' + n[1] + 'h';
     return 'Expected resolution in ~' + String(resVal);
   }
-  function ordinalDay(n) {
-    var s = n % 10, t = n % 100;
-    if (s === 1 && t !== 11) return n + 'st';
-    if (s === 2 && t !== 12) return n + 'nd';
-    if (s === 3 && t !== 13) return n + 'rd';
-    return n + 'th';
-  }
   function caseEtaDateLabel(c) {
     if (c.status === 'closed') return '';
     var resVal = caseExpectedResolution(c);
     if (!resVal || resVal === '—') return '';
     var openMs = caseOpenedMs(c);
-    if (!openMs) return '';
+    if (!openMs || isNaN(openMs)) return '';
     var hours = 48;
-    var match = String(resVal).match(/(\d+)\s*hours?/i);
-    if (match) hours = parseInt(match[1], 10) || 48;
-    var etaMs = openMs + hours * 60 * 60 * 1000;
-    var d = new Date(etaMs);
-    var day = d.getDate();
-    var month = d.toLocaleString('en-US', { month: 'long' });
-    return 'ETA: ' + ordinalDay(day) + ' ' + month;
+    var match = String(resVal).trim().match(/^(\d+)\s*hours?$/i);
+    if (match) hours = parseInt(match[1], 10);
+    else { var n = String(resVal).match(/(\d+)/); if (n) hours = parseInt(n[1], 10); }
+    var etaDate = new Date(openMs + hours * 60 * 60 * 1000);
+    var day = etaDate.getDate();
+    var ord = day % 10 === 1 && day % 100 !== 11 ? 'st' : day % 10 === 2 && day % 100 !== 12 ? 'nd' : day % 10 === 3 && day % 100 !== 13 ? 'rd' : 'th';
+    var month = etaDate.toLocaleDateString('en-US', { month: 'short' });
+    return 'ETA: ' + day + ord + ' ' + month;
   }
 
   var CASE_STATUS_DISPLAY = {
@@ -3572,6 +4119,7 @@
     return '~' + String(r);
   }
 
+  /** HTML string for notification body; issue and ETA are escaped here. */
   function caseNewsNotificationHtml(c) {
     var issue = escapeHtml(caseNotificationIssue(c));
     var eta = escapeHtml(caseNotificationEtaTilde(c));
@@ -3648,9 +4196,8 @@
     var statusLbl = escapeHtml(CASE_STATUS_DISPLAY[c.status] || c.status);
     var statusTip = escapeAttr(caseStatusLine(c));
     var etaLabel = caseEtaDateLabel(c);
-    var resVal = caseExpectedResolution(c);
     var resInline = etaLabel
-      ? '<span class="case-card-st-res-inline" title="' + escapeAttr(caseEtaHoverTitle(resVal)) + '">' + escapeHtml(etaLabel) + '</span>'
+      ? '<span class="case-card-st-res-inline" title="' + escapeAttr(caseEtaHoverTitle(caseExpectedResolution(c))) + '">' + escapeHtml(etaLabel) + '</span>'
       : '';
     var caseIdDisplay = 'Case #' + escapeHtml(c.id);
     return '<div class="case-card case-card-compact" data-case-id="' + escapeAttr(c.id) + '" role="button" tabindex="0" aria-label="View case ' + escapeAttr(c.id) + '">' + thumb +
@@ -3665,19 +4212,23 @@
   }
 
   function renderCases() {
-    var unified = state.cases.slice().sort(function (a, b) {
-      return caseOpenedMs(b) - caseOpenedMs(a);
-    });
     var listEl = document.getElementById('casesUnifiedList');
     var empty = document.getElementById('emptyCases');
-    if (!listEl) return;
-    if (state.cases.length === 0) {
+    var demoNote = document.getElementById('emptyCasesDemoNote');
+    if (!listEl || !empty) return;
+    var forceEmpty = state.casesDemoEmpty === true;
+    var noCases = state.cases.length === 0;
+    if (forceEmpty || noCases) {
       listEl.innerHTML = '';
-      empty.textContent = 'No cases yet. Use Help to find articles or contact support.';
       empty.style.display = 'block';
+      if (demoNote) demoNote.style.display = forceEmpty ? 'block' : 'none';
       return;
     }
     empty.style.display = 'none';
+    if (demoNote) demoNote.style.display = 'none';
+    var unified = state.cases.slice().sort(function (a, b) {
+      return caseOpenedMs(b) - caseOpenedMs(a);
+    });
     listEl.innerHTML = unified.map(caseListCardHtml).join('');
   }
 
@@ -3702,7 +4253,7 @@
     }
     renderCaseThread(c);
     var isClosed = c.status === 'closed';
-    document.getElementById('caseReplyBox').style.display = isClosed ? 'none' : 'block';
+    document.getElementById('caseReplyBox').style.display = (isClosed) ? 'none' : 'block';
     document.getElementById('caseReopenBox').style.display = isClosed ? 'block' : 'none';
     document.getElementById('caseReplyInput').value = '';
     document.getElementById('caseReopenInput').value = '';
@@ -3710,6 +4261,12 @@
     if (attachInput) { attachInput.value = ''; }
     var attachFilesEl = document.getElementById('caseAttachFiles');
     if (attachFilesEl) { attachFilesEl.textContent = ''; }
+    var diffWrap = document.getElementById('caseDetailDifferentIssueWrap');
+    if (diffWrap) {
+      var order = state.selectedOrder;
+      var showNewIssue = state.caseDetailFrom === 'orderDetails' && order && caseIsForOrder(c, order);
+      diffWrap.style.display = showNewIssue ? 'block' : 'none';
+    }
   }
 
   document.getElementById('caseAttachBtn').addEventListener('click', function () {
@@ -3827,29 +4384,90 @@
       }
       return;
     }
-    if (state.segment === 'cases') {
+    var segCasesEl = document.getElementById('segmentCases');
+    if (state.segment === 'cases' && segCasesEl && segCasesEl.classList.contains('active')) {
       state.segment = 'help';
       showScreen('segmentHelp');
-      showHelpScreen('home');
+      var cbt = state.casesBackTarget || 'home';
+      state.casesBackTarget = 'home';
+      if (cbt === 'supportHub') showHelpScreen('supportCenterHub');
+      else if (cbt === 'supportEntry') showHelpScreen('supportEntry');
+      else {
+        state.homeEnteredFromSupportHome = false;
+        showHelpScreen('home');
+      }
     } else {
       var active = document.querySelector('#segmentHelp .screen.active');
-      if (active && active.id === 'screenHome') showHelpScreen('supportEntry');
-      else if (active && active.id === 'screenSupportEntry') { /* stay on entry (back from account) */ return; }
+      if (active && active.id === 'screenHome') {
+        if (state.homeEnteredFromSupportHub) showHelpScreen('supportCenterHub');
+        else if (state.homeEnteredFromSupportHome) {
+          state.homeEnteredFromSupportHome = false;
+          state.segment = 'cases';
+          showScreen('segmentCases');
+          renderCases();
+        } else showHelpScreen('supportEntry');
+      } else if (active && active.id === 'screenSearchResults') showHelpScreen('home');
+      else if (active && active.id === 'screenSupportCenterHub') {
+        state.homeEnteredFromSupportHub = false;
+        showHelpScreen('supportEntry');
+      } else if (active && active.id === 'screenSupportEntry') { /* stay on entry (back from account) */ return; }
       else if (active && active.id === 'screenArticleList') showHelpScreen('home');
-      else if (active && active.id === 'screenArticle') showHelpScreen('articleList');
-      else if (active && active.id === 'screenChatbot') showHelpScreen(state.chatbotFrom === 'orderHelp' ? 'orderHelp' : 'articleList');
-      else if (active && active.id === 'screenContact') showHelpScreen('article');
-      else if (active && active.id === 'screenContactDone') showHelpScreen('home');
+      else if (active && active.id === 'screenArticle') {
+        if (state.articleFromSearch) {
+          state.articleFromSearch = false;
+          showHelpScreen('searchResults');
+        } else {
+          showHelpScreen('articleList');
+        }
+      } else if (active && active.id === 'screenChatbot') {
+        if (state.chatbotFrom === 'orderHelp') showHelpScreen('orderHelp');
+        else if (state.chatbotFrom === 'home') showHelpScreen('home');
+        else if (state.chatbotFrom === 'supportHub') showHelpScreen('supportCenterHub');
+        else showHelpScreen('articleList');
+      } else if (active && active.id === 'screenContact') {
+        if (state.contactFrom === 'cases') {
+          state.contactFrom = null;
+          state.segment = 'cases';
+          showScreen('segmentCases');
+          renderCases();
+        } else showHelpScreen('article');
+      } else if (active && active.id === 'screenContactDone') {
+        if (state.contactFrom === 'cases') {
+          state.contactFrom = null;
+          state.segment = 'cases';
+          showScreen('segmentCases');
+          renderCases();
+        } else showHelpScreen('home');
+      }
       else if (active && active.id === 'screenAllTransactions') showHelpScreen('home');
       else if (active && active.id === 'screenMyPurchases') {
         if (state.myPurchasesBackTarget === 'me') showHelpScreen('supportEntry');
+        else if (state.myPurchasesBackTarget === 'supportHub') showHelpScreen('supportCenterHub');
         else showHelpScreen('home');
       }
       else if (active && active.id === 'screenOrderDetails') showHelpScreen(state.cameFrom === 'myPurchases' ? 'myPurchases' : (state.cameFrom === 'orderHelp' ? 'orderHelp' : (state.cameFrom === 'allTransactions' ? 'allTransactions' : 'home')));
       else if (active && active.id === 'screenOrderTracking') showHelpScreen('orderHelp');
       else if (active && active.id === 'screenOrderHelp') {
-        if (state.cameFromOrderDetails) { state.cameFromOrderDetails = false; showHelpScreen('orderDetails'); var t = document.getElementById('headerTitle'); if (t) t.textContent = 'Order Details'; }
-        else showHelpScreen('home');
+        if (state.cameFromOrderDetails) {
+          state.cameFromOrderDetails = false;
+          showHelpScreen('orderDetails');
+          var t = document.getElementById('headerTitle');
+          if (t) t.textContent = 'Order Details';
+        } else if (state.orderHelpLaunchedFrom === 'caseDetail') {
+          state.orderHelpLaunchedFrom = null;
+          showScreen('segmentCaseDetail');
+          var td = document.getElementById('headerTitle');
+          if (td) td.textContent = 'Track My Cases';
+        } else if (state.orderHelpLaunchedFrom === 'myPurchases') {
+          state.orderHelpLaunchedFrom = null;
+          showHelpScreen('myPurchases');
+        } else if (state.orderHelpLaunchedFrom === 'allTransactions') {
+          state.orderHelpLaunchedFrom = null;
+          showHelpScreen('allTransactions');
+        } else {
+          state.orderHelpLaunchedFrom = null;
+          showHelpScreen('home');
+        }
       }
       else showHelpScreen('supportEntry');
     }
@@ -3866,7 +4484,6 @@
   });
 
   renderCases();
-  renderRecentTransactions();
   renderTopicList();
 })();
   </script>
